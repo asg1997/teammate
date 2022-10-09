@@ -14,24 +14,8 @@ class SearchGamesRepoImpl implements SearchGamesRepo {
         location: const GameLocation(name: 'к25'),
         dateTime: DateTime(now.year, now.month, now.day + 1),
         sport: Sport.football,
-      ),
-      Game(
-        name: 'Имя игры',
-        location: const GameLocation(name: 'к25'),
-        dateTime: DateTime(now.year, now.month, now.day - 1),
-        sport: Sport.football,
-      ),
-      Game(
-        name: 'Имя игры',
-        location: const GameLocation(name: 'к25'),
-        dateTime: DateTime(now.year, now.month, now.day + 2),
-        sport: Sport.football,
-      ),
-      Game(
-        name: 'Имя игры',
-        location: const GameLocation(name: 'к25'),
-        dateTime: DateTime.now(),
-        sport: Sport.football,
+        id: '',
+        playersIds: ['aslk3jw21dlas'],
       ),
     ];
   }

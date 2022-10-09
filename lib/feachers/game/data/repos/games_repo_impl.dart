@@ -1,5 +1,6 @@
 import 'package:teammate/feachers/game/domain/entites/game.dart';
 import 'package:teammate/feachers/game/domain/repos/games_repo.dart';
+import 'package:teammate/feachers/profile/domain/entites/user.dart';
 
 class GamesRepoImpl implements GamesRepo {
   GamesRepoImpl();
@@ -7,32 +8,14 @@ class GamesRepoImpl implements GamesRepo {
   @override
   Future<List<Game>> getAllUserGames() async {
     return [];
-    // final now = DateTime.now();
-    // return [
-    //   Game(
-    //     name: 'Имя игры',
-    //     location: const GameLocation(name: 'к25'),
-    //     dateTime: DateTime(now.year, now.month, now.day + 1),
-    //     sport: Sport.football,
-    //   ),
-    //   Game(
-    //     name: 'Имя игры',
-    //     location: const GameLocation(name: 'к25'),
-    //     dateTime: DateTime(now.year, now.month, now.day - 1),
-    //     sport: Sport.football,
-    //   ),
-    //   Game(
-    //     name: 'Имя игры',
-    //     location: const GameLocation(name: 'к25'),
-    //     dateTime: DateTime(now.year, now.month, now.day + 2),
-    //     sport: Sport.football,
-    //   ),
-    //   Game(
-    //     name: 'Имя игры',
-    //     location: const GameLocation(name: 'к25'),
-    //     dateTime: DateTime.now(),
-    //     sport: Sport.football,
-    //   ),
-    // ];
+  }
+
+  @override
+  Future<List<User>> getGamesPlayers(List<String> playersIds) async {
+    return [
+      const User(city: 'Тула', nickname: 'drobash2011'),
+      const User(city: 'Тула', nickname: 'asg1997'),
+      const User(city: 'Тула', nickname: 'lina97'),
+    ];
   }
 }

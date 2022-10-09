@@ -1,6 +1,6 @@
 enum Sport { football, volleyball, basketball }
 
-localeSportName(Sport sport) {
+getLocaleSportName(Sport sport) {
   switch (sport) {
     case Sport.football:
       return 'Футбол';

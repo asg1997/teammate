@@ -161,7 +161,7 @@ class SportFloatingWidget extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            localeSportName(
+                            getLocaleSportName(
                               Sport.values[index],
                             ),
                             style: AppFonts.bodyLarge

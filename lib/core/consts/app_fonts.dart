@@ -24,13 +24,18 @@ abstract class AppFonts {
   static final titleLarge = GoogleFonts.roboto(
     fontSize: 24,
     color: Colors.white,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w800,
+  );
+  static final titleMedium = GoogleFonts.roboto(
+    fontSize: 20,
+    color: Colors.white,
+    fontWeight: FontWeight.w800,
   );
 
   static final titleSmall = GoogleFonts.roboto(
     fontSize: 16,
     color: Colors.white,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w800,
   );
 
   static final button = GoogleFonts.roboto(

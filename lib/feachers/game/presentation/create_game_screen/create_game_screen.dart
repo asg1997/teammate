@@ -14,7 +14,7 @@ class CreateGameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<CreateGameCubit>();
-    final sport = localeSportName(model.sport);
+    final sport = getLocaleSportName(model.sport);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

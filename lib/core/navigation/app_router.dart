@@ -75,7 +75,8 @@ class AppRouter {
         builder: (context) => BlocProvider(
               create: (_) => GameInfoScreenCubit(
                 game: game,
-              ),
+                gamesRepo: sl(),
+              )..load(),
               child: const GameInfoScreen(),
             ));
   }

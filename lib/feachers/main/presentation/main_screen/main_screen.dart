@@ -105,6 +105,7 @@ class _GamesListView extends StatelessWidget {
   final List<Game> games;
   @override
   Widget build(BuildContext context) {
+    final model = context.read<MainScreenCubit>();
     return BlocBuilder<MainScreenCubit, MainScreenState>(
       builder: (context, state) {
         return Padding(
@@ -123,7 +124,7 @@ class _GamesListView extends StatelessWidget {
                 child: GamesListView(
                   shrinkWrap: true,
                   games: games,
-                  onGameSelected: (Game game) {},
+                  onGameSelected: (game) => model.onGameTapped(context, game),
                 ),
               ),
             ],

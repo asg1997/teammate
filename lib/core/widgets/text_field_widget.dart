@@ -8,19 +8,18 @@ class TextFieldWidget extends StatefulWidget {
   const TextFieldWidget(
       {Key? key,
       this.initialText,
-      required this.title,
+      this.title,
       this.onChanged,
       this.textInputType = TextInputType.text,
-      this.hasArrow = false,
-      this.isPassword = false})
-      : assert(hasArrow == false || isPassword == false,
-            'Поле не может быть одновременно со стрелкой и паролем'),
-        super(
+      this.isPassword = false,
+      this.hint})
+      : super(
           key: key,
         );
 
-  final String title;
-  final bool hasArrow;
+  final String? title;
+  final String? hint;
+
   final bool isPassword;
   final TextInputType textInputType;
   final Function(String)? onChanged;
@@ -88,11 +87,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.title,
-          style: AppFonts.titleSmall,
-        ),
-        const SizedBox(height: 10),
+        if (widget.title != null) ...[
+          Text(
+            widget.title!,
+            style: AppFonts.titleSmall,
+          ),
+          const SizedBox(height: 10),
+        ],
         SizedBox(
           height: 60,
           width: double.infinity,
@@ -103,7 +104,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             textAlign: TextAlign.start,
             keyboardType: widget.textInputType,
             decoration: InputDecoration(
-              hintText: widget.title,
+              hintText: widget.hint,
               border: OutlineInputBorder(
                 borderRadius: AppDecProp.defaultBorderRadius,
                 borderSide: const BorderSide(

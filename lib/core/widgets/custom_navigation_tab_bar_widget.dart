@@ -69,7 +69,7 @@ class CustomNavigationTabBarWidget extends StatelessWidget {
 class _NavigationBarPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = AppColors.appBar;
+    final paint = Paint()..color = AppColors.secondaryBg;
     final path = Path()..moveTo(0, 20);
     path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.35, 0);
     path.quadraticBezierTo(size.width * 0.40, 0, size.width * 0.40, 20);

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/widgets/custom_navigation_tab_bar_widget.dart';
 import 'package:teammate/core/widgets/games_list_view/games_list_view.dart';
+import 'package:teammate/feachers/game/domain/entites/sport_.dart';
 import 'package:teammate/feachers/main/presentation/main_screen/cubit/main_screen_cubit.dart';
 
 import '../../../../core/bloc_utils/base_status.dart';
@@ -12,50 +14,85 @@ import '../../../../resources/resources.dart';
 import '../../../game/domain/entites/game.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  MainScreen({Key? key}) : super(key: key);
+
+  OverlayEntry? _overlayEntry;
+
+  void _showSportOverlay(
+      BuildContext context, Function(Sport value) onSportSelected) {
+    if (_overlayEntry != null) {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+      return;
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final overlay = Overlay.of(context);
+
+      _overlayEntry = OverlayEntry(
+        builder: (_) => Positioned(
+          right: 20,
+          bottom: 130,
+          width: 200,
+          child: SportFloatingWidget(onSportSelected: onSportSelected),
+        ),
+      );
+      overlay?.insert(_overlayEntry!);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      bottomNavigationBar: CustomNavigationTabBarWidget(
-        onCreateGameTapped: () {},
-        onMenuTapped: () {},
-        onSearchTapped: () {},
-      ),
-      body: Stack(children: [
-        SizedBox.expand(
-          child: Image.asset(
-            AppImages.footballer,
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-        BlocBuilder<MainScreenCubit, MainScreenState>(
-          builder: (context, state) {
-            switch (state.status) {
-              case BaseStatus.loading:
-                return const LoadingWidget();
-              case BaseStatus.loaded:
-                if (state.games.isEmpty) {
-                  return Center(
-                    child: Text(
-                      'У вас пока нет игр',
-                      style: AppFonts.titleMedium,
-                    ),
-                  );
-                } else {
-                  return Align(
-                      alignment: Alignment.bottomCenter,
-                      child: _GamesListView(state.games));
-                }
-              case BaseStatus.error:
-                return const Center(
-                  child: Text('Ошибка соединения с сервером'),
-                );
-            }
+    final model = context.read<MainScreenCubit>();
+    return GestureDetector(
+      onTap: () {
+        _overlayEntry?.remove();
+        _overlayEntry = null;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        bottomNavigationBar: CustomNavigationTabBarWidget(
+          onCreateGameTapped: () {
+            _showSportOverlay(context,
+                (sport) => model.onAddGameButtonTapped(context, sport));
           },
-        )
-      ]),
+          onMenuTapped: () => model.onSettingsTapped(context),
+          onSearchTapped: () => model.onSearchTapped(context),
+        ),
+        body: Stack(children: [
+          SizedBox.expand(
+            child: Image.asset(
+              AppImages.footballer,
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+          BlocBuilder<MainScreenCubit, MainScreenState>(
+            builder: (context, state) {
+              switch (state.status) {
+                case BaseStatus.loading:
+                  return const LoadingWidget();
+                case BaseStatus.loaded:
+                  if (state.games.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'У вас пока нет игр',
+                        style: AppFonts.titleMedium,
+                      ),
+                    );
+                  } else {
+                    return Align(
+                        alignment: Alignment.bottomCenter,
+                        child: _GamesListView(state.games));
+                  }
+                case BaseStatus.error:
+                  return const Center(
+                    child: Text('Ошибка соединения с сервером'),
+                  );
+              }
+            },
+          )
+        ]),
+      ),
     );
   }
 }
@@ -90,6 +127,46 @@ class _GamesListView extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class SportFloatingWidget extends StatelessWidget {
+  const SportFloatingWidget({super.key, required this.onSportSelected});
+  final Function(Sport value) onSportSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: AppDecorationProp.defaultBorderRadius,
+        color: AppColors.secondaryBg,
+      ),
+      padding: const EdgeInsets.all(20),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        children: List.generate(
+            Sport.values.length,
+            (index) => SizedBox(
+                  height: 50,
+                  child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () => onSportSelected(Sport.values[index]),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            getSportName(
+                              Sport.values[index],
+                            ),
+                            style: AppFonts.bodyLarge
+                                .copyWith(color: Colors.white),
+                          ),
+                        ),
+                      )),
+                )),
+      ),
     );
   }
 }

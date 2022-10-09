@@ -27,7 +27,7 @@ class AppRouter {
         builder: (context) => BlocProvider<MainScreenCubit>(
               lazy: false,
               create: (_) => MainScreenCubit(gamesRepo: sl())..load(),
-              child: const MainScreen(),
+              child: MainScreen(),
             ));
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:teammate/core/bloc_utils/base_status.dart';
+import 'package:teammate/core/navigation/app_router.dart';
 import 'package:teammate/feachers/game/domain/repos/games_repo.dart';
 
 import '../../../../game/domain/entites/game.dart';
@@ -21,8 +22,12 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     emit(state.copyWith(games: games, status: BaseStatus.loaded));
   }
 
-  void onAddGameButtonTapped(BuildContext context, Sport sport) {
-    print(sport.name);
+  void onAddGameButtonTapped(BuildContext context, Sport sport) async {
+    await Navigator.of(context).pushNamed(
+      AppRoutes.createGame,
+      arguments: sport,
+    );
+    await load();
   }
 
   void onSettingsTapped(BuildContext context) {}

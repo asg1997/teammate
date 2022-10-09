@@ -21,8 +21,7 @@ class MainScreen extends StatelessWidget {
   void _showSportOverlay(
       BuildContext context, Function(Sport value) onSportSelected) {
     if (_overlayEntry != null) {
-      _overlayEntry?.remove();
-      _overlayEntry = null;
+      _removeOverlay();
       return;
     }
 
@@ -41,20 +40,24 @@ class MainScreen extends StatelessWidget {
     });
   }
 
+  _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final model = context.read<MainScreenCubit>();
     return GestureDetector(
-      onTap: () {
-        _overlayEntry?.remove();
-        _overlayEntry = null;
-      },
+      onTap: _removeOverlay,
       child: Scaffold(
         backgroundColor: Colors.black,
         bottomNavigationBar: CustomNavigationTabBarWidget(
           onCreateGameTapped: () {
-            _showSportOverlay(context,
-                (sport) => model.onAddGameButtonTapped(context, sport));
+            _showSportOverlay(context, (sport) {
+              model.onAddGameButtonTapped(context, sport);
+              _removeOverlay();
+            });
           },
           onMenuTapped: () => model.onSettingsTapped(context),
           onSearchTapped: () => model.onSearchTapped(context),
@@ -76,7 +79,7 @@ class MainScreen extends StatelessWidget {
                     return Center(
                       child: Text(
                         'У вас пока нет игр',
-                        style: AppFonts.titleMedium,
+                        style: AppFonts.titleLarge,
                       ),
                     );
                   } else {
@@ -105,14 +108,14 @@ class _GamesListView extends StatelessWidget {
     return BlocBuilder<MainScreenCubit, MainScreenState>(
       builder: (context, state) {
         return Padding(
-          padding: AppDecorationProp.defaultPadding,
+          padding: AppDecProp.defaultPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
                 'Мои игры',
-                style: AppFonts.titleMedium,
+                style: AppFonts.titleLarge,
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -139,7 +142,7 @@ class SportFloatingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: AppDecorationProp.defaultBorderRadius,
+        borderRadius: AppDecProp.defaultBorderRadius,
         color: AppColors.secondaryBg,
       ),
       padding: const EdgeInsets.all(20),
@@ -157,7 +160,7 @@ class SportFloatingWidget extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            getSportName(
+                            localeSportName(
                               Sport.values[index],
                             ),
                             style: AppFonts.bodyLarge

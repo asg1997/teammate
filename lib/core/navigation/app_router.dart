@@ -96,7 +96,7 @@ class AppRouter {
   Route _buildSettingsScreen() {
     return MaterialPageRoute(
         builder: (context) => BlocProvider(
-              create: (_) => SettingsScreenCubit(settingsRepo: sl()),
+              create: (_) => SettingsScreenCubit(settingsRepo: sl())..load(),
               child: const SettingsScreen(),
             ));
   }

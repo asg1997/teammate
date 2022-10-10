@@ -5,7 +5,7 @@ import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
 import 'package:teammate/feachers/game/domain/entites/sport_.dart';
-import 'package:teammate/feachers/game/presentation/components/save_game_button.dart';
+import 'package:teammate/core/widgets/app_button.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/cubit/create_game_cubit.dart';
 
 class CreateGameScreen extends StatelessWidget {
@@ -51,7 +51,7 @@ class CreateGameScreen extends StatelessWidget {
                 onChanged: (value) => model.onDateTimeChanged(value),
               ),
               Expanded(child: Container()),
-              SaveGameButton(
+              AppButton(
                   title: 'Сохранить',
                   onTap: () => model.onSaveGameTapped(context))
             ],

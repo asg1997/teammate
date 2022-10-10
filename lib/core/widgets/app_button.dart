@@ -3,8 +3,8 @@ import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 
-class SaveGameButton extends StatelessWidget {
-  const SaveGameButton({
+class AppButton extends StatelessWidget {
+  const AppButton({
     Key? key,
     required this.title,
     required this.onTap,

@@ -90,7 +90,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         if (widget.title != null) ...[
           Text(
             widget.title!,
-            style: AppFonts.titleSmall,
+            style: AppFonts.tfMedium14,
           ),
           const SizedBox(height: 10),
         ],
@@ -107,14 +107,11 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               hintText: widget.hint,
               border: OutlineInputBorder(
                 borderRadius: AppDecProp.defaultBorderRadius,
-                borderSide: const BorderSide(
-                  width: 0,
-                  style: BorderStyle.none,
-                ),
+                borderSide: BorderSide.none,
               ),
               filled: true,
               contentPadding:
-                  const EdgeInsets.only(left: 30, top: 20, bottom: 20),
+                  const EdgeInsets.only(left: 16, top: 20, bottom: 20),
               fillColor: Colors.white,
             ),
           ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:teammate/core/consts/app_colors.dart';
-import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 
 class AppButton extends StatelessWidget {
@@ -17,14 +16,14 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 55,
-      width: double.infinity,
+      width: 271,
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.main,
           textStyle: const TextStyle(fontSize: 16),
           shape: RoundedRectangleBorder(
-            borderRadius: AppDecProp.defaultBorderRadius,
+            borderRadius: BorderRadius.circular(50),
           ),
         ),
         child: Text(

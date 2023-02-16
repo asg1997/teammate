@@ -8,5 +8,6 @@ class AppImages {
   static const String footballer = 'assets/footballer.png';
   static const String searchIc = 'assets/search_ic.png';
   static const String snackBarIc = 'assets/snack_bar_ic.png';
+  static const String vk = 'assets/vk.png';
   static const String volleyballIc = 'assets/volleyball_ic.png';
 }

@@ -36,7 +36,7 @@ class MainScreen extends StatelessWidget {
           child: SportFloatingWidget(onSportSelected: onSportSelected),
         ),
       );
-      overlay?.insert(_overlayEntry!);
+      overlay.insert(_overlayEntry!);
     });
   }
 

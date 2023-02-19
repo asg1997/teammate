@@ -6,7 +6,6 @@ import 'package:teammate/core/navigation/app_router.dart';
 import 'package:teammate/feachers/game/domain/repos/games_repo.dart';
 
 import '../../../../game/domain/entites/game.dart';
-import '../../../../game/domain/entites/sport_.dart';
 
 part 'main_screen_state.dart';
 
@@ -22,10 +21,9 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     emit(state.copyWith(games: games, status: BaseStatus.loaded));
   }
 
-  void onAddGameButtonTapped(BuildContext context, Sport sport) async {
+  void onAddGameButtonTapped(BuildContext context) async {
     await Navigator.of(context).pushNamed(
-      AppRoutes.createGame,
-      arguments: sport,
+      AppRoutes.stepOne,
     );
     await load();
   }

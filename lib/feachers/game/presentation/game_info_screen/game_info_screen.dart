@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:teammate/feachers/game/domain/entites/sport_.dart';
 import 'package:teammate/feachers/game/presentation/game_info_screen/components/teammetes_list_view.dart';
 import 'package:teammate/feachers/game/presentation/game_info_screen/cubit/game_info_screen_cubit.dart';
 
@@ -60,14 +59,14 @@ class GameInfoScreen extends StatelessWidget {
             children: [
               // СПОРТ
               Text(
-                'Спорт',
+                'Вид спорта',
                 style: AppFonts.titleMedium.copyWith(
                   color: AppColors.main,
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 10),
               Text(
-                getLocaleSportName(model.game.sport),
+                model.game.sport.name(),
                 style: AppFonts.bodyLarge.copyWith(
                   color: Colors.white,
                 ),
@@ -80,7 +79,7 @@ class GameInfoScreen extends StatelessWidget {
                   color: AppColors.main,
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 10),
               Text(
                 _dateTimeStr(model.game.dateTime),
                 style: AppFonts.bodyLarge.copyWith(

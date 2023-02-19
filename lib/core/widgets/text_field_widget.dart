@@ -95,7 +95,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           const SizedBox(height: 10),
         ],
         SizedBox(
-          height: 60,
+          height: 55,
           width: double.infinity,
           child: TextField(
             cursorColor: AppColors.main,

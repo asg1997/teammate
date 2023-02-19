@@ -14,6 +14,14 @@ abstract class AppFonts {
     fontWeight: FontWeight.bold,
   );
 
+// SEMIBOLD:
+
+  static final semiBold20 = GoogleFonts.openSans(
+    fontSize: 20,
+    color: Colors.white,
+    fontWeight: FontWeight.w700,
+  );
+
   static final bodyLarge = GoogleFonts.roboto(
     fontSize: 18,
     color: AppColors.secondary,

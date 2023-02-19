@@ -61,7 +61,7 @@ class GamesListViewItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Место: ${game.location.name}',
+                    'Место: ${game.location}',
                     style: AppFonts.bodySmall,
                   )
                 ],

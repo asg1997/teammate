@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/bloc_utils/base_status.dart';
 import 'package:teammate/core/navigation/app_router.dart';
-import 'package:teammate/feachers/auth/domain/repo/auth_repo.dart';
+import 'package:teammate/feachers/auth/presentation/auth_screen/domain/repo/auth_repo.dart';
 
 part 'auth_screen_state.dart';
 

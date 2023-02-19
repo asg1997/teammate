@@ -1,10 +1,9 @@
-import 'package:teammate/feachers/game/domain/entites/game_location.dart';
 import 'package:teammate/feachers/game/domain/entites/sport_.dart';
 
 class Game {
   final String id;
   final String name;
-  final GameLocation location;
+  final String location;
   final DateTime dateTime;
   final Sport sport;
   final List<String>? playersIds;

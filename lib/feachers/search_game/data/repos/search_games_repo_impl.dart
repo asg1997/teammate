@@ -9,28 +9,31 @@ class SearchGamesRepoImpl implements SearchGamesRepo {
     final now = DateTime.now();
     return [
       Game(
-        name: 'Имя игры',
+        name: 'Мясорубка',
         location: 'k25',
         dateTime: DateTime(now.year, now.month, now.day + 1),
         sport: Sport.football,
         id: '',
+        city: 'Тула',
         playersIds: ['aslk3jw21dlas'],
       ),
       Game(
-        name: 'Имя игры',
+        name: 'Заруба',
         location: 'k25',
         dateTime: DateTime(now.year, now.month, now.day + 1),
         sport: Sport.football,
         id: '',
+        city: 'Тула',
         playersIds: ['aslk3jw21dlas'],
       ),
       Game(
-        name: 'Имя игры',
+        name: 'Поселковчани',
         location: 'k25',
         dateTime: DateTime(now.year, now.month, now.day + 1),
         sport: Sport.football,
         id: '',
         playersIds: ['aslk3jw21dlas'],
+        city: 'Тула',
       ),
     ];
   }

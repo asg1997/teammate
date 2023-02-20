@@ -56,6 +56,7 @@ class CreateGameCubit extends Cubit<CreateGameState> {
       sport: state.sport,
       id: '1',
       playersIds: [],
+      city: state.city,
     );
     Navigator.popUntil(context, (route) => route.isFirst);
     Navigator.pushNamed(context, AppRoutes.gameInfo, arguments: game);

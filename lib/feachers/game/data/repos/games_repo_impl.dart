@@ -15,7 +15,8 @@ class GamesRepoImpl implements GamesRepo {
           dateTime: DateTime.now(),
           sport: Sport.basketball,
           id: '1',
-          playersIds: [])
+          playersIds: [],
+          city: 'Тула')
     ];
   }
 

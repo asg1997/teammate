@@ -22,14 +22,14 @@ class RegistrationInfoScreen extends StatelessWidget {
           children: [
             // ВАШИ ДАННЫЕ
             const MainAppBarWidget(title: 'Ваши данные'),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
 
-            // ИМЯ
-            TextFieldWidget(
-              title: 'Имя*',
-              onChanged: model.onNameChanged,
-            ),
-            const SizedBox(height: 10),
+            // // ИМЯ
+            // TextFieldWidget(
+            //   title: 'Имя*',
+            //   onChanged: model.onNameChanged,
+            // ),
+            // const SizedBox(height: 10),
 
             // НИК
             TextFieldWidget(
@@ -38,19 +38,15 @@ class RegistrationInfoScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
 
-            // ДАТА РОЖДЕНИЯ
-            const TextFieldWidget(
-              title: 'Дата рождения',
-              // ДАТУ РОЖДЕНИЯ ОБРАБОТАТЬ
-            ),
-            const SizedBox(height: 10),
+            // // ДАТА РОЖДЕНИЯ
+            // const TextFieldWidget(
+            //   title: 'Дата рождения*',
+            //   // ДАТУ РОЖДЕНИЯ ОБРАБОТАТЬ
+            // ),
+            // const SizedBox(height: 10),
 
-            // ПОЛ
-            TextFieldWidget(
-              title: 'Пол',
-              onChanged: model.onGenderChanged,
-            ),
-            const SizedBox(height: 10),
+            // const GenderDropdownWidget(),
+            // const SizedBox(height: 10),
 
             // ВЫБОР ГОРОДА
             CityDropdownWidget(

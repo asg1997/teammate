@@ -12,7 +12,7 @@ class CityDropdownWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Город', style: AppFonts.tfMedium14),
+        Text('Город*', style: AppFonts.tfMedium14),
         const SizedBox(height: 10),
         DropdownSearch<String>(
           popupProps: PopupProps.menu(
@@ -20,8 +20,16 @@ class CityDropdownWidget extends StatelessWidget {
             showSearchBox: true,
             disabledItemFn: (String s) => s.startsWith('I'),
           ),
-          items: const ["Тула", "Москва", 'Калуга', "Тула", "Москва", 'Калуга'],
+          items: const [
+            "Тула",
+            "Москва",
+            'Калуга',
+            "Тула",
+            "Москва",
+            'Калуга',
+          ],
           dropdownDecoratorProps: DropDownDecoratorProps(
+            baseStyle: AppFonts.regular15.copyWith(color: Colors.black),
             dropdownSearchDecoration: InputDecoration(
               fillColor: Colors.white,
               filled: true,

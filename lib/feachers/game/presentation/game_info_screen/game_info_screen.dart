@@ -34,13 +34,6 @@ class GameInfoScreen extends StatelessWidget {
     final model = context.read<GameInfoScreenCubit>();
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => model.onInviteUsersTapped(),
-        backgroundColor: AppColors.main,
-        child: const Icon(
-          Icons.add_reaction_rounded,
-        ),
-      ),
       appBar: AppBar(
         toolbarHeight: 70,
         elevation: 0,
@@ -72,6 +65,7 @@ class GameInfoScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 5),
+
               Text(
                 model.game.sport.name(),
                 style: AppFonts.bodyLarge.copyWith(
@@ -79,6 +73,41 @@ class GameInfoScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
+
+              // Город
+              Text(
+                'Город',
+                style: AppFonts.tfMedium14.copyWith(
+                  color: AppColors.main,
+                ),
+              ),
+              const SizedBox(height: 5),
+
+              Text(
+                model.game.city,
+                style: AppFonts.bodyLarge.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Место
+              Text(
+                'Место',
+                style: AppFonts.tfMedium14.copyWith(
+                  color: AppColors.main,
+                ),
+              ),
+              const SizedBox(height: 5),
+
+              Text(
+                model.game.location,
+                style: AppFonts.bodyLarge.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 20),
+
               // ВРЕМЯ
               Text(
                 'Дата и время',
@@ -107,7 +136,23 @@ class GameInfoScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              const _PlayersListView()
+              const _PlayersListView(),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    'Позвать друзей',
+                    style: AppFonts.bodyLarge.copyWith(color: Colors.white),
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.share,
+                        color: AppColors.main,
+                      ))
+                ],
+              )
             ],
           ),
         ),

@@ -21,7 +21,7 @@ class RegistrationScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const MainAppBarWidget(title: 'Регистрация'),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
 
             // TF EMAIL
             TextFieldWidget(

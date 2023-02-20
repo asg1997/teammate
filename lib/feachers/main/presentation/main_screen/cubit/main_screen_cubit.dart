@@ -41,6 +41,6 @@ class MainScreenCubit extends Cubit<MainScreenState> {
   }
 
   void onGameTapped(BuildContext context, Game game) {
-    Navigator.of(context).pushNamed(AppRoutes.searchGame, arguments: game);
+    Navigator.of(context).pushNamed(AppRoutes.gameInfo, arguments: game);
   }
 }

@@ -8,6 +8,7 @@ import 'package:teammate/feachers/auth/presentation/registration_screen/presenta
 import 'package:teammate/feachers/game/presentation/create_game_screen/step_one_screen.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/step_three_screen.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/step_two_screen.dart';
+import 'package:teammate/feachers/game/presentation/edit_game_screen.dart/edit_game_screen.dart';
 import 'package:teammate/feachers/game/presentation/game_info_screen/cubit/game_info_screen_cubit.dart';
 import 'package:teammate/feachers/main/presentation/main_screen/cubit/main_screen_cubit.dart';
 import 'package:teammate/feachers/main/presentation/main_screen/main_screen.dart';
@@ -34,6 +35,7 @@ class AppRoutes {
   static const searchGame = 'searchGame';
   static const gameInfo = 'gameInfo';
   static const settings = 'settings';
+  static const editGame = 'editGame';
 }
 
 class AppRouter {
@@ -78,6 +80,9 @@ class AppRouter {
       // ПОИСК
       case AppRoutes.searchGame:
         return _buildSearchGameScreen();
+      // Редактирование игры
+      case AppRoutes.editGame:
+        return _buildEditGameScreen();
       default:
         return _buildNavigationUnkwown();
     }
@@ -165,6 +170,12 @@ class AppRouter {
               )..load(),
               child: const SearchGameScreen(),
             ));
+  }
+
+  Route _buildEditGameScreen() {
+    return MaterialPageRoute(
+      builder: (context) => const EditGameScreen(),
+    );
   }
 
   Route _buildSettingsScreen() {

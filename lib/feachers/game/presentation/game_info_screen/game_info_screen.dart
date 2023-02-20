@@ -42,6 +42,7 @@ class GameInfoScreen extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
+        toolbarHeight: 70,
         elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
@@ -49,6 +50,12 @@ class GameInfoScreen extends StatelessWidget {
           model.game.name,
           style: AppFonts.titleLarge,
         ),
+        actions: [
+          IconButton(
+            onPressed: () => model.onEditTapped(context),
+            icon: const Icon(Icons.edit),
+          )
+        ],
       ),
       backgroundColor: AppColors.secondaryBg,
       body: SafeArea(
@@ -60,11 +67,11 @@ class GameInfoScreen extends StatelessWidget {
               // СПОРТ
               Text(
                 'Вид спорта',
-                style: AppFonts.titleMedium.copyWith(
+                style: AppFonts.tfMedium14.copyWith(
                   color: AppColors.main,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
               Text(
                 model.game.sport.name(),
                 style: AppFonts.bodyLarge.copyWith(
@@ -75,11 +82,11 @@ class GameInfoScreen extends StatelessWidget {
               // ВРЕМЯ
               Text(
                 'Дата и время',
-                style: AppFonts.titleMedium.copyWith(
+                style: AppFonts.tfMedium14.copyWith(
                   color: AppColors.main,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
               Text(
                 _dateTimeStr(model.game.dateTime),
                 style: AppFonts.bodyLarge.copyWith(

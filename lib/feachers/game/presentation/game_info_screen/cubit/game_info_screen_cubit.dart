@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/bloc_utils/base_status.dart';
+import 'package:teammate/core/navigation/app_router.dart';
 import 'package:teammate/feachers/game/domain/repos/games_repo.dart';
 
 import '../../../../profile/domain/entites/user.dart';
@@ -28,4 +30,8 @@ class GameInfoScreenCubit extends Cubit<GameInfoScreenState> {
   Game get game => _game;
 
   void onInviteUsersTapped() {}
+
+  void onEditTapped(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.editGame);
+  }
 }

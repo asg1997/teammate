@@ -49,8 +49,19 @@ abstract class AppFonts {
     fontWeight: FontWeight.w800,
   );
 
+  static final medium16 = GoogleFonts.roboto(
+    fontSize: 16,
+    color: AppColors.main,
+    fontWeight: FontWeight.w800,
+  );
+
   static final regular15 = GoogleFonts.roboto(
     fontSize: 15,
+    color: AppColors.main,
+  );
+
+  static final regular10 = GoogleFonts.roboto(
+    fontSize: 10,
     color: AppColors.main,
   );
 

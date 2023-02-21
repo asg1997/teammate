@@ -26,10 +26,9 @@ class AuthScreenCubit extends Cubit<AuthScreenState> {
     );
   }
 
-  void onLogInTapped(BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      AppRoutes.main,
-      (_) => false,
+  void onOtpScreen(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      AppRoutes.otpScreen,
     );
   }
 

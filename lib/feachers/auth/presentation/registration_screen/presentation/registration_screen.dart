@@ -4,6 +4,7 @@ import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/widgets/app_bar_auth.dart';
 import 'package:teammate/core/widgets/app_button.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
+import 'package:teammate/feachers/auth/presentation/components/phone_tf.dart';
 import 'package:teammate/feachers/auth/presentation/registration_screen/presentation/cubit/registration_screen_cubit.dart';
 
 class RegistrationScreen extends StatelessWidget {
@@ -23,18 +24,7 @@ class RegistrationScreen extends StatelessWidget {
             const MainAppBarWidget(title: 'Регистрация'),
             const SizedBox(height: 20),
 
-            // TF EMAIL
-            TextFieldWidget(
-              title: 'E-mail',
-              onChanged: model.onEmailChanged,
-            ),
-            const SizedBox(height: 10),
-
-            // TF PASSWORD
-            TextFieldWidget(
-              title: 'Пароль',
-              onChanged: model.onPasswordChanged,
-            ),
+            const PhoneTextFieldWidget(),
 
             const SizedBox(height: 71),
 

@@ -71,6 +71,12 @@ abstract class AppFonts {
     fontWeight: FontWeight.w600,
   );
 
+  static final tfMedium16 = GoogleFonts.roboto(
+    fontSize: 16,
+    color: Colors.black,
+    fontWeight: FontWeight.w600,
+  );
+
   static final titleSmall = GoogleFonts.roboto(
     fontSize: 16,
     color: Colors.white,

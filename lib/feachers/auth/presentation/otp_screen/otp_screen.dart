@@ -2,64 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
+import 'package:teammate/core/widgets/app_bar_auth.dart';
 import 'package:teammate/core/widgets/app_button.dart';
-import 'package:teammate/feachers/auth/presentation/auth_screen/presentation/cubit/auth_screen_cubit.dart';
-import 'package:teammate/feachers/auth/presentation/components/phone_tf.dart';
+import 'package:teammate/feachers/auth/presentation/components/pinput_widget.dart';
+import 'package:teammate/feachers/auth/presentation/otp_screen/cubit/otp_screen_cubit.dart';
 import 'package:teammate/resources/resources.dart';
 
-class AuthScreen extends StatelessWidget {
-  const AuthScreen({super.key});
+class OtpScreen extends StatelessWidget {
+  const OtpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<AuthScreenCubit>();
+    final model = context.read<OtpScreenCubit>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Padding(
         padding: AppDecProp.defaultPadding,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 10),
-            // ТЕКСТ АВТОРИЗАЦИЯ
-            Center(
-              child: Text(
-                'Авторизация',
-                style: AppFonts.bold20,
-              ),
-            ),
-            const SizedBox(height: 30),
+            const MainAppBarWidget(title: 'Введите код'),
+            const SizedBox(height: 20),
 
-            const PhoneTextFieldWidget(),
+            Text(
+              'Введите код, отправленный на номер \n+79605997355',
+              textAlign: TextAlign.center,
+              style: AppFonts.button,
+            ),
+
+            const SizedBox(height: 20),
+
+            PinputWidget(onComplited: (String pin) {}),
 
             const SizedBox(height: 71),
 
             // BUTTON LOG IN
-            Center(
-              child: AppButton(
-                title: 'Войти',
-                onTap: () => model.onOtpScreen(context),
-              ),
-            ),
-
-            const SizedBox(height: 30),
-
-            // BUTTON REGISTATION
-            Center(
-              child: _TextButtonWidget(
-                onPressed: () => model.onRegistrationTapped(context),
-                style: AppFonts.tfMedium14,
-                text: 'РЕГИСТРАЦИЯ',
-              ),
-            ),
-
-            Expanded(child: Container()),
-
-            // VK
-            _LogInVK(
-              onTap: () => model.onVkTapped(context),
-            )
+            AppButton(
+                title: 'Войти', onTap: () => model.onLogInTapped(context)),
           ],
         ),
       )),

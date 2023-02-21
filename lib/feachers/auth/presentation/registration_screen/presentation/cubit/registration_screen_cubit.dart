@@ -15,7 +15,7 @@ class RegistrationScreenCubit extends Cubit<RegistrationScreenState> {
 
   void onNextTapped(BuildContext context) {
     Navigator.of(context).pushNamed(
-      AppRoutes.registrationInfo,
+      AppRoutes.otpScreen,
     );
   }
 

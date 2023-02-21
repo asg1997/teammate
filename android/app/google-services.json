@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "241663777855",
+    "project_id": "teammateapp-44b53",
+    "storage_bucket": "teammateapp-44b53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241663777855:android:dcfb679e790ea8c4dcec8a",
+        "android_client_info": {
+          "package_name": "com.example.teammate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241663777855-0kg61tuhlpdlqjqs1d1crd4d0n5ko003.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAULc0il-9nATuhpSGKzZ7KwJsYmAGwooc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241663777855-0kg61tuhlpdlqjqs1d1crd4d0n5ko003.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

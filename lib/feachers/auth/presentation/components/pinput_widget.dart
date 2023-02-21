@@ -46,6 +46,7 @@ class _PinputWidgetState extends State<PinputWidget> {
           Directionality(
             textDirection: TextDirection.ltr,
             child: Pinput(
+              length: 6,
               keyboardType: TextInputType.number,
               obscureText: true,
               controller: pinController,

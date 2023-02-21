@@ -2,33 +2,30 @@ part of 'auth_screen_cubit.dart';
 
 class AuthScreenState extends Equatable {
   final BaseStatus status;
-  final String email;
-  final String password;
-  const AuthScreenState({
-    required this.status,
-    required this.email,
-    required this.password,
-  });
+  final String phone;
+  final bool isSignedIn;
+
+  const AuthScreenState(
+      {required this.status, required this.phone, required this.isSignedIn});
 
   factory AuthScreenState.initial() => const AuthScreenState(
-      status: BaseStatus.loading, email: '', password: '');
+        status: BaseStatus.loading,
+        phone: '',
+        isSignedIn: false,
+      );
 
   @override
-  List<Object> get props => [
-        status,
-        email,
-        password,
-      ];
+  List<Object> get props => [status, phone, isSignedIn];
 
   AuthScreenState copyWith({
     BaseStatus? status,
-    String? email,
-    String? password,
+    String? phone,
+    bool? isSignedIn,
   }) {
     return AuthScreenState(
       status: status ?? this.status,
-      email: email ?? this.email,
-      password: password ?? this.password,
+      phone: phone ?? this.phone,
+      isSignedIn: isSignedIn ?? this.isSignedIn,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:teammate/core/bloc_utils/base_status.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/widgets/app_button.dart';
@@ -19,39 +20,34 @@ class AuthScreen extends StatelessWidget {
           child: Padding(
         padding: AppDecProp.defaultPadding,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 10),
             // ТЕКСТ АВТОРИЗАЦИЯ
-            Center(
-              child: Text(
-                'Авторизация',
-                style: AppFonts.bold20,
-              ),
+            Text(
+              'Авторизация',
+              style: AppFonts.bold20,
             ),
             const SizedBox(height: 30),
 
-            const PhoneTextFieldWidget(),
+            PhoneTextFieldWidget(onChanged: model.onPhoneChanged),
+            const _ErrorWidget(),
 
             const SizedBox(height: 71),
 
             // BUTTON LOG IN
-            Center(
-              child: AppButton(
-                title: 'Войти',
-                onTap: () => model.onOtpScreen(context),
-              ),
+            AppButton(
+              title: 'Войти',
+              onTap: () => model.onOtpScreen(context),
             ),
 
             const SizedBox(height: 30),
 
             // BUTTON REGISTATION
-            Center(
-              child: _TextButtonWidget(
-                onPressed: () => model.onRegistrationTapped(context),
-                style: AppFonts.tfMedium14,
-                text: 'РЕГИСТРАЦИЯ',
-              ),
+            _TextButtonWidget(
+              onPressed: () => model.onRegistrationTapped(context),
+              style: AppFonts.tfMedium14,
+              text: 'РЕГИСТРАЦИЯ',
             ),
 
             Expanded(child: Container()),
@@ -63,6 +59,32 @@ class AuthScreen extends StatelessWidget {
           ],
         ),
       )),
+    );
+  }
+}
+
+class _ErrorWidget extends StatelessWidget {
+  const _ErrorWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthScreenCubit, AuthScreenState>(
+      builder: (context, state) {
+        return state.status == BaseStatus.error
+            ? Column(
+                children: [
+                  const SizedBox(height: 5),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Неправильно введен номер',
+                      style: AppFonts.tfMedium14.copyWith(color: Colors.red),
+                    ),
+                  ),
+                ],
+              )
+            : Container();
+      },
     );
   }
 }

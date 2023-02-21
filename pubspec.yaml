@@ -34,6 +34,11 @@ dependencies:
   cupertino_stepper: ^0.2.1
   dropdown_button2: ^1.9.3
   pinput: ^2.2.30
+  firebase_core: ^2.6.1
+  firebase_auth: ^4.2.8
+  firebase_storage: ^11.0.13
+  cloud_firestore: ^4.4.2
+  shared_preferences: ^2.0.17
   
     
 dev_dependencies:

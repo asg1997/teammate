@@ -12,24 +12,17 @@ class AuthScreenCubit extends Cubit<AuthScreenState> {
 
   final AuthRepo authRepo;
 
-  void onEmailChanged(String email) {
-    emit(state.copyWith(email: email));
-  }
-
-  void onPasswordChanged(String password) {
-    emit(state.copyWith(password: password));
-  }
-
-  void onRecovedPasswordTapped(BuildContext context) {
-    Navigator.of(context).pushNamed(
-      AppRoutes.recoveredPassword,
-    );
+  void onPhoneChanged(String phone) {
+    emit(state.copyWith(phone: phone));
   }
 
   void onOtpScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(
-      AppRoutes.otpScreen,
-    );
+    if (state.phone.length != 10) {
+      emit(state.copyWith(status: BaseStatus.error));
+      return;
+    }
+
+    Navigator.of(context).pushNamed(AppRoutes.otpScreen);
   }
 
   void onRegistrationTapped(BuildContext context) {

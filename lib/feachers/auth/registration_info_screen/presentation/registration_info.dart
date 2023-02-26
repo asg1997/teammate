@@ -4,8 +4,8 @@ import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/widgets/app_bar_auth.dart';
 import 'package:teammate/core/widgets/app_button.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
-import 'package:teammate/feachers/auth/presentation/registration_info_screen/presentation/components/city_dropdown.dart';
-import 'package:teammate/feachers/auth/presentation/registration_info_screen/presentation/cubit/registration_info_screen_cubit.dart';
+import 'package:teammate/feachers/auth/registration_info_screen/presentation/components/city_dropdown.dart';
+import 'package:teammate/feachers/auth/registration_info_screen/presentation/cubit/registration_info_screen_cubit.dart';
 
 class RegistrationInfoScreen extends StatelessWidget {
   const RegistrationInfoScreen({super.key});

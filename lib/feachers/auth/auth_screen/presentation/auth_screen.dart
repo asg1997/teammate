@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/widgets/app_button.dart';
-import 'package:teammate/feachers/auth/presentation/auth_screen/presentation/components/error_widget.dart';
-import 'package:teammate/feachers/auth/presentation/auth_screen/presentation/cubit/auth_screen_cubit.dart';
-import 'package:teammate/feachers/auth/presentation/components/phone_tf.dart';
+import 'package:teammate/feachers/auth/auth_screen/presentation/components/error_widget.dart';
+import 'package:teammate/feachers/auth/auth_screen/presentation/cubit/auth_screen_cubit.dart';
+import 'package:teammate/feachers/auth/components/phone_tf.dart';
 import 'package:teammate/resources/resources.dart';
 
 class AuthScreen extends StatelessWidget {

@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/widgets/app_bar_auth.dart';
 import 'package:teammate/core/widgets/app_button.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
-import 'package:teammate/feachers/auth/presentation/registration_info_screen/presentation/components/city_dropdown.dart';
+import 'package:teammate/feachers/auth/registration_info_screen/presentation/components/city_dropdown.dart';
 import 'package:teammate/feachers/settings/presentation/settings_screen/cubit/settings_screen_cubit.dart';
-
 import '../../../../core/consts/app_decorations_prop.dart';
 import '../../../../core/consts/app_fonts.dart';
 

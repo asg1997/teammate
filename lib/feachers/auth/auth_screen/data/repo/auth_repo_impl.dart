@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:teammate/core/session_data/session_data.dart';
 import 'package:teammate/core/session_data/session_data_service.dart';
-import 'package:teammate/feachers/auth/presentation/auth_screen/domain/repo/auth_repo.dart';
+import 'package:teammate/feachers/auth/auth_screen/domain/repo/auth_repo.dart';
 
 class AuthRepoImpl implements AuthRepo {
   final _firebaseAuth = FirebaseAuth.instance;

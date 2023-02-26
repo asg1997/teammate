@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/injection_container.dart';
 import 'package:teammate/core/navigation/app_router.dart';
-import 'package:teammate/feachers/auth/presentation/auth_screen/presentation/cubit/auth_screen_cubit.dart';
-import 'package:teammate/feachers/auth/presentation/provider/auth_provider.dart';
+import 'package:teammate/feachers/auth/auth_screen/presentation/cubit/auth_screen_cubit.dart';
+import 'package:teammate/feachers/auth/provider/auth_provider.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/cubit/create_game_cubit.dart';
 
 class TeammateApp extends StatelessWidget {
@@ -44,11 +44,3 @@ class TeammateApp extends StatelessWidget {
     );
   }
 }
-
-// final _router = GoRouter(routes: [
-//   GoRoute(
-//     routes: const [],
-//     path: '/',
-//     builder: (context, state) => const MainScreen(),
-//   ),
-// ]);

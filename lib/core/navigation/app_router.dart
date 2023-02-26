@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:teammate/feachers/auth/presentation/auth_screen/presentation/auth_screen.dart';
-import 'package:teammate/feachers/auth/presentation/otp_screen/otp_screen.dart';
-import 'package:teammate/feachers/auth/presentation/registration_info_screen/presentation/cubit/registration_info_screen_cubit.dart';
-import 'package:teammate/feachers/auth/presentation/registration_info_screen/presentation/registration_info.dart';
+import 'package:teammate/feachers/auth/auth_screen/presentation/auth_screen.dart';
+import 'package:teammate/feachers/auth/otp_screen/otp_screen.dart';
+import 'package:teammate/feachers/auth/registration_info_screen/presentation/cubit/registration_info_screen_cubit.dart';
+import 'package:teammate/feachers/auth/registration_info_screen/presentation/registration_info.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/step_one_screen.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/step_three_screen.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/step_two_screen.dart';

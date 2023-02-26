@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:teammate/core/bloc_utils/base_status.dart';
 import 'package:teammate/core/exception/firebase_auth_hadler.dart';
 import 'package:teammate/core/navigation/app_router.dart';
-import 'package:teammate/feachers/auth/presentation/auth_screen/domain/repo/auth_repo.dart';
+import 'package:teammate/feachers/auth/auth_screen/domain/repo/auth_repo.dart';
 
 part 'auth_screen_state.dart';
 

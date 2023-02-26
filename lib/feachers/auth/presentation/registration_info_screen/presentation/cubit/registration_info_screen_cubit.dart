@@ -13,20 +13,8 @@ class RegistrationInfoScreenCubit extends Cubit<RegistrationInfoScreenState> {
 
   final RegistrationInfoRepo registrationInfoRepo;
 
-  void onNameChanged(String name) {
-    emit(state.copyWith(name: name));
-  }
-
   void onNickChanged(String nick) {
     emit(state.copyWith(nick: nick));
-  }
-
-  void onDateChanged(DateTime dateTime) {
-    emit(state.copyWith(dateTime: dateTime));
-  }
-
-  void onGenderChanged(String gender) {
-    emit(state.copyWith(gender: gender));
   }
 
   void onCityChanged(String city) {
@@ -39,4 +27,16 @@ class RegistrationInfoScreenCubit extends Cubit<RegistrationInfoScreenState> {
       (_) => false,
     );
   }
+
+  // void onNameChanged(String name) {
+  //   emit(state.copyWith(name: name));
+  // }
+
+  // void onDateChanged(DateTime dateTime) {
+  //   emit(state.copyWith(dateTime: dateTime));
+  // }
+
+  // void onGenderChanged(String gender) {
+  //   emit(state.copyWith(gender: gender));
+  // }
 }

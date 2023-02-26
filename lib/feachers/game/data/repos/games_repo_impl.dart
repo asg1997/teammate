@@ -23,9 +23,10 @@ class GamesRepoImpl implements GamesRepo {
   @override
   Future<List<User>> getGamesPlayers(List<String> playersIds) async {
     return [
-      const User(city: 'Тула', nickname: 'drobash2011'),
-      const User(city: 'Тула', nickname: 'asg1997'),
-      const User(city: 'Тула', nickname: 'lina97'),
+      const User(
+          city: 'Тула', nickname: 'drobash2011', phone: '12342', uuid: '44'),
+      const User(city: 'Тула', nickname: 'asg1997', phone: '12342', uuid: '44'),
+      const User(city: 'Тула', nickname: 'lina97', phone: '12342', uuid: '44'),
     ];
   }
 }

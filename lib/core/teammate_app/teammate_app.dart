@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/injection_container.dart';
 import 'package:teammate/core/navigation/app_router.dart';
+import 'package:teammate/feachers/auth/presentation/auth_screen/presentation/cubit/auth_screen_cubit.dart';
+import 'package:teammate/feachers/auth/presentation/provider/auth_provider.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/cubit/create_game_cubit.dart';
 
 class TeammateApp extends StatelessWidget {
@@ -11,10 +14,18 @@ class TeammateApp extends StatelessWidget {
   final router = AppRouter();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CreateGameCubit(
-        gamesRepo: sl(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CreateGameCubit(
+            gamesRepo: sl(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => AuthScreenCubit(authRepo: sl()),
+        ),
+        ChangeNotifierProvider(create: (_) => sl<AuthProvider>()),
+      ],
       child: MaterialApp(
         theme: ThemeData(scaffoldBackgroundColor: AppColors.secondaryBg),
         localizationsDelegates: const [
@@ -26,7 +37,8 @@ class TeammateApp extends StatelessWidget {
           Locale('ru', 'RU'),
         ],
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRouter.intialRoute,
+        initialRoute:
+            sl<AuthProvider>().isSignedIn ? AppRoutes.main : AppRoutes.auth,
         onGenerateRoute: router.onGenerateRoutes,
       ),
     );

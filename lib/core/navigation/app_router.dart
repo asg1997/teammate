@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/feachers/auth/presentation/auth_screen/presentation/auth_screen.dart';
-import 'package:teammate/feachers/auth/presentation/otp_screen/cubit/otp_screen_cubit.dart';
 import 'package:teammate/feachers/auth/presentation/otp_screen/otp_screen.dart';
 import 'package:teammate/feachers/auth/presentation/registration_info_screen/presentation/cubit/registration_info_screen_cubit.dart';
 import 'package:teammate/feachers/auth/presentation/registration_info_screen/presentation/registration_info.dart';
-import 'package:teammate/feachers/auth/presentation/registration_screen/presentation/cubit/registration_screen_cubit.dart';
-import 'package:teammate/feachers/auth/presentation/registration_screen/presentation/registration_screen.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/step_one_screen.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/step_three_screen.dart';
 import 'package:teammate/feachers/game/presentation/create_game_screen/step_two_screen.dart';
@@ -18,7 +15,6 @@ import 'package:teammate/feachers/search_game/presentation/search_game_screen/cu
 import 'package:teammate/feachers/search_game/presentation/search_game_screen/search_game_screen.dart';
 import 'package:teammate/feachers/settings/presentation/settings_screen/cubit/settings_screen_cubit.dart';
 import 'package:teammate/feachers/settings/presentation/settings_screen/settings_screen.dart';
-import '../../feachers/auth/presentation/auth_screen/presentation/cubit/auth_screen_cubit.dart';
 import '../../feachers/game/domain/entites/game.dart';
 import '../../feachers/game/presentation/game_info_screen/game_info_screen.dart';
 import '../injection_container.dart';
@@ -49,21 +45,13 @@ class AppRouter {
       case AppRoutes.auth:
         return _buildAuthScreen();
 
-      // РЕГИСТРАЦИЯ
-      case AppRoutes.registration:
-        return _buildRegistrationScreen();
-
-      // РЕГИСТРАЦИЯ
+      // OTP
       case AppRoutes.otpScreen:
         return _buildOtpScreen();
 
       // ИНФОРМАЦИЯ О РЕГИСТРАЦИИ
       case AppRoutes.registrationInfo:
         return _buildRegistrationInfoScreen();
-
-      // // ЗАБЫЛИ ПАРОЛЬ
-      // case AppRoutes.recoveredPassword:
-      //   return _buildRecoveredPassword();
 
       // ГЛАВНЫЙ
       case AppRoutes.main:
@@ -96,29 +84,14 @@ class AppRouter {
 
   Route _buildAuthScreen() {
     return MaterialPageRoute(
-        builder: (context) => BlocProvider<AuthScreenCubit>(
-              lazy: false,
-              create: (_) => AuthScreenCubit(authRepo: sl()),
-              child: const AuthScreen(),
-            ));
-  }
-
-  Route _buildRegistrationScreen() {
-    return MaterialPageRoute(
-        builder: (context) => BlocProvider<RegistrationScreenCubit>(
-              lazy: false,
-              create: (_) => RegistrationScreenCubit(registrationRepo: sl()),
-              child: const RegistrationScreen(),
-            ));
+      builder: (context) => const AuthScreen(),
+    );
   }
 
   Route _buildOtpScreen() {
     return MaterialPageRoute(
-        builder: (context) => BlocProvider<OtpScreenCubit>(
-              lazy: false,
-              create: (_) => OtpScreenCubit(),
-              child: const OtpScreen(),
-            ));
+      builder: (context) => const OtpScreen(),
+    );
   }
 
   Route _buildRegistrationInfoScreen() {
@@ -130,11 +103,6 @@ class AppRouter {
               child: const RegistrationInfoScreen(),
             ));
   }
-
-  // Route _buildRecoveredPassword() {
-  //   return MaterialPageRoute(
-  //       builder: (context) => const RecoveredPasswordScreen());
-  // }
 
   Route _buildMainScreen() {
     return MaterialPageRoute(

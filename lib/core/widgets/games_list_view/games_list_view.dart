@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-
-import '../../../feachers/game/domain/entites/game.dart';
-import 'games_list_view_item.dart';
+import 'package:teammate/core/widgets/games_list_view/games_list_view_item.dart';
+import 'package:teammate/domain/entities/game.dart';
 
 class GamesListView extends StatelessWidget {
   const GamesListView({
-    Key? key,
     required this.games,
     required this.onGameSelected,
+    super.key,
     this.shrinkWrap = false,
-  }) : super(key: key);
+  });
 
   final List<Game> games;
-  final Function(Game game) onGameSelected;
+  final void Function(Game game) onGameSelected;
   final bool shrinkWrap;
   @override
   Widget build(BuildContext context) {

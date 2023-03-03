@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
+import 'package:teammate/domain/entities/game.dart';
+import 'package:teammate/domain/entities/sport.dart';
 import 'package:teammate/resources/resources.dart';
 
 class GamesListViewItem extends StatelessWidget {
   const GamesListViewItem({
+    required this.onTap,
+    required this.game,
     super.key,
   });
 
   final VoidCallback onTap;
+  final Game game;
 
   String _getDay() {
     final now = DateTime.now();
@@ -105,8 +110,6 @@ class _SportIcon extends StatelessWidget {
         return AppImages.volleyballIc;
       case Sport.basketball:
         return AppImages.basketballIc;
-      default:
-        return '';
     }
   }
 

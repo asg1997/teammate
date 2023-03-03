@@ -5,12 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/injection_container.dart';
 import 'package:teammate/core/navigation/app_router.dart';
-import 'package:teammate/feachers/auth/auth_screen/presentation/cubit/auth_screen_cubit.dart';
-import 'package:teammate/feachers/auth/provider/auth_provider.dart';
-import 'package:teammate/feachers/game/presentation/create_game_screen/cubit/create_game_cubit.dart';
+import 'package:teammate/presentation/auth/auth_provider.dart';
+import 'package:teammate/presentation/auth/auth_screen/cubit/auth_screen_cubit.dart';
+import 'package:teammate/presentation/create_game_screen/cubit/create_game_cubit.dart';
 
 class TeammateApp extends StatelessWidget {
-  TeammateApp({Key? key}) : super(key: key);
+  TeammateApp({super.key});
   final router = AppRouter();
   @override
   Widget build(BuildContext context) {

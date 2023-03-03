@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:teammate/core/bloc_utils/base_status.dart';
+import 'package:teammate/core/utils/base_status.dart';
 import 'package:teammate/core/navigation/app_router.dart';
 import 'package:teammate/feachers/game/domain/entites/game.dart';
 import 'package:teammate/feachers/profile/domain/repos/profile_repo.dart';

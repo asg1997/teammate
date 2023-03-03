@@ -5,7 +5,7 @@ import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
 import 'package:teammate/feachers/search_game/presentation/search_game_screen/cubit/search_game_screen_cubit.dart';
 
-import '../../../../core/bloc_utils/base_status.dart';
+import '../../../../core/utils/base_status.dart';
 import '../../../../core/consts/app_colors.dart';
 import '../../../../core/consts/app_decorations_prop.dart';
 import '../../../../core/consts/app_fonts.dart';

@@ -8,7 +8,7 @@ import 'package:teammate/core/widgets/games_list_view/games_list_view.dart';
 import 'package:teammate/feachers/game/domain/entites/sport_.dart';
 import 'package:teammate/feachers/main/presentation/main_screen/cubit/main_screen_cubit.dart';
 
-import '../../../../core/bloc_utils/base_status.dart';
+import '../../../../core/utils/base_status.dart';
 import '../../../../core/widgets/loading_widget.dart';
 import '../../../../resources/resources.dart';
 import '../../../game/domain/entites/game.dart';

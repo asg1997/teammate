@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:teammate/core/bloc_utils/base_status.dart';
+import 'package:teammate/core/utils/base_status.dart';
 import 'package:teammate/feachers/settings/domain/repos/settings_repo.dart';
 
 part 'settings_screen_state.dart';

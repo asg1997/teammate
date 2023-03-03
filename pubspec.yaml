@@ -24,12 +24,17 @@ dependencies:
   get_it: ^7.2.0
 
   # Шрифты
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.3
 
   # Форматирование дат и перевод
   intl: ^0.17.0
   flutter_localizations:
     sdk: flutter         
+  flutter_secure_storage: ^8.0.0
+
+  # Генератор id девайса
+  platform_device_id: ^1.0.1
+  firebase_core: ^2.5.0
     
 dev_dependencies:
   flutter_lints: ^2.0.0

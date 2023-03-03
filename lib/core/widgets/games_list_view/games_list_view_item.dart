@@ -4,12 +4,11 @@ import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/resources/resources.dart';
 
-import '../../../feachers/game/domain/entites/game.dart';
-import '../../../feachers/game/domain/entites/sport_.dart';
-
 class GamesListViewItem extends StatelessWidget {
-  const GamesListViewItem({super.key, required this.game, required this.onTap});
-  final Game game;
+  const GamesListViewItem({
+    super.key,
+  });
+
   final VoidCallback onTap;
 
   String _getDay() {

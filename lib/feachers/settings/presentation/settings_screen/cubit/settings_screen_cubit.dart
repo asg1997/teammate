@@ -23,5 +23,15 @@ class SettingsScreenCubit extends Cubit<SettingsScreenState> {
     ));
   }
 
-  void onSaveTapped(BuildContext context) {}
+  void onNickChanged(String nickname) {
+    emit(state.copyWith(nickname: nickname));
+  }
+
+  void onCityChanged(String city) {
+    emit(state.copyWith(city: city));
+  }
+
+  void onSaveTapped(BuildContext context) {
+    Navigator.pop(context);
+  }
 }

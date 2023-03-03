@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:teammate/core/widgets/app_bar_auth.dart';
 import 'package:teammate/core/widgets/games_list_view/games_list_view.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
 import 'package:teammate/feachers/search_game/presentation/search_game_screen/cubit/search_game_screen_cubit.dart';
 
-import '../../../../core/utils/base_status.dart';
-import '../../../../core/consts/app_colors.dart';
+import '../../../../core/bloc_utils/base_status.dart';
 import '../../../../core/consts/app_decorations_prop.dart';
-import '../../../../core/consts/app_fonts.dart';
 
 class SearchGameScreen extends StatelessWidget {
   const SearchGameScreen({Key? key}) : super(key: key);
@@ -16,24 +15,23 @@ class SearchGameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Text(
-          'Поиск игр',
-          style: AppFonts.titleLarge,
-        ),
-      ),
-      backgroundColor: AppColors.secondaryBg,
       body: SafeArea(
         child: Padding(
           padding: AppDecProp.defaultPadding,
           child: Column(
             children: const [
+              // ПОИСК ИГР
+              MainAppBarWidget(title: 'Поиск игр'),
+              SizedBox(height: 30),
+
+              // ПОИСК
               SearchTextField(),
               SizedBox(height: 40),
-              Expanded(child: _ListView()),
+
+              // ЛИСТВЬЮ С ИГРАМИ
+              Expanded(
+                child: _ListView(),
+              ),
             ],
           ),
         ),

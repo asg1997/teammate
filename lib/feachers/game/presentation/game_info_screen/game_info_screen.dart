@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/feachers/game/presentation/game_info_screen/components/teammetes_list_view.dart';
 import '../../../../core/consts/app_colors.dart';
 import '../../../../core/consts/app_decorations_prop.dart';
@@ -11,14 +10,8 @@ class GameInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: AppColors.main,
-        child: const Icon(
-          Icons.add_reaction_rounded,
-        ),
-      ),
       appBar: AppBar(
+        toolbarHeight: 70,
         elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
@@ -26,6 +19,12 @@ class GameInfoScreen extends StatelessWidget {
           'model.game.name',
           style: AppFonts.titleLarge,
         ),
+        actions: [
+          IconButton(
+            onPressed: () => model.onEditTapped(context),
+            icon: const Icon(Icons.edit),
+          )
+        ],
       ),
       backgroundColor: AppColors.secondaryBg,
       body: SafeArea(
@@ -36,23 +35,59 @@ class GameInfoScreen extends StatelessWidget {
             children: [
               // СПОРТ
               Text(
-                'Спорт',
-                style: AppFonts.titleMedium.copyWith(
+                'Вид спорта',
+                style: AppFonts.tfMedium14.copyWith(
                   color: AppColors.main,
                 ),
               ),
               const SizedBox(height: 5),
+
               Text(
-                'getLocaleSportName(model.game.sport)',
+                model.game.sport.name(),
                 style: AppFonts.bodyLarge.copyWith(
                   color: Colors.white,
                 ),
               ),
               const SizedBox(height: 20),
+
+              // Город
+              Text(
+                'Город',
+                style: AppFonts.tfMedium14.copyWith(
+                  color: AppColors.main,
+                ),
+              ),
+              const SizedBox(height: 5),
+
+              Text(
+                model.game.city,
+                style: AppFonts.bodyLarge.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Место
+              Text(
+                'Место',
+                style: AppFonts.tfMedium14.copyWith(
+                  color: AppColors.main,
+                ),
+              ),
+              const SizedBox(height: 5),
+
+              Text(
+                model.game.location,
+                style: AppFonts.bodyLarge.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 20),
+
               // ВРЕМЯ
               Text(
                 'Дата и время',
-                style: AppFonts.titleMedium.copyWith(
+                style: AppFonts.tfMedium14.copyWith(
                   color: AppColors.main,
                 ),
               ),
@@ -77,7 +112,23 @@ class GameInfoScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              const _PlayersListView()
+              const _PlayersListView(),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    'Позвать друзей',
+                    style: AppFonts.bodyLarge.copyWith(color: Colors.white),
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.share,
+                        color: AppColors.main,
+                      ))
+                ],
+              )
             ],
           ),
         ),

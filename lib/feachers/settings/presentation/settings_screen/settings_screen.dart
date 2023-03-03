@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:teammate/core/widgets/app_bar_auth.dart';
 import 'package:teammate/core/widgets/app_button.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
+import 'package:teammate/feachers/auth/registration_info_screen/presentation/components/city_dropdown.dart';
 import 'package:teammate/feachers/settings/presentation/settings_screen/cubit/settings_screen_cubit.dart';
-
-import '../../../../core/consts/app_colors.dart';
 import '../../../../core/consts/app_decorations_prop.dart';
 import '../../../../core/consts/app_fonts.dart';
 
@@ -15,29 +15,29 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.read<SettingsScreenCubit>();
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Text(
-          'Настройки',
-          style: AppFonts.titleLarge,
-        ),
-      ),
-      backgroundColor: AppColors.secondaryBg,
       body: SafeArea(
         child: Padding(
           padding: AppDecProp.defaultPadding,
           child: Column(
             children: [
-              const TextFieldWidget(
+              // НАСТРОЙКИ
+              const MainAppBarWidget(title: 'Настройки'),
+              const SizedBox(height: 30),
+
+              // НИКНЕЙ
+              TextFieldWidget(
                 title: 'Никнейм',
+                onChanged: model.onNickChanged,
               ),
               const SizedBox(height: 10),
-              const TextFieldWidget(
-                title: 'Город',
+
+              // ВЫБОР ГОРОДА
+              CityDropdownWidget(
+                onChanged: model.onCityChanged,
               ),
-              Expanded(child: Container()),
+              const SizedBox(height: 71),
+
+              // СОХРАНИТЬ КНОПКУ
               AppButton(
                 title: 'Сохранить',
                 onTap: () => model.onSaveTapped(context),

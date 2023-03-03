@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "240045549512",
-    "project_id": "teammate-c1e03",
-    "storage_bucket": "teammate-c1e03.appspot.com"
+    "project_number": "241663777855",
+    "project_id": "teammateapp-44b53",
+    "storage_bucket": "teammateapp-44b53.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:240045549512:android:42feb16a5cd3c5471dc2fd",
+        "mobilesdk_app_id": "1:241663777855:android:dcfb679e790ea8c4dcec8a",
         "android_client_info": {
           "package_name": "com.example.teammate"
         }
       },
       "oauth_client": [
         {
-          "client_id": "240045549512-e3gk0d414ln781jfhjf7bkstpbbmc5ec.apps.googleusercontent.com",
+          "client_id": "241663777855-0kg61tuhlpdlqjqs1d1crd4d0n5ko003.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBBWhqLZAvrL0UoducM9Was7C9AJ6cmDC8"
+          "current_key": "AIzaSyAULc0il-9nATuhpSGKzZ7KwJsYmAGwooc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "240045549512-e3gk0d414ln781jfhjf7bkstpbbmc5ec.apps.googleusercontent.com",
+              "client_id": "241663777855-0kg61tuhlpdlqjqs1d1crd4d0n5ko003.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

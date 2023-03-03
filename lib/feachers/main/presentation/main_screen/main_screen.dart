@@ -6,6 +6,7 @@ import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/widgets/custom_navigation_tab_bar_widget.dart';
 import 'package:teammate/core/widgets/games_list_view/games_list_view.dart';
 import 'package:teammate/feachers/game/domain/entites/sport_.dart';
+import 'package:teammate/feachers/game/presentation/create_game_screen/cubit/create_game_cubit.dart';
 import 'package:teammate/feachers/main/presentation/main_screen/cubit/main_screen_cubit.dart';
 
 import '../../../../core/utils/base_status.dart';
@@ -36,7 +37,7 @@ class MainScreen extends StatelessWidget {
           child: SportFloatingWidget(onSportSelected: onSportSelected),
         ),
       );
-      overlay?.insert(_overlayEntry!);
+      overlay.insert(_overlayEntry!);
     });
   }
 
@@ -55,7 +56,8 @@ class MainScreen extends StatelessWidget {
         bottomNavigationBar: CustomNavigationTabBarWidget(
           onCreateGameTapped: () {
             _showSportOverlay(context, (sport) {
-              model.onAddGameButtonTapped(context, sport);
+              context.read<CreateGameCubit>().onSportChanged(sport);
+              model.onAddGameButtonTapped(context);
               _removeOverlay();
             });
           },
@@ -161,9 +163,7 @@ class SportFloatingWidget extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            getLocaleSportName(
-                              Sport.values[index],
-                            ),
+                            Sport.values[index].name(),
                             style: AppFonts.bodyLarge
                                 .copyWith(color: Colors.white),
                           ),

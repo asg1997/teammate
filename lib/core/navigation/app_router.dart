@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:teammate/feachers/game/domain/entites/sport_.dart';
-import 'package:teammate/feachers/game/presentation/create_game_screen/create_game_screen.dart';
-import 'package:teammate/feachers/game/presentation/create_game_screen/cubit/create_game_cubit.dart';
+import 'package:teammate/feachers/auth/auth_screen/presentation/auth_screen.dart';
+import 'package:teammate/feachers/auth/otp_screen/otp_screen.dart';
+import 'package:teammate/feachers/auth/registration_info_screen/presentation/cubit/registration_info_screen_cubit.dart';
+import 'package:teammate/feachers/auth/registration_info_screen/presentation/registration_info.dart';
+import 'package:teammate/feachers/game/presentation/create_game_screen/step_one_screen.dart';
+import 'package:teammate/feachers/game/presentation/create_game_screen/step_three_screen.dart';
+import 'package:teammate/feachers/game/presentation/create_game_screen/step_two_screen.dart';
+import 'package:teammate/feachers/game/presentation/edit_game_screen.dart/edit_game_screen.dart';
 import 'package:teammate/feachers/game/presentation/game_info_screen/cubit/game_info_screen_cubit.dart';
 import 'package:teammate/feachers/main/presentation/main_screen/cubit/main_screen_cubit.dart';
 import 'package:teammate/feachers/main/presentation/main_screen/main_screen.dart';
@@ -10,30 +15,56 @@ import 'package:teammate/feachers/search_game/presentation/search_game_screen/cu
 import 'package:teammate/feachers/search_game/presentation/search_game_screen/search_game_screen.dart';
 import 'package:teammate/feachers/settings/presentation/settings_screen/cubit/settings_screen_cubit.dart';
 import 'package:teammate/feachers/settings/presentation/settings_screen/settings_screen.dart';
-
 import '../../feachers/game/domain/entites/game.dart';
 import '../../feachers/game/presentation/game_info_screen/game_info_screen.dart';
 import '../injection_container.dart';
 
 class AppRoutes {
+  static const auth = 'auth';
+  static const otpScreen = 'otpScreen';
+  static const recoveredPassword = 'recoveredPassword';
+  static const registration = 'registration';
+  static const registrationInfo = 'registrationInfo';
+  static const vkAuth = 'vkAuth';
   static const main = 'main';
-  static const createGame = 'createGame';
+  static const stepOne = 'stepOne';
+  static const stepTwo = 'stepTwo';
+  static const stepThree = 'stepThree';
   static const searchGame = 'searchGame';
   static const gameInfo = 'gameInfo';
   static const settings = 'settings';
+  static const editGame = 'editGame';
 }
 
 class AppRouter {
-  static const intialRoute = AppRoutes.main;
+  static const intialRoute = AppRoutes.auth;
 
   Route onGenerateRoutes(RouteSettings routeSettings) {
     switch (routeSettings.name) {
+      // АВТОРИЗАЦИЯ
+      case AppRoutes.auth:
+        return _buildAuthScreen();
+
+      // OTP
+      case AppRoutes.otpScreen:
+        return _buildOtpScreen();
+
+      // ИНФОРМАЦИЯ О РЕГИСТРАЦИИ
+      case AppRoutes.registrationInfo:
+        return _buildRegistrationInfoScreen();
+
       // ГЛАВНЫЙ
       case AppRoutes.main:
         return _buildMainScreen();
-      // СОЗДАТЬ ИГРУ
-      case AppRoutes.createGame:
-        return _buildCreateGameScreen(routeSettings);
+      // ШАГ ОДИН
+      case AppRoutes.stepOne:
+        return _buildStepOneScreen(routeSettings);
+      // ШАГ ДВА
+      case AppRoutes.stepTwo:
+        return _buildStepTwoScreen(routeSettings);
+      // ШАГ ТРИ
+      case AppRoutes.stepThree:
+        return _buildStepThreeScreen(routeSettings);
       // НАСТРОЙКИ
       case AppRoutes.settings:
         return _buildSettingsScreen();
@@ -43,9 +74,34 @@ class AppRouter {
       // ПОИСК
       case AppRoutes.searchGame:
         return _buildSearchGameScreen();
+      // Редактирование игры
+      case AppRoutes.editGame:
+        return _buildEditGameScreen();
       default:
         return _buildNavigationUnkwown();
     }
+  }
+
+  Route _buildAuthScreen() {
+    return MaterialPageRoute(
+      builder: (context) => const AuthScreen(),
+    );
+  }
+
+  Route _buildOtpScreen() {
+    return MaterialPageRoute(
+      builder: (context) => const OtpScreen(),
+    );
+  }
+
+  Route _buildRegistrationInfoScreen() {
+    return MaterialPageRoute(
+        builder: (context) => BlocProvider<RegistrationInfoScreenCubit>(
+              lazy: false,
+              create: (_) =>
+                  RegistrationInfoScreenCubit(registrationInfoRepo: sl()),
+              child: const RegistrationInfoScreen(),
+            ));
   }
 
   Route _buildMainScreen() {
@@ -57,16 +113,22 @@ class AppRouter {
             ));
   }
 
-  Route _buildCreateGameScreen(RouteSettings routeSettings) {
-    final sport = routeSettings.arguments as Sport;
+  Route _buildStepOneScreen(RouteSettings routeSettings) {
     return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-              create: (_) => CreateGameCubit(
-                gamesRepo: sl(),
-                sport: sport,
-              ),
-              child: const CreateGameScreen(),
-            ));
+      builder: (context) => const StepOneScreen(),
+    );
+  }
+
+  Route _buildStepTwoScreen(RouteSettings routeSettings) {
+    return MaterialPageRoute(
+      builder: (context) => const StepTwoScreen(),
+    );
+  }
+
+  Route _buildStepThreeScreen(RouteSettings routeSettings) {
+    return MaterialPageRoute(
+      builder: (context) => const StepThreeScreen(),
+    );
   }
 
   Route _buildGameInfoScreen(RouteSettings routeSettings) {
@@ -91,6 +153,12 @@ class AppRouter {
               )..load(),
               child: const SearchGameScreen(),
             ));
+  }
+
+  Route _buildEditGameScreen() {
+    return MaterialPageRoute(
+      builder: (context) => const EditGameScreen(),
+    );
   }
 
   Route _buildSettingsScreen() {

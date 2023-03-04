@@ -12,7 +12,7 @@ class CityDropdownWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Город*', style: AppFonts.tfMedium14),
+        Text('Город*', style: AppFonts.medium14),
         const SizedBox(height: 10),
         DropdownSearch<String>(
           popupProps: PopupProps.menu(

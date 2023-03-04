@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:teammate/core/navigation/app_router.dart';
+import 'package:teammate/core/teammate_app.dart';
 import 'package:teammate/domain/entities/game.dart';
 import 'package:teammate/domain/repos/games_repo.dart';
 
@@ -40,25 +41,25 @@ class MainScreenModel extends ChangeNotifier {
   }
 
   Future<void> onAddGameButtonTapped(BuildContext context) async {
-    await Navigator.of(context).pushNamed(
+    await navigatorKey.currentState?.pushNamed(
       AppRoutes.stepOne,
     );
     await _getGames();
   }
 
   void onSettingsTapped(BuildContext context) {
-    Navigator.of(context).pushNamed(
+    navigatorKey.currentState?.pushNamed(
       AppRoutes.settings,
     );
   }
 
   void onSearchTapped(BuildContext context) {
-    Navigator.of(context).pushNamed(
+    navigatorKey.currentState?.pushNamed(
       AppRoutes.searchGame,
     );
   }
 
   void onGameTapped(BuildContext context, Game game) {
-    Navigator.of(context).pushNamed(AppRoutes.gameInfo, arguments: game);
+    navigatorKey.currentState?.pushNamed(AppRoutes.gameInfo, arguments: game);
   }
 }

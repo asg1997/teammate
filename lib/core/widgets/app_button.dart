@@ -4,19 +4,21 @@ import 'package:teammate/core/consts/app_fonts.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
-    Key? key,
     required this.title,
     required this.onTap,
-  }) : super(key: key);
+    this.isLoading = false,
+    super.key,
+  });
 
   final String title;
   final VoidCallback onTap;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 55,
-      width: 271,
+      height: 50,
+      width: 220,
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
@@ -26,10 +28,17 @@ class AppButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
           ),
         ),
-        child: Text(
-          title,
-          style: AppFonts.button,
-        ),
+        child: isLoading
+            ? const Center(
+                child: SizedBox.square(
+                  dimension: 12,
+                  child: CircularProgressIndicator(color: Colors.white),
+                ),
+              )
+            : Text(
+                title,
+                style: AppFonts.button,
+              ),
       ),
     );
   }

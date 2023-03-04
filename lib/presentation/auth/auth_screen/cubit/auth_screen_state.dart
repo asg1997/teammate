@@ -2,37 +2,58 @@ part of 'auth_screen_cubit.dart';
 
 class AuthScreenState extends Equatable {
   const AuthScreenState({
-    required this.status,
+    required this.isRequestingCode,
+    required this.isCheckingCode,
     required this.phone,
     required this.isSignedIn,
-    required this.errorMsg,
+    required this.otpErrorMsg,
+    required this.loginErrorMsg,
   });
 
   factory AuthScreenState.initial() => const AuthScreenState(
-        status: BaseStatus.loading,
         phone: '',
         isSignedIn: false,
-        errorMsg: '',
+        otpErrorMsg: '',
+        isCheckingCode: false,
+        isRequestingCode: false,
+        loginErrorMsg: '',
       );
-  final BaseStatus status;
+
   final String phone;
+  final bool isRequestingCode;
+  final bool isCheckingCode;
   final bool isSignedIn;
-  final String errorMsg;
+  final String otpErrorMsg;
+  final String loginErrorMsg;
+
+  String get phoneNoSymbols {
+    return '+7${phone.replaceAll(RegExp(r'[()-\s]'), '')}';
+  }
 
   @override
-  List<Object> get props => [status, phone, isSignedIn, errorMsg];
+  List<Object> get props => [
+        isCheckingCode,
+        phone,
+        isSignedIn,
+        otpErrorMsg,
+        isRequestingCode,
+      ];
 
   AuthScreenState copyWith({
-    BaseStatus? status,
     String? phone,
+    bool? isRequestingCode,
+    bool? isCheckingCode,
     bool? isSignedIn,
-    String? errorMsg,
+    String? otpErrorMsg,
+    String? loginErrorMsg,
   }) {
     return AuthScreenState(
-      status: status ?? this.status,
       phone: phone ?? this.phone,
+      isRequestingCode: isRequestingCode ?? this.isRequestingCode,
+      isCheckingCode: isCheckingCode ?? this.isCheckingCode,
       isSignedIn: isSignedIn ?? this.isSignedIn,
-      errorMsg: errorMsg ?? this.errorMsg,
+      otpErrorMsg: otpErrorMsg ?? this.otpErrorMsg,
+      loginErrorMsg: loginErrorMsg ?? this.loginErrorMsg,
     );
   }
 }

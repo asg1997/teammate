@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/navigation/app_router.dart';
+import 'package:teammate/core/teammate_app.dart';
 import 'package:teammate/domain/entities/game.dart';
 import 'package:teammate/domain/entities/sport.dart';
 import 'package:teammate/domain/repos/games_repo.dart';
@@ -17,7 +18,7 @@ class CreateGameCubit extends Cubit<CreateGameState> {
   final GamesRepo _gamesRepo;
 
   void onSaveGameTapped(BuildContext context) {
-    Navigator.of(context).pop();
+    navigatorKey.currentState?.pop();
   }
 
   void onNameChanged(String value) {
@@ -37,13 +38,13 @@ class CreateGameCubit extends Cubit<CreateGameState> {
   }
 
   void onNextTwoTapped(BuildContext context) {
-    Navigator.of(context).pushNamed(
+    navigatorKey.currentState?.pushNamed(
       AppRoutes.stepTwo,
     );
   }
 
   void onNextThreeTapped(BuildContext context) {
-    Navigator.of(context).pushNamed(
+    navigatorKey.currentState?.pushNamed(
       AppRoutes.stepThree,
     );
   }

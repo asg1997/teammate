@@ -32,14 +32,14 @@ class GameInfoScreen extends StatelessWidget {
       backgroundColor: AppColors.secondaryBg,
       body: SafeArea(
         child: Padding(
-          padding: AppDecProp.defaultPadding,
+          padding: AppDecorations.defaultPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // СПОРТ
               Text(
                 'Вид спорта',
-                style: AppFonts.tfMedium14.copyWith(
+                style: AppFonts.medium14.copyWith(
                   color: AppColors.main,
                 ),
               ),
@@ -56,7 +56,7 @@ class GameInfoScreen extends StatelessWidget {
               // Город
               Text(
                 'Город',
-                style: AppFonts.tfMedium14.copyWith(
+                style: AppFonts.medium14.copyWith(
                   color: AppColors.main,
                 ),
               ),
@@ -73,7 +73,7 @@ class GameInfoScreen extends StatelessWidget {
               // Место
               Text(
                 'Место',
-                style: AppFonts.tfMedium14.copyWith(
+                style: AppFonts.medium14.copyWith(
                   color: AppColors.main,
                 ),
               ),
@@ -90,7 +90,7 @@ class GameInfoScreen extends StatelessWidget {
               // ВРЕМЯ
               Text(
                 'Дата и время',
-                style: AppFonts.tfMedium14.copyWith(
+                style: AppFonts.medium14.copyWith(
                   color: AppColors.main,
                 ),
               ),

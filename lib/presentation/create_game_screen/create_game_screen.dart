@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
-import 'package:teammate/core/widgets/text_field_widget.dart';
 import 'package:teammate/core/widgets/app_button.dart';
+import 'package:teammate/core/widgets/text_field_widget.dart';
 
 class CreateGameScreen extends StatelessWidget {
   const CreateGameScreen({super.key});
@@ -23,7 +23,7 @@ class CreateGameScreen extends StatelessWidget {
       backgroundColor: AppColors.secondaryBg,
       body: SafeArea(
         child: Padding(
-          padding: AppDecProp.defaultPadding,
+          padding: AppDecorations.defaultPadding,
           child: Column(
             children: [
               const TextFieldWidget(

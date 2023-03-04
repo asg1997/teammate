@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:teammate/core/navigation/app_router.dart';
+import 'package:teammate/core/teammate_app.dart';
 import 'package:teammate/core/utils/base_status.dart';
-import 'package:teammate/domain/repos/registration_info_repo.dart';
+import 'package:teammate/domain/repos/registration_repo.dart';
 
 part 'registration_info_screen_state.dart';
 
@@ -12,7 +13,7 @@ class RegistrationInfoScreenCubit extends Cubit<RegistrationInfoScreenState> {
   RegistrationInfoScreenCubit({required this.registrationInfoRepo})
       : super(RegistrationInfoScreenState.initial());
 
-  final RegistrationInfoRepo registrationInfoRepo;
+  final RegistrationRepo registrationInfoRepo;
 
   void onNickChanged(String nick) {
     emit(state.copyWith(nick: nick));
@@ -23,7 +24,7 @@ class RegistrationInfoScreenCubit extends Cubit<RegistrationInfoScreenState> {
   }
 
   void onSaveTapped(BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(
+    navigatorKey.currentState?.pushNamedAndRemoveUntil(
       AppRoutes.main,
       (_) => false,
     );

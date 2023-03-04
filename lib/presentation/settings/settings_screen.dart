@@ -5,7 +5,8 @@ import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar_auth.dart';
 import 'package:teammate/core/widgets/app_button.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
-import 'package:teammate/presentation/auth/registration_info_screen/presentation/components/city_dropdown.dart';
+import 'package:teammate/presentation/auth/registration_info_screen/components/city_dropdown.dart';
+
 import 'package:teammate/presentation/settings/cubit/settings_screen_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -17,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: AppDecProp.defaultPadding,
+          padding: AppDecorations.defaultPadding,
           child: Column(
             children: [
               // НАСТРОЙКИ
@@ -61,7 +62,7 @@ class _ListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.white,
-      borderRadius: AppDecProp.defaultBorderRadius,
+      borderRadius: AppDecorations.defaultBorderRadius,
       child: InkWell(
         onTap: onTapped,
         child: Padding(

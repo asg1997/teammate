@@ -5,8 +5,9 @@ import 'package:teammate/core/injection_container.dart';
 import 'package:teammate/domain/entities/game.dart';
 import 'package:teammate/presentation/auth/auth_screen/auth_screen.dart';
 import 'package:teammate/presentation/auth/otp_screen/otp_screen.dart';
-import 'package:teammate/presentation/auth/registration_info_screen/presentation/cubit/registration_info_screen_cubit.dart';
-import 'package:teammate/presentation/auth/registration_info_screen/presentation/registration_info.dart';
+import 'package:teammate/presentation/auth/registration_info_screen/cubit/registration_info_screen_cubit.dart';
+import 'package:teammate/presentation/auth/registration_info_screen/registration_info.dart';
+
 import 'package:teammate/presentation/create_game_screen/step_one_screen.dart';
 import 'package:teammate/presentation/create_game_screen/step_three_screen.dart';
 import 'package:teammate/presentation/create_game_screen/step_two_screen.dart';
@@ -22,12 +23,13 @@ import 'package:teammate/presentation/search_game/search_game_screen.dart';
 import 'package:teammate/presentation/settings/cubit/settings_screen_cubit.dart';
 
 import 'package:teammate/presentation/settings/settings_screen.dart';
+import 'package:teammate/presentation/splash/splash_screen.dart';
 
 class AppRoutes {
   static const auth = 'auth';
   static const otpScreen = 'otpScreen';
   static const recoveredPassword = 'recoveredPassword';
-  static const registration = 'registration';
+
   static const registrationInfo = 'registrationInfo';
   static const vkAuth = 'vkAuth';
   static const main = 'main';
@@ -38,10 +40,11 @@ class AppRoutes {
   static const gameInfo = 'gameInfo';
   static const settings = 'settings';
   static const editGame = 'editGame';
+  static const splash = 'splash';
 }
 
 class AppRouter {
-  static const intialRoute = AppRoutes.auth;
+  String get initialRoute => AppRoutes.splash;
 
   Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
     switch (routeSettings.name) {
@@ -81,6 +84,9 @@ class AppRouter {
       // Редактирование игры
       case AppRoutes.editGame:
         return _buildEditGameScreen();
+      // splash
+      case AppRoutes.splash:
+        return _buildSplash();
       default:
         return _buildNavigationUnkwown();
     }
@@ -182,6 +188,12 @@ class AppRouter {
       builder: (context) => const Scaffold(
         body: Center(child: Text('Ошибка навигации')),
       ),
+    );
+  }
+
+  Route<dynamic> _buildSplash() {
+    return MaterialPageRoute(
+      builder: (context) => const SplashScreen(),
     );
   }
 }

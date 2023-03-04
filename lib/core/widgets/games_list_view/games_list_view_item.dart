@@ -44,7 +44,7 @@ class GamesListViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.white,
-      borderRadius: AppDecProp.defaultBorderRadius,
+      borderRadius: AppDecorations.defaultBorderRadius,
       child: InkWell(
         onTap: onTap,
         child: Padding(

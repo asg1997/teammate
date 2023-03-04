@@ -19,7 +19,7 @@ class StepOneScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: AppDecProp.defaultPadding,
+          padding: AppDecorations.defaultPadding,
           child: Column(
             children: [
               BlocBuilder<CreateGameCubit, CreateGameState>(

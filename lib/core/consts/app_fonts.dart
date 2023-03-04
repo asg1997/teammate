@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'app_colors.dart';
+import 'package:teammate/core/consts/app_colors.dart';
 
 abstract class AppFonts {
   AppFonts._();
@@ -60,14 +60,18 @@ abstract class AppFonts {
     color: AppColors.main,
   );
 
+  static final regular14 = GoogleFonts.roboto(
+    fontSize: 14,
+    color: Colors.black,
+  );
+
   static final regular10 = GoogleFonts.roboto(
     fontSize: 10,
     color: AppColors.main,
   );
 
-  static final tfMedium14 = GoogleFonts.roboto(
+  static final medium14 = GoogleFonts.roboto(
     fontSize: 14,
-    color: Colors.white,
     fontWeight: FontWeight.w600,
   );
 

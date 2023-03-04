@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/widgets/app_button.dart';
-import 'package:teammate/presentation/auth/auth_screen/components/error_widget.dart';
+import 'package:teammate/presentation/auth/auth_screen/components/phone_tf.dart';
 import 'package:teammate/presentation/auth/auth_screen/cubit/auth_screen_cubit.dart';
-import 'package:teammate/presentation/auth/components/phone_tf.dart';
-
 import 'package:teammate/resources/resources.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -15,41 +13,73 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<AuthScreenCubit>();
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Padding(
-          padding: AppDecProp.defaultPadding,
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              // ТЕКСТ АВТОРИЗАЦИЯ
-              Text(
-                'Вход',
-                style: AppFonts.bold20,
-              ),
-              const SizedBox(height: 30),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: Padding(
+            padding: AppDecorations.defaultPadding,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                // ТЕКСТ АВТОРИЗАЦИЯ
+                Text(
+                  'Вход',
+                  style: AppFonts.bold20,
+                ),
+                const SizedBox(height: 30),
+                // ТЕЛЕФОН
+                PhoneTextField(
+                  onChanged: model.onPhoneChanged,
+                ),
 
-              PhoneTextFieldWidget(onChanged: model.onPhoneChanged),
-              const AuthErrorWidget(),
+                // ОШИБКА
+                BlocBuilder<AuthScreenCubit, AuthScreenState>(
+                  buildWhen: (previous, current) =>
+                      previous.loginErrorMsg != current.loginErrorMsg,
+                  builder: (context, state) {
+                    return Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            state.loginErrorMsg,
+                            style:
+                                AppFonts.medium14.copyWith(color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
 
-              const SizedBox(height: 71),
+                const SizedBox(height: 24),
 
-              // BUTTON LOG IN
-              AppButton(
-                title: 'Войти',
-                onTap: () => model.onOtpScreen(context),
-              ),
+                // BUTTON LOG IN
+                BlocBuilder<AuthScreenCubit, AuthScreenState>(
+                  buildWhen: (previous, current) =>
+                      previous.isRequestingCode != current.isRequestingCode,
+                  builder: (context, state) {
+                    return AppButton(
+                      isLoading: state.isRequestingCode,
+                      title: 'Войти',
+                      onTap: () => model.onAuthorizeTapped(context),
+                    );
+                  },
+                ),
 
-              const SizedBox(height: 30),
+                const SizedBox(height: 36),
 
-              Expanded(child: Container()),
-
-              // VK
-              _LogInVK(
-                onTap: () => model.onVkTapped(context),
-              )
-            ],
+                const Spacer(),
+                // VK
+                _LogInVK(
+                  onTap: () => model.onVkTapped(context),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -68,7 +98,7 @@ class _LogInVK extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(AppImages.vk),
-        const SizedBox(width: 18),
+        const SizedBox(width: 15),
         Material(
           color: Colors.transparent,
           clipBehavior: Clip.hardEdge,

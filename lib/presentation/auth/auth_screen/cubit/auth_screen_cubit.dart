@@ -1,13 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:teammate/core/exception/custom_exception.dart';
 
-import 'package:teammate/core/exception/firebase_auth_hadler.dart';
 import 'package:teammate/core/navigation/app_router.dart';
-import 'package:teammate/core/utils/base_status.dart';
+import 'package:teammate/core/teammate_app.dart';
 import 'package:teammate/domain/repos/auth_repo.dart';
 
 part 'auth_screen_state.dart';
@@ -19,69 +18,79 @@ class AuthScreenCubit extends Cubit<AuthScreenState> {
   String? _verificationId;
 
   void onPhoneChanged(String phone) {
-    emit(state.copyWith(phone: phone));
-  }
-
-  Future<void> onOtpScreen(BuildContext context) async {
-    if (state.phone.length != 10) {
-      emit(
-        state.copyWith(
-          status: BaseStatus.error,
-          errorMsg: 'Неправильно введен номер',
-        ),
-      );
-      return;
-    }
-
-    await authRepo.sendCode(
-      onError: (error) => Fluttertoast.showToast(msg: error),
-      onCompleted: () {
-        // авторизован или нет
-        authRepo.isNewUser
-            ? Navigator.of(context).pushNamed(
-                AppRoutes.registrationInfo,
-              )
-            : Navigator.of(context).pushNamedAndRemoveUntil(
-                AppRoutes.main,
-                (_) => false,
-              );
-      },
-      phone: '+7${state.phone}',
-      codeSend: (String verificationId, int? forceResendingToken) {
-        _verificationId = verificationId;
-        Navigator.of(context).pushNamed(AppRoutes.otpScreen);
-      },
+    emit(
+      state.copyWith(
+        phone: phone,
+        loginErrorMsg: '',
+      ),
     );
   }
 
-  Future<void> onPinPutCompleted(BuildContext context, String code) async {
+  Future<void> onAuthorizeTapped(BuildContext context) async {
+    if (state.phoneNoSymbols.length != 12) {
+      emit(state.copyWith(loginErrorMsg: 'Неправильно введен номер'));
+      return;
+    }
+    emit(state.copyWith(isRequestingCode: true));
+    try {
+      await authRepo.sendCode(
+        onError: (error) => Fluttertoast.showToast(msg: error),
+        onCompleted: () {
+          emit(state.copyWith(isRequestingCode: false));
+          // авторизован или нет
+          authRepo.isNewUser
+              ? navigatorKey.currentState?.pushNamed(
+                  AppRoutes.registrationInfo,
+                )
+              : navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                  AppRoutes.main,
+                  (_) => false,
+                );
+        },
+        phone: state.phoneNoSymbols,
+        codeSend: (String verificationId, int? forceResendingToken) {
+          emit(state.copyWith(isRequestingCode: false));
+          _verificationId = verificationId;
+          navigatorKey.currentState?.pushNamed(AppRoutes.otpScreen);
+        },
+      );
+      emit(state.copyWith(isRequestingCode: false));
+    } on CustomException catch (e) {
+      if (e.message != null) await Fluttertoast.showToast(msg: e.message!);
+      emit(state.copyWith(isRequestingCode: false));
+    }
+  }
+
+  Future<void> onPinPutCompleted(String code) async {
     try {
       if (_verificationId == null) return;
-
+      emit(state.copyWith(isCheckingCode: true));
       await authRepo.checkCode(
         code: code,
         verificationId: _verificationId!,
       );
 
-      // авторизован или нет
-      await authRepo.isNewUser
-          ? Navigator.of(context).pushNamedAndRemoveUntil(
+      authRepo.isNewUser
+          ? await navigatorKey.currentState?.pushNamedAndRemoveUntil(
               AppRoutes.registrationInfo,
-              (_) => false,
+              (route) => false,
             )
-          : Navigator.of(context).pushNamedAndRemoveUntil(
+          : await navigatorKey.currentState?.pushNamedAndRemoveUntil(
               AppRoutes.main,
-              (_) => false,
+              (route) => false,
             );
-    } on FirebaseAuthException catch (e) {
-      final localeMsg = FirebaseAuthExceptionHandler.generateMessage(e.message);
-      if (localeMsg == null) return;
-      emit(state.copyWith(errorMsg: localeMsg, status: BaseStatus.error));
+    } on CustomException catch (e) {
+      emit(
+        state.copyWith(
+          otpErrorMsg: e.message,
+          isCheckingCode: false,
+        ),
+      );
     }
   }
 
   void onVkTapped(BuildContext context) {
-    // Navigator.of(context).pushNamed(
+    // navigatorKey.currentState?.pushNamed(
     //   AppRoutes.searchGame,
     // );
   }

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:teammate/core/exception/custom_exception.dart';
+import 'package:teammate/core/exception/firebase_auth_hadler.dart';
 import 'package:teammate/core/session_data/session_data.dart';
 import 'package:teammate/core/session_data/session_data_service.dart';
 import 'package:teammate/domain/repos/auth_repo.dart';
@@ -32,10 +34,12 @@ class AuthRepoImpl implements AuthRepo {
 
         // когда код отправляется
         codeSent: codeSend,
-
         codeAutoRetrievalTimeout: (verificationId) {},
       );
-    } on FirebaseAuthException {}
+    } on FirebaseAuthException catch (e) {
+      final mess = FirebaseAuthExceptionHandler.generateMessage(e);
+      throw CustomException(message: mess);
+    }
   }
 
   @override
@@ -43,12 +47,17 @@ class AuthRepoImpl implements AuthRepo {
     required String code,
     required String verificationId,
   }) async {
-    await _signIn(
-      PhoneAuthProvider.credential(
-        verificationId: verificationId,
-        smsCode: code,
-      ),
-    );
+    try {
+      await _signIn(
+        PhoneAuthProvider.credential(
+          verificationId: verificationId,
+          smsCode: code,
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      final mess = FirebaseAuthExceptionHandler.generateMessage(e);
+      throw CustomException(message: mess);
+    }
   }
 
   @override

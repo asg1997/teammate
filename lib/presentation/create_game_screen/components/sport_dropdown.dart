@@ -12,7 +12,7 @@ class SportDropdownWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Вид спорта*', style: AppFonts.tfMedium14),
+        Text('Вид спорта*', style: AppFonts.medium14),
         const SizedBox(height: 10),
         DropdownSearch<String>(
           popupProps: PopupProps.menu(

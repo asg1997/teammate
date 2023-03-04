@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 
-import '../consts/app_colors.dart';
-
 class TextFieldWidget extends StatefulWidget {
-  const TextFieldWidget(
-      {Key? key,
-      this.initialText,
-      this.title,
-      this.onChanged,
-      this.textInputType = TextInputType.text,
-      this.isPassword = false,
-      this.hint})
-      : super(
-          key: key,
-        );
+  const TextFieldWidget({
+    super.key,
+    this.initialText,
+    this.title,
+    this.onChanged,
+    this.textInputType = TextInputType.text,
+    this.isPassword = false,
+    this.hint,
+  });
 
   final String? title;
   final String? hint;
 
   final bool isPassword;
   final TextInputType textInputType;
-  final Function(String)? onChanged;
+  final void Function(String)? onChanged;
   final String? initialText;
 
   @override
@@ -48,14 +45,15 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   void _setInitialValue() {
     if (widget.initialText == null) return;
     _textController!.value = TextEditingValue(
-        // начальное значение текста
-        text: widget.initialText!,
-        // перемещаем курсов в конец строки
-        selection: TextSelection.fromPosition(
-          TextPosition(
-            offset: widget.initialText!.length,
-          ),
-        ));
+      // начальное значение текста
+      text: widget.initialText!,
+      // перемещаем курсов в конец строки
+      selection: TextSelection.fromPosition(
+        TextPosition(
+          offset: widget.initialText!.length,
+        ),
+      ),
+    );
   }
 
   @override
@@ -90,28 +88,27 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         if (widget.title != null) ...[
           Text(
             widget.title!,
-            style: AppFonts.tfMedium14,
+            style: AppFonts.medium14,
           ),
           const SizedBox(height: 10),
         ],
         SizedBox(
-          height: 55,
-          width: double.infinity,
+          height: AppDecorations.textFieldHeight,
           child: TextField(
+            style: const TextStyle(),
             cursorColor: AppColors.main,
             controller: _textController,
             obscureText: widget.isPassword && isHidden,
-            textAlign: TextAlign.start,
             keyboardType: widget.textInputType,
             decoration: InputDecoration(
+              hintStyle: const TextStyle(color: Colors.grey),
               hintText: widget.hint,
               border: OutlineInputBorder(
-                borderRadius: AppDecProp.defaultBorderRadius,
+                borderRadius: AppDecorations.defaultBorderRadius,
                 borderSide: BorderSide.none,
               ),
+              contentPadding: const EdgeInsets.only(left: 16),
               filled: true,
-              contentPadding:
-                  const EdgeInsets.only(left: 16, top: 20, bottom: 20),
               fillColor: Colors.white,
             ),
           ),

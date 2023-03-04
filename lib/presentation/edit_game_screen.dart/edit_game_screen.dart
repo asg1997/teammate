@@ -14,7 +14,7 @@ class EditGameScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: AppDecProp.defaultPadding,
+          padding: AppDecorations.defaultPadding,
           child: Column(
             children: [
               const MainAppBarWidget(title: 'Редактирование игры'),

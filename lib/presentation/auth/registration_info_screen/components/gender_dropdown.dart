@@ -21,7 +21,7 @@ class _GenderDropdownWidgetState extends State<GenderDropdownWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Пол*', style: AppFonts.tfMedium14),
+        Text('Пол*', style: AppFonts.medium14),
         const SizedBox(height: 10),
         DropdownButton2(
           items: items

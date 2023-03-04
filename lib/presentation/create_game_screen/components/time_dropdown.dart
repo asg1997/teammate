@@ -17,19 +17,20 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
-        context: context,
-        builder: (BuildContext context) => Container(
-              height: 216,
-              padding: const EdgeInsets.only(top: 6.0),
-              margin: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,
-              ),
-              color: CupertinoColors.systemBackground.resolveFrom(context),
-              child: SafeArea(
-                top: false,
-                child: child,
-              ),
-            ));
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
   }
 
   @override
@@ -41,21 +42,22 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         children: [
           Text(
             widget.text,
-            style: AppFonts.tfMedium14,
+            style: AppFonts.medium14,
           ),
           const SizedBox(height: 10),
           Container(
             height: 55,
             width: double.infinity,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.white),
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+            ),
             child: CupertinoButton(
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.only(left: 16),
               onPressed: () => _showDialog(
                 CupertinoDatePicker(
                   initialDateTime: choosenTime,
-                  mode: CupertinoDatePickerMode.dateAndTime,
                   use24hFormat: true,
                   onDateTimeChanged: (DateTime newTime) {
                     setState(() => choosenTime = newTime);
@@ -66,7 +68,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   ? Text(
                       DateFormat('dd MMMM, hh:mm, EEEE', 'ru')
                           .format(choosenTime!),
-                      style: AppFonts.regular15.copyWith(color: Colors.black))
+                      style: AppFonts.regular15.copyWith(color: Colors.black),
+                    )
                   : Container(),
             ),
           ),

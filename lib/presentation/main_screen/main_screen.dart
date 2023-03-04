@@ -102,7 +102,7 @@ class _GamesListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.read<MainScreenModel>();
     return Padding(
-      padding: AppDecProp.defaultPadding,
+      padding: AppDecorations.defaultPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -134,7 +134,7 @@ class SportFloatingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: AppDecProp.defaultBorderRadius,
+        borderRadius: AppDecorations.defaultBorderRadius,
         color: AppColors.secondaryBg,
       ),
       padding: const EdgeInsets.all(20),

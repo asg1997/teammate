@@ -11,7 +11,7 @@ class PlayersListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: AppDecProp.defaultBorderRadius,
+        borderRadius: AppDecorations.defaultBorderRadius,
         color: Colors.white,
       ),
       child: players.isEmpty

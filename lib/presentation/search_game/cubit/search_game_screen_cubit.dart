@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/navigation/app_router.dart';
+import 'package:teammate/core/teammate_app.dart';
 import 'package:teammate/core/utils/base_status.dart';
 import 'package:teammate/data/repos/search_games_repo.dart';
 import 'package:teammate/domain/entities/game.dart';
@@ -47,7 +48,7 @@ class SearchGameScreenCubit extends Cubit<SearchGameScreenState> {
   }
 
   void onGameTapped(BuildContext context, Game game) {
-    Navigator.of(context).pushNamed(
+    navigatorKey.currentState?.pushNamed(
       AppRoutes.gameInfo,
       arguments: game,
     );

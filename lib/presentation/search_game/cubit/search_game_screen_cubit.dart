@@ -26,7 +26,7 @@ class SearchGameScreenCubit extends Cubit<SearchGameScreenState> {
 
   Future<void> load() async {
     final user = await _profileRepo.getUserInfo();
-    final games = await _searchRepo.getGames(SearchGameParams(city: user.city));
+    final games = await _searchRepo.getGames();
     emit(state.copyWith(games: games, status: BaseStatus.loaded));
   }
 
@@ -38,8 +38,7 @@ class SearchGameScreenCubit extends Cubit<SearchGameScreenState> {
     _seachDebounce = Timer(const Duration(seconds: 1), () async {
       try {
         emit(state.copyWith(status: BaseStatus.loading));
-        final games =
-            await _searchRepo.getGames(SearchGameParams(title: value));
+        final games = await _searchRepo.getGames();
         emit(state.copyWith(status: BaseStatus.loaded, games: games));
       } catch (e) {
         emit(state.copyWith(status: BaseStatus.error));

@@ -7,13 +7,13 @@ class SettingsScreenState extends Equatable {
     required this.status,
   });
 
-  factory SettingsScreenState.initial() => const SettingsScreenState(
+  factory SettingsScreenState.initial() => SettingsScreenState(
         nickname: '',
-        city: '',
+        city: City(name: '', region: ''),
         status: BaseStatus.loading,
       );
   final String nickname;
-  final String city;
+  final City city;
   final BaseStatus status;
 
   @override
@@ -21,7 +21,7 @@ class SettingsScreenState extends Equatable {
 
   SettingsScreenState copyWith({
     String? nickname,
-    String? city,
+    City? city,
     BaseStatus? status,
   }) {
     return SettingsScreenState(

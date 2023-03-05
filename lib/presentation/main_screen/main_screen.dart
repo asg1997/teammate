@@ -127,7 +127,10 @@ class _GamesListView extends StatelessWidget {
 }
 
 class SportFloatingWidget extends StatelessWidget {
-  const SportFloatingWidget({super.key, required this.onSportSelected});
+  const SportFloatingWidget({
+    required this.onSportSelected,
+    super.key,
+  });
   final void Function(Sport value) onSportSelected;
 
   @override

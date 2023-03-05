@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
@@ -11,12 +12,14 @@ class TextFieldWidget extends StatefulWidget {
     this.onChanged,
     this.textInputType = TextInputType.text,
     this.isPassword = false,
+    this.denyRules,
     this.hint,
   });
 
   final String? title;
   final String? hint;
 
+  final RegExp? denyRules;
   final bool isPassword;
   final TextInputType textInputType;
   final void Function(String)? onChanged;
@@ -95,6 +98,11 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         SizedBox(
           height: AppDecorations.textFieldHeight,
           child: TextField(
+            inputFormatters: [
+              if (widget.denyRules != null) ...[
+                FilteringTextInputFormatter.deny(widget.denyRules!)
+              ]
+            ],
             style: const TextStyle(),
             cursorColor: AppColors.main,
             controller: _textController,

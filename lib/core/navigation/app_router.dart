@@ -108,7 +108,7 @@ class AppRouter {
     return MaterialPageRoute(
       builder: (context) => BlocProvider<RegistrationInfoScreenCubit>(
         lazy: false,
-        create: (_) => RegistrationInfoScreenCubit(registrationInfoRepo: sl()),
+        create: (_) => RegistrationInfoScreenCubit(registrationRepo: sl()),
         child: const RegistrationInfoScreen(),
       ),
     );

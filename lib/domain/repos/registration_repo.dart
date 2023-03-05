@@ -1,8 +1,7 @@
+import 'package:teammate/domain/entities/city.dart';
+
 abstract class RegistrationRepo {
   Future<bool> get isRegistered;
-
-  Future<void> register({
-    required String nick,
-    required String city,
-  });
+  Future<bool> isNickAvalible(String nick);
+  Future<void> register({required String nick, required City city});
 }

@@ -5,5 +5,5 @@ abstract class AppDecorations {
   static const textFieldHeight = 45.0;
   static final defaultBorderRadius = BorderRadius.circular(4);
   static const defaultPadding =
-      EdgeInsets.symmetric(horizontal: 16, vertical: 20);
+      EdgeInsets.only(left: 16, right: 16, bottom: 20);
 }

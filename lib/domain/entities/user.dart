@@ -1,31 +1,30 @@
+import 'package:teammate/domain/entities/city.dart';
+
 class User {
   const User({
-    required this.phone,
     required this.nickname,
     required this.city,
-    required this.uuid,
+    required this.id,
   });
   // получаем данные с сервера
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      phone: json['phone'] as String? ?? '',
-      nickname: json['nickname'] as String? ?? '',
-      city: json['city'] as String? ?? '',
-      uuid: json['uuid'] as String? ?? '',
+      nickname: json['nickname'] as String,
+      city: City.fromJson(json['city'] as Map<String, dynamic>),
+      id: json['id'] as String,
     );
   }
-  final String phone;
+
   final String nickname;
-  final String city;
-  final String uuid;
+  final City city;
+  final String id;
 
   // на сервер
   Map<String, dynamic> toJson() {
     return {
-      'phone': phone,
       'nickname': nickname,
-      'city': city,
-      'uuid': uuid,
+      'city': city.toJson(),
+      'id': id,
     };
   }
 }

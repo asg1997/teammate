@@ -4,7 +4,7 @@ import 'package:teammate/domain/entities/sport.dart';
 
 class SearchGamesRepoImpl implements SearchGamesRepo {
   @override
-  Future<List<Game>> getGames(SearchGameParams searchParams) async {
+  Future<List<Game>> getGames() async {
     final now = DateTime.now();
     return [
       Game(

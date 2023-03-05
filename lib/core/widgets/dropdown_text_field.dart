@@ -1,96 +1,142 @@
 import 'package:flutter/material.dart';
+import 'package:teammate/domain/entities/city.dart';
 
-class CitySearch extends StatefulWidget {
-  const CitySearch({
-    required this.cities,
+class CitiesSearchTextField extends StatefulWidget {
+  const CitiesSearchTextField({
+    required this.items,
     required this.onChanged,
     super.key,
   });
-  final List<String> cities;
-  final ValueChanged<String> onChanged;
+
+  final List<City> items;
+  final ValueChanged<City> onChanged;
 
   @override
-  _CitySearchState createState() => _CitySearchState();
+  _CitiesSearchTextFieldState createState() => _CitiesSearchTextFieldState();
 }
 
-class _CitySearchState extends State<CitySearch> {
+class _CitiesSearchTextFieldState extends State<CitiesSearchTextField> {
   final TextEditingController _controller = TextEditingController();
-  bool isExpanded = false;
-  String searchText = '';
-  late List<String> filteredCities;
+  String _searchText = '';
+  List<City> _filteredItems = [];
+  OverlayEntry? _overlayEntry;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    filteredCities = widget.cities;
+    _filteredItems = widget.items;
+    _focusNode.addListener(_onFocusChanged);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focusNode
+      ..removeListener(_onFocusChanged)
+      ..dispose();
+    super.dispose();
   }
 
   void _onSearchTextChanged(String value) {
     setState(() {
-      searchText = value;
-      isExpanded = true;
-      filteredCities = widget.cities
-          .where(
-            (city) => city.toLowerCase().contains(searchText.toLowerCase()),
-          )
-          .toList();
+      _searchText = value;
+      _filteredItems = widget.items.where((city) {
+        final name = city.name.toLowerCase();
+        return name.startsWith(value.toLowerCase());
+      }).toList();
+      _removeOverlay();
+      _createOverlay();
     });
+  }
+
+  void _onFocusChanged() {
+    if (!_focusNode.hasFocus) {
+      _removeOverlay();
+    }
+  }
+
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  void _createOverlay() {
+    if (_overlayEntry != null) {
+      _removeOverlay();
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final overlay = Overlay.of(context);
+      final box = context.findRenderObject() as RenderBox?;
+      if (box == null) return;
+      final offset = box.localToGlobal(Offset.zero);
+      _overlayEntry = OverlayEntry(
+        builder: (context) => Positioned(
+          left: offset.dx,
+          width: box.size.width,
+          top: offset.dy + box.size.height + 10,
+          height: 200,
+          child: _buildListView(),
+        ),
+      );
+      overlay.insert(_overlayEntry!);
+    });
+  }
+
+  Widget _buildListView() {
+    return Material(
+      child: ListView.builder(
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        itemCount: _filteredItems.length,
+        itemBuilder: (_, index) {
+          final city = _filteredItems[index];
+          return SizedBox(
+            height: 50,
+            child: ListTile(
+              title: Text(city.name),
+              subtitle: Text(city.region),
+              tileColor: Colors.white,
+              onTap: () {
+                setState(() {
+                  _searchText = city.name;
+                  _filteredItems = widget.items;
+                  _controller.text = city.name;
+                  widget.onChanged(city);
+                  _controller.selection = TextSelection.fromPosition(
+                    TextPosition(offset: _controller.text.length),
+                  );
+                  _removeOverlay();
+                });
+              },
+            ),
+          );
+        },
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        TextField(
-          controller: _controller,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            hintText: 'Search for a city',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
-              borderSide: BorderSide.none,
-            ),
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-          ),
-          onChanged: _onSearchTextChanged,
+    return TextField(
+      controller: _controller,
+      focusNode: _focusNode,
+      onTap: _createOverlay,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        hintText: 'Выберите город',
+        hintStyle: const TextStyle(
+          color: Colors.grey,
         ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(4),
-            color: Colors.white,
-          ),
-          child: isExpanded && searchText.isNotEmpty
-              ? ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: filteredCities.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final city = filteredCities[index];
-                    return ListTile(
-                      title: Text(city),
-                      onTap: () {
-                        setState(() {
-                          searchText = city;
-                          filteredCities = widget.cities;
-                          isExpanded = false;
-                        });
-                        _controller
-                          ..text = city
-                          ..selection = TextSelection.fromPosition(
-                            TextPosition(offset: _controller.text.length),
-                          );
-                        widget.onChanged(city);
-                      },
-                    );
-                  },
-                )
-              : Container(),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: BorderSide.none,
         ),
-      ],
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      ),
+      onChanged: _onSearchTextChanged,
     );
   }
 }

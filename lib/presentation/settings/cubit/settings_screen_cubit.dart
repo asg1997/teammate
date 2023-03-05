@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/utils/base_status.dart';
+import 'package:teammate/domain/entities/city.dart';
 
 import 'package:teammate/domain/repos/settings_repo.dart';
 
@@ -21,7 +22,7 @@ class SettingsScreenCubit extends Cubit<SettingsScreenState> {
       state.copyWith(
         status: BaseStatus.loaded,
         nickname: user.nickname,
-        city: user.city,
+        city: City(name: '', region: ''),
       ),
     );
   }
@@ -31,7 +32,7 @@ class SettingsScreenCubit extends Cubit<SettingsScreenState> {
   }
 
   void onCityChanged(String city) {
-    emit(state.copyWith(city: city));
+    emit(state.copyWith(city: City(name: 'name', region: 'region')));
   }
 
   void onSaveTapped(BuildContext context) {

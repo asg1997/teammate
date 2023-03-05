@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
-import 'package:teammate/domain/entities/game.dart';
+import 'package:teammate/domain/entities/game/game.dart';
+
 import 'package:teammate/domain/entities/sport.dart';
 import 'package:teammate/resources/resources.dart';
 
@@ -18,7 +19,7 @@ class GamesListViewItem extends StatelessWidget {
 
   String _getDay() {
     final now = DateTime.now();
-    final date = game.dateTime;
+    final date = game.gameInfo.dateTime;
     final difference = DateTime(now.year, now.month, now.day)
         .difference(
           DateTime(date.year, date.month, date.day),
@@ -36,7 +37,7 @@ class GamesListViewItem extends StatelessWidget {
   }
 
   String _getTime() {
-    final date = game.dateTime;
+    final date = game.gameInfo.dateTime;
     return DateFormat('hh:mm').format(date);
   }
 
@@ -53,24 +54,24 @@ class GamesListViewItem extends StatelessWidget {
             children: [
               // ИКОНКА
               _SportIcon(
-                sport: game.sport,
+                sport: game.gameInfo.sport,
               ),
               const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    game.name,
+                    game.gameInfo.name,
                     style: AppFonts.bodyLarge,
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Город: ${game.city}',
+                    'Город: ${game.gameInfo.city}',
                     style: AppFonts.bodySmall,
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Место: ${game.location}',
+                    'Место: ${game.gameInfo.location}',
                     style: AppFonts.bodySmall,
                   )
                 ],

@@ -1,9 +1,12 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+@JsonEnum()
 enum Sport {
   football,
   volleyball,
   basketball;
 
-  String name() {
+  String get localized {
     switch (this) {
       case Sport.football:
         return 'Футбол';

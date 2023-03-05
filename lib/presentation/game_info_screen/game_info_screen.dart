@@ -46,7 +46,7 @@ class GameInfoScreen extends StatelessWidget {
               const SizedBox(height: 5),
 
               Text(
-                model.game.sport.name(),
+                model.game.gameInfo.sport.localized,
                 style: AppFonts.bodyLarge.copyWith(
                   color: Colors.white,
                 ),
@@ -63,7 +63,7 @@ class GameInfoScreen extends StatelessWidget {
               const SizedBox(height: 5),
 
               Text(
-                model.game.city,
+                model.game.gameInfo.city.name,
                 style: AppFonts.bodyLarge.copyWith(
                   color: Colors.white,
                 ),
@@ -80,7 +80,7 @@ class GameInfoScreen extends StatelessWidget {
               const SizedBox(height: 5),
 
               Text(
-                model.game.location,
+                model.game.gameInfo.location,
                 style: AppFonts.bodyLarge.copyWith(
                   color: Colors.white,
                 ),

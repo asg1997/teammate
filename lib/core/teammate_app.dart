@@ -7,7 +7,7 @@ import 'package:teammate/core/injection_container.dart';
 import 'package:teammate/core/navigation/app_router.dart';
 import 'package:teammate/presentation/auth/auth_provider.dart';
 import 'package:teammate/presentation/auth/auth_screen/cubit/auth_screen_cubit.dart';
-import 'package:teammate/presentation/create_game_screen/cubit/create_game_cubit.dart';
+import 'package:teammate/presentation/create_game/cubit/create_game_cubit.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -20,7 +20,7 @@ class TeammateApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => CreateGameCubit(
-            gamesRepo: sl(),
+            gameRepo: sl(),
           ),
         ),
         BlocProvider(

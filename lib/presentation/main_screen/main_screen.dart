@@ -6,9 +6,9 @@ import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/widgets/custom_navigation_tab_bar_widget.dart';
 import 'package:teammate/core/widgets/games_list_view/games_list_view.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
-import 'package:teammate/domain/entities/game.dart';
+import 'package:teammate/domain/entities/game/game.dart';
 import 'package:teammate/domain/entities/sport.dart';
-import 'package:teammate/presentation/create_game_screen/cubit/create_game_cubit.dart';
+import 'package:teammate/presentation/create_game/cubit/create_game_cubit.dart';
 import 'package:teammate/presentation/main_screen/model.dart';
 
 import 'package:teammate/resources/resources.dart';
@@ -155,7 +155,7 @@ class SportFloatingWidget extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    Sport.values[index].name(),
+                    Sport.values[index].localized,
                     style: AppFonts.bodyLarge.copyWith(color: Colors.white),
                   ),
                 ),

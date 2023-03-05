@@ -4,9 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 
 class DatePickerWidget extends StatefulWidget {
-  const DatePickerWidget({super.key, required this.text});
-
-  final String text;
+  const DatePickerWidget({
+    required this.onChanged,
+    super.key,
+  });
+  final void Function(DateTime value) onChanged;
+  // final String text;
 
   @override
   State<DatePickerWidget> createState() => _DatePickerWidgetState();
@@ -18,7 +21,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
       context: context,
-      builder: (BuildContext context) => Container(
+      builder: (_) => Container(
         height: 216,
         padding: const EdgeInsets.only(top: 6),
         margin: EdgeInsets.only(
@@ -40,11 +43,11 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.text,
-            style: AppFonts.medium14,
-          ),
-          const SizedBox(height: 10),
+          // Text(
+          //   widget.text,
+          //   style: AppFonts.medium14,
+          // ),
+          // const SizedBox(height: 10),
           Container(
             height: 55,
             width: double.infinity,
@@ -61,6 +64,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   use24hFormat: true,
                   onDateTimeChanged: (DateTime newTime) {
                     setState(() => choosenTime = newTime);
+                    widget.onChanged(choosenTime!);
                   },
                 ),
               ),

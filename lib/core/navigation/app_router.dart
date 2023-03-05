@@ -2,20 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:teammate/core/injection_container.dart';
-import 'package:teammate/domain/entities/game.dart';
+import 'package:teammate/domain/entities/game/game.dart';
 import 'package:teammate/presentation/auth/auth_screen/auth_screen.dart';
 import 'package:teammate/presentation/auth/otp_screen/otp_screen.dart';
 import 'package:teammate/presentation/auth/registration_info_screen/cubit/registration_info_screen_cubit.dart';
 import 'package:teammate/presentation/auth/registration_info_screen/registration_info.dart';
-
-import 'package:teammate/presentation/create_game_screen/step_one_screen.dart';
-import 'package:teammate/presentation/create_game_screen/step_three_screen.dart';
-import 'package:teammate/presentation/create_game_screen/step_two_screen.dart';
-import 'package:teammate/presentation/edit_game_screen.dart/edit_game_screen.dart';
-
+import 'package:teammate/presentation/create_game/create_game.dart';
+import 'package:teammate/presentation/edit_game/edit_game_screen.dart';
 import 'package:teammate/presentation/game_info_screen/game_info_screen.dart';
 import 'package:teammate/presentation/game_info_screen/model.dart';
-
 import 'package:teammate/presentation/main_screen/main_screen.dart';
 import 'package:teammate/presentation/main_screen/model.dart';
 import 'package:teammate/presentation/search_game/cubit/search_game_screen_cubit.dart';
@@ -33,12 +28,10 @@ class AppRoutes {
   static const registrationInfo = 'registrationInfo';
   static const vkAuth = 'vkAuth';
   static const main = 'main';
-  static const stepOne = 'stepOne';
-  static const stepTwo = 'stepTwo';
-  static const stepThree = 'stepThree';
   static const searchGame = 'searchGame';
   static const gameInfo = 'gameInfo';
   static const settings = 'settings';
+  static const createGame = 'createGame';
   static const editGame = 'editGame';
   static const splash = 'splash';
 }
@@ -64,17 +57,10 @@ class AppRouter {
       case AppRoutes.main:
         return _buildMainScreen();
       // ШАГ ОДИН
-      case AppRoutes.stepOne:
-        return _buildStepOneScreen(routeSettings);
-      // ШАГ ДВА
-      case AppRoutes.stepTwo:
-        return _buildStepTwoScreen(routeSettings);
-      // ШАГ ТРИ
-      case AppRoutes.stepThree:
-        return _buildStepThreeScreen(routeSettings);
+      case AppRoutes.createGame:
+        return _buildCreateGame(routeSettings);
+
       // НАСТРОЙКИ
-      case AppRoutes.settings:
-        return _buildSettingsScreen();
       // ИНФА ОБ ИГРЕ
       case AppRoutes.gameInfo:
         return _buildGameInfoScreen(routeSettings);
@@ -124,23 +110,23 @@ class AppRouter {
     );
   }
 
-  Route<dynamic> _buildStepOneScreen(RouteSettings routeSettings) {
+  Route<dynamic> _buildCreateGame(RouteSettings routeSettings) {
     return MaterialPageRoute(
-      builder: (context) => const StepOneScreen(),
+      builder: (context) => const CreateGameScreen(),
     );
   }
 
-  Route<dynamic> _buildStepTwoScreen(RouteSettings routeSettings) {
-    return MaterialPageRoute(
-      builder: (context) => const StepTwoScreen(),
-    );
-  }
+  // Route<dynamic> _buildStepTwoScreen(RouteSettings routeSettings) {
+  //   return MaterialPageRoute(
+  //     builder: (context) => const StepTwoScreen(),
+  //   );
+  // }
 
-  Route<dynamic> _buildStepThreeScreen(RouteSettings routeSettings) {
-    return MaterialPageRoute(
-      builder: (context) => const StepThreeScreen(),
-    );
-  }
+  // Route<dynamic> _buildStepThreeScreen(RouteSettings routeSettings) {
+  //   return MaterialPageRoute(
+  //     builder: (context) => const StepThreeScreen(),
+  //   );
+  // }
 
   Route<dynamic> _buildGameInfoScreen(RouteSettings routeSettings) {
     final game = routeSettings.arguments as Game;

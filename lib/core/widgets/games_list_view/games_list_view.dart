@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teammate/core/widgets/games_list_view/games_list_view_item.dart';
-import 'package:teammate/domain/entities/game.dart';
+
+import 'package:teammate/domain/entities/game/game.dart';
 
 class GamesListView extends StatelessWidget {
   const GamesListView({

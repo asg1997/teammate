@@ -19,6 +19,7 @@ class MainAppBarWidget extends StatelessWidget with PreferredSizeWidget {
     return SafeArea(
       bottom: false,
       child: Stack(
+        alignment: Alignment.center,
         children: [
           if (hasBackButton) ...[
             const Align(

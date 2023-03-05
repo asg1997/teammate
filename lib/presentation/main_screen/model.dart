@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:teammate/core/navigation/app_router.dart';
 import 'package:teammate/core/teammate_app.dart';
-import 'package:teammate/domain/entities/game.dart';
+import 'package:teammate/domain/entities/game/game.dart';
 import 'package:teammate/domain/repos/games_repo.dart';
 
 class MainScreenModel extends ChangeNotifier {
@@ -42,7 +42,7 @@ class MainScreenModel extends ChangeNotifier {
 
   Future<void> onAddGameButtonTapped(BuildContext context) async {
     await navigatorKey.currentState?.pushNamed(
-      AppRoutes.stepOne,
+      AppRoutes.createGame,
     );
     await _getGames();
   }

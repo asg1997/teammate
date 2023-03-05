@@ -1,4 +1,4 @@
-import 'package:teammate/domain/entities/game.dart';
+import 'package:teammate/domain/entities/game/game.dart';
 import 'package:teammate/domain/entities/user.dart';
 
 abstract class GamesRepo {

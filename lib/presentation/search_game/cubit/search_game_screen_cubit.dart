@@ -7,7 +7,8 @@ import 'package:teammate/core/navigation/app_router.dart';
 import 'package:teammate/core/teammate_app.dart';
 import 'package:teammate/core/utils/base_status.dart';
 import 'package:teammate/data/repos/search_games_repo.dart';
-import 'package:teammate/domain/entities/game.dart';
+import 'package:teammate/domain/entities/game/game.dart';
+
 import 'package:teammate/domain/repos/profile_repo.dart';
 
 part 'search_game_screen_state.dart';

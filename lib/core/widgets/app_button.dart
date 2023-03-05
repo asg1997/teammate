@@ -7,22 +7,28 @@ class AppButton extends StatelessWidget {
     required this.title,
     required this.onTap,
     this.isLoading = false,
+    this.color,
+    this.height = 50,
+    this.width = 220,
     super.key,
   });
 
   final String title;
   final VoidCallback onTap;
   final bool isLoading;
+  final double width;
+  final double height;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
-      width: 220,
+      height: height,
+      width: width,
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.main,
+          backgroundColor: color ?? AppColors.main,
           textStyle: const TextStyle(fontSize: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),

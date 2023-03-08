@@ -9,8 +9,8 @@ import 'package:teammate/presentation/auth/registration_info_screen/cubit/regist
 import 'package:teammate/presentation/auth/registration_info_screen/registration_info.dart';
 import 'package:teammate/presentation/create_game/create_game.dart';
 import 'package:teammate/presentation/edit_game/edit_game_screen.dart';
-import 'package:teammate/presentation/game_info_screen/game_info_screen.dart';
-import 'package:teammate/presentation/game_info_screen/model.dart';
+import 'package:teammate/presentation/game_info/game_info_screen.dart';
+import 'package:teammate/presentation/game_info/model.dart';
 import 'package:teammate/presentation/main_screen/main_screen.dart';
 import 'package:teammate/presentation/main_screen/model.dart';
 import 'package:teammate/presentation/search_game/cubit/search_game_screen_cubit.dart';

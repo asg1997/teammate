@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:teammate/core/injection_container.dart';
 import 'package:teammate/domain/entities/game/game.dart';
+import 'package:teammate/domain/entities/sport.dart';
 import 'package:teammate/presentation/auth/auth_screen/auth_screen.dart';
 import 'package:teammate/presentation/auth/otp_screen/otp_screen.dart';
 import 'package:teammate/presentation/auth/registration_info_screen/cubit/registration_info_screen_cubit.dart';
 import 'package:teammate/presentation/auth/registration_info_screen/registration_info.dart';
 import 'package:teammate/presentation/create_game/create_game.dart';
+import 'package:teammate/presentation/create_game/cubit/create_game_cubit.dart';
 import 'package:teammate/presentation/edit_game/edit_game_screen.dart';
 import 'package:teammate/presentation/game_info/game_info_screen.dart';
 import 'package:teammate/presentation/game_info/model.dart';
@@ -111,8 +113,15 @@ class AppRouter {
   }
 
   Route<dynamic> _buildCreateGame(RouteSettings routeSettings) {
+    final sport = routeSettings.arguments as Sport;
     return MaterialPageRoute(
-      builder: (context) => const CreateGameScreen(),
+      builder: (context) => BlocProvider(
+        create: (context) => CreateGameCubit(
+          sport: sport,
+          gameRepo: sl(),
+        ),
+        child: const CreateGameScreen(),
+      ),
     );
   }
 

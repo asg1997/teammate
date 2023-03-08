@@ -14,7 +14,9 @@ class GameRepoImpl implements GameRepo {
   @override
   Future<Game> createGame(GameInfo gameInfo) async {
     final creatorId = SessionDataService.sessionData?.id;
+
     if (creatorId == null) throw Exception('no user id');
+
     final id = const Uuid().v1();
     final game = Game(
       gameInfo: gameInfo,

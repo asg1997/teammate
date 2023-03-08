@@ -8,7 +8,6 @@ import 'package:teammate/presentation/game_info/model.dart';
 
 class GameInfoScreen extends StatelessWidget {
   const GameInfoScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final model = context.read<GameInfoScreenModel>();
@@ -19,7 +18,7 @@ class GameInfoScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text(
-          'model.game.name',
+          model.game.gameInfo.name,
           style: AppFonts.titleLarge,
         ),
         actions: [
@@ -96,7 +95,7 @@ class GameInfoScreen extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                '_dateTimeStr(model.game.dateTime)',
+                model.gameDateStr,
                 style: AppFonts.bodyLarge.copyWith(
                   color: Colors.white,
                 ),

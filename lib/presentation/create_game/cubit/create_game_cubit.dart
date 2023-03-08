@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:teammate/core/navigation/app_router.dart';
+import 'package:teammate/core/session_data/session_data_service.dart';
 import 'package:teammate/core/teammate_app.dart';
 import 'package:teammate/domain/entities/city.dart';
 import 'package:teammate/domain/entities/game_info/game_info.dart';
@@ -14,8 +15,9 @@ part 'create_game_cubit.freezed.dart';
 class CreateGameCubit extends Cubit<CreateGameState> {
   CreateGameCubit({
     required this.gameRepo,
+    required this.sport,
   }) : super(CreateGameState.initial());
-
+  final Sport sport;
   final GameRepo gameRepo;
 
   void onSaveGameTapped(BuildContext context) {
@@ -78,12 +80,14 @@ class CreateGameCubit extends Cubit<CreateGameState> {
   Future<void> _createGame() async {
     emit(state.copyWith(isCreatingGame: true));
     try {
+      final city = SessionDataService.sessionData?.city;
+      if (city == null) return;
       final gameInfo = GameInfo(
+        city: city,
+        sport: sport,
         name: state.name,
         location: state.locationName,
-        city: state.city,
         dateTime: state.dateTime,
-        sport: state.sport,
       );
       final game = await gameRepo.createGame(gameInfo);
       await navigatorKey.currentState?.popAndPushNamed(

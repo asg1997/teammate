@@ -8,7 +8,6 @@ import 'package:teammate/core/widgets/games_list_view/games_list_view.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/domain/entities/game/game.dart';
 import 'package:teammate/domain/entities/sport.dart';
-import 'package:teammate/presentation/create_game/cubit/create_game_cubit.dart';
 import 'package:teammate/presentation/main_screen/model.dart';
 
 import 'package:teammate/resources/resources.dart';
@@ -57,8 +56,7 @@ class MainScreen extends StatelessWidget {
         bottomNavigationBar: CustomNavigationTabBarWidget(
           onCreateGameTapped: () {
             _showSportOverlay(context, (sport) {
-              context.read<CreateGameCubit>().onSportChanged(sport);
-              model.onAddGameButtonTapped(context);
+              model.onAddGameButtonTapped(sport);
               _removeOverlay();
             });
           },

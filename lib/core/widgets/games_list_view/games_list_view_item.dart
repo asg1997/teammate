@@ -6,6 +6,7 @@ import 'package:teammate/domain/entities/game/game.dart';
 
 import 'package:teammate/domain/entities/sport.dart';
 import 'package:teammate/resources/resources.dart';
+import 'package:teammate/services/daytime_to_day.dart';
 
 class GamesListViewItem extends StatelessWidget {
   const GamesListViewItem({
@@ -17,29 +18,8 @@ class GamesListViewItem extends StatelessWidget {
   final VoidCallback onTap;
   final Game game;
 
-  String _getDay() {
-    final now = DateTime.now();
-    final date = game.gameInfo.dateTime;
-    final difference = DateTime(now.year, now.month, now.day)
-        .difference(
-          DateTime(date.year, date.month, date.day),
-        )
-        .inDays;
-    if (difference == 0) {
-      return 'Сегодня';
-    } else if (difference == -1) {
-      return 'Вчера';
-    } else if (difference == 1) {
-      return 'Завтра';
-    }
-
-    return DateFormat('dd MMMM', 'ru, RU').format(date);
-  }
-
-  String _getTime() {
-    final date = game.gameInfo.dateTime;
-    return DateFormat('hh:mm').format(date);
-  }
+  String _getDay() => dateTimeToDay(game.gameInfo.dateTime);
+  String _getTime() => DateFormat('hh:mm').format(game.gameInfo.dateTime);
 
   @override
   Widget build(BuildContext context) {
@@ -57,26 +37,28 @@ class GamesListViewItem extends StatelessWidget {
                 sport: game.gameInfo.sport,
               ),
               const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    game.gameInfo.name,
-                    style: AppFonts.bodyLarge,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Город: ${game.gameInfo.city}',
-                    style: AppFonts.bodySmall,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Место: ${game.gameInfo.location}',
-                    style: AppFonts.bodySmall,
-                  )
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      game.gameInfo.name,
+                      style: AppFonts.bodyLarge,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Город: ${game.gameInfo.city.name}',
+                      style: AppFonts.bodySmall,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Место: ${game.gameInfo.location}',
+                      style: AppFonts.bodySmall,
+                    )
+                  ],
+                ),
               ),
-              Expanded(child: Container()),
+
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [

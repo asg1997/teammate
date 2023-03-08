@@ -3,7 +3,7 @@ class City {
 
   factory City.fromJson(Map<String, dynamic> json) {
     return City(
-      name: json['city'] as String,
+      name: json['name'] as String,
       region: json['region'] as String,
     );
   }

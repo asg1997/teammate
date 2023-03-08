@@ -8,13 +8,19 @@ import 'package:teammate/core/exception/custom_exception.dart';
 import 'package:teammate/core/navigation/app_router.dart';
 import 'package:teammate/core/teammate_app.dart';
 import 'package:teammate/domain/repos/auth_repo.dart';
+import 'package:teammate/domain/repos/registration_repo.dart';
 
 part 'auth_screen_state.dart';
 
 class AuthScreenCubit extends Cubit<AuthScreenState> {
-  AuthScreenCubit({required this.authRepo}) : super(AuthScreenState.initial());
+  AuthScreenCubit({
+    required this.authRepo,
+    required this.registrationRepo,
+  }) : super(AuthScreenState.initial());
 
   final AuthRepo authRepo;
+  final RegistrationRepo registrationRepo;
+
   String? _verificationId;
 
   void onPhoneChanged(String phone) {
@@ -70,15 +76,18 @@ class AuthScreenCubit extends Cubit<AuthScreenState> {
         verificationId: _verificationId!,
       );
 
-      authRepo.isNewUser
-          ? await navigatorKey.currentState?.pushNamedAndRemoveUntil(
-              AppRoutes.registrationInfo,
-              (route) => false,
-            )
-          : await navigatorKey.currentState?.pushNamedAndRemoveUntil(
-              AppRoutes.main,
-              (route) => false,
-            );
+      if (authRepo.isNewUser) {
+        await navigatorKey.currentState
+            ?.pushReplacementNamed(AppRoutes.registrationInfo);
+      } else {
+        final isRegistered = await registrationRepo.isRegistered;
+        isRegistered
+            ? await navigatorKey.currentState?.pushReplacementNamed(
+                AppRoutes.main,
+              )
+            : await navigatorKey.currentState
+                ?.pushReplacementNamed(AppRoutes.registrationInfo);
+      }
     } on CustomException catch (e) {
       emit(
         state.copyWith(

@@ -13,12 +13,9 @@ enum AuthStatus {
   loading,
 }
 
-class AuthProviderCubit extends Cubit<AuthStatus> {
+class AuthStatusCubit extends Cubit<AuthStatus> {
   // контроль входа
-  AuthProviderCubit({required this.registrationRepo})
-      : super(AuthStatus.isNotAuth) {
-    _checkSign();
-  }
+  AuthStatusCubit({required this.registrationRepo}) : super(AuthStatus.loading);
 
   final RegistrationRepo registrationRepo;
 
@@ -27,11 +24,12 @@ class AuthProviderCubit extends Cubit<AuthStatus> {
 
   set authStatus(AuthStatus value) {
     _authStatus = value;
-    emit(_authStatus);
+    emit(value);
   }
 
   // проверка на авторизован или нет
-  Future<void> _checkSign() async {
+  Future<void> init() async {
+    await Future.delayed(const Duration(seconds: 1), () {});
     if (!SessionDataService.isAuth) {
       authStatus = AuthStatus.isNotAuth;
       return;

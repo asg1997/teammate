@@ -1,34 +1,49 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/navigation/app_router.dart';
 import 'package:teammate/core/teammate_app.dart';
-import 'package:teammate/presentation/auth/auth_provider.dart';
+import 'package:teammate/presentation/auth/auth_status_cubit.dart';
 
-class SplashScreen extends HookWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final animationController = useAnimationController(
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
       duration: const Duration(seconds: 1),
     );
-    final animation = useAnimation(
-      Tween<double>(begin: 0, end: 1).animate(animationController),
-    );
+    animation = Tween<double>(begin: 0, end: 1).animate(_controller)
+      ..addListener(() {
+        setState(() {});
+      });
+    _controller.repeat();
+  }
 
-    useEffect(
-      () {
-        animationController.repeat();
-        return null;
-      },
-      [],
-    );
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
-    return BlocListener<AuthProviderCubit, AuthStatus>(
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<AuthStatusCubit, AuthStatus>(
       listener: (context, status) {
         if (status == AuthStatus.isAuth) {
           navigatorKey.currentState?.pushReplacementNamed(AppRoutes.main);
@@ -44,13 +59,13 @@ class SplashScreen extends HookWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildDot(animation, 0),
+              _buildDot(animation.value, 0),
               const SizedBox(width: 8),
-              _buildDot(animation, 1),
+              _buildDot(animation.value, 1),
               const SizedBox(width: 8),
-              _buildDot(animation, 2),
+              _buildDot(animation.value, 2),
               const SizedBox(width: 8),
-              _buildDot(animation, 3),
+              _buildDot(animation.value, 3),
             ],
           ),
         ),

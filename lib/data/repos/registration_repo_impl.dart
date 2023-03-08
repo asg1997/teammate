@@ -34,6 +34,9 @@ class RegistrationRepoImpl implements RegistrationRepo {
     try {
       final user = User(nickname: nick, city: city, id: _id);
       await _db.collection(_usersCollections).add(user.toJson());
+      await SessionDataService.saveSessionData(
+        SessionDataService.sessionData!.copyWith(city: city),
+      );
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

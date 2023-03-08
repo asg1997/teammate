@@ -24,6 +24,7 @@ class SessionDataService {
   }
 
   static Future<void> _getSessionData() async {
+    // await removeSessionData();
     final json = await _storage.read(key: 'sessionData');
     if (json == null) return;
     final decoded = jsonDecode(json) as Map<String, dynamic>;

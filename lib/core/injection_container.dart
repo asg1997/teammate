@@ -13,19 +13,13 @@ import 'package:teammate/domain/repos/games_repo.dart';
 import 'package:teammate/domain/repos/profile_repo.dart';
 import 'package:teammate/domain/repos/registration_repo.dart';
 import 'package:teammate/domain/repos/settings_repo.dart';
-import 'package:teammate/presentation/auth/auth_provider.dart';
 
 final sl = GetIt.instance; // sl = Service locator
 
 void init() {
   sl
     ..registerLazySingleton<AuthRepo>(AuthRepoImpl.new)
-    ..registerLazySingleton<AuthProviderCubit>(
-      () => AuthProviderCubit(registrationRepo: sl()),
-    )
-    ..registerLazySingleton<RegistrationRepo>(
-      RegistrationRepoImpl.new,
-    )
+    ..registerLazySingleton<RegistrationRepo>(RegistrationRepoImpl.new)
     ..registerLazySingleton<GamesRepo>(GamesRepoImpl.new)
     ..registerLazySingleton<SearchGamesRepo>(SearchGamesRepoImpl.new)
     ..registerLazySingleton<ProfileRepo>(ProfileRepoImpl.new)

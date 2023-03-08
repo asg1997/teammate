@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/injection_container.dart';
 import 'package:teammate/core/navigation/app_router.dart';
-import 'package:teammate/presentation/auth/auth_provider.dart';
 import 'package:teammate/presentation/auth/auth_screen/cubit/auth_screen_cubit.dart';
+import 'package:teammate/presentation/auth/auth_status_cubit.dart';
 import 'package:teammate/presentation/create_game/cubit/create_game_cubit.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -19,14 +19,19 @@ class TeammateApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (_) => AuthStatusCubit(registrationRepo: sl())..init(),
+        ),
+        BlocProvider(
           create: (context) => CreateGameCubit(
             gameRepo: sl(),
           ),
         ),
         BlocProvider(
-          create: (context) => AuthScreenCubit(authRepo: sl()),
+          create: (context) => AuthScreenCubit(
+            authRepo: sl(),
+            registrationRepo: sl(),
+          ),
         ),
-        BlocProvider(create: (_) => sl<AuthProviderCubit>()),
       ],
       child: MaterialApp(
         theme: ThemeData(

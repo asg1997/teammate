@@ -20,4 +20,18 @@ class Game {
   final String creatorId;
   final GameInfo gameInfo;
   final List<String> playersIds;
+
+  Game copyWith({
+    String? id,
+    String? creatorId,
+    GameInfo? gameInfo,
+    List<String>? playersIds,
+  }) {
+    return Game(
+      id: id ?? this.id,
+      creatorId: creatorId ?? this.creatorId,
+      gameInfo: gameInfo ?? this.gameInfo,
+      playersIds: playersIds ?? this.playersIds,
+    );
+  }
 }

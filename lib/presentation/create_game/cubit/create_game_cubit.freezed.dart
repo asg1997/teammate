@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CreateGameState {
   String get name => throw _privateConstructorUsedError;
+  String get price => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
   City get city => throw _privateConstructorUsedError;
   String get locationName => throw _privateConstructorUsedError;
@@ -38,6 +39,7 @@ abstract class $CreateGameStateCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
+      String price,
       DateTime dateTime,
       City city,
       String locationName,
@@ -61,6 +63,7 @@ class _$CreateGameStateCopyWithImpl<$Res, $Val extends CreateGameState>
   @override
   $Res call({
     Object? name = null,
+    Object? price = null,
     Object? dateTime = null,
     Object? city = null,
     Object? locationName = null,
@@ -73,6 +76,10 @@ class _$CreateGameStateCopyWithImpl<$Res, $Val extends CreateGameState>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
               as String,
       dateTime: null == dateTime
           ? _value.dateTime
@@ -116,6 +123,7 @@ abstract class _$$_CreateGameStateCopyWith<$Res>
   @useResult
   $Res call(
       {String name,
+      String price,
       DateTime dateTime,
       City city,
       String locationName,
@@ -137,6 +145,7 @@ class __$$_CreateGameStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? price = null,
     Object? dateTime = null,
     Object? city = null,
     Object? locationName = null,
@@ -149,6 +158,10 @@ class __$$_CreateGameStateCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
               as String,
       dateTime: null == dateTime
           ? _value.dateTime
@@ -187,6 +200,7 @@ class __$$_CreateGameStateCopyWithImpl<$Res>
 class _$_CreateGameState extends _CreateGameState {
   const _$_CreateGameState(
       {required this.name,
+      required this.price,
       required this.dateTime,
       required this.city,
       required this.locationName,
@@ -198,6 +212,8 @@ class _$_CreateGameState extends _CreateGameState {
 
   @override
   final String name;
+  @override
+  final String price;
   @override
   final DateTime dateTime;
   @override
@@ -215,7 +231,7 @@ class _$_CreateGameState extends _CreateGameState {
 
   @override
   String toString() {
-    return 'CreateGameState(name: $name, dateTime: $dateTime, city: $city, locationName: $locationName, sport: $sport, currentStep: $currentStep, error: $error, isCreatingGame: $isCreatingGame)';
+    return 'CreateGameState(name: $name, price: $price, dateTime: $dateTime, city: $city, locationName: $locationName, sport: $sport, currentStep: $currentStep, error: $error, isCreatingGame: $isCreatingGame)';
   }
 
   @override
@@ -224,6 +240,7 @@ class _$_CreateGameState extends _CreateGameState {
         (other.runtimeType == runtimeType &&
             other is _$_CreateGameState &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.price, price) || other.price == price) &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime) &&
             (identical(other.city, city) || other.city == city) &&
@@ -238,7 +255,7 @@ class _$_CreateGameState extends _CreateGameState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, dateTime, city,
+  int get hashCode => Object.hash(runtimeType, name, price, dateTime, city,
       locationName, sport, currentStep, error, isCreatingGame);
 
   @JsonKey(ignore: true)
@@ -251,6 +268,7 @@ class _$_CreateGameState extends _CreateGameState {
 abstract class _CreateGameState extends CreateGameState {
   const factory _CreateGameState(
       {required final String name,
+      required final String price,
       required final DateTime dateTime,
       required final City city,
       required final String locationName,
@@ -262,6 +280,8 @@ abstract class _CreateGameState extends CreateGameState {
 
   @override
   String get name;
+  @override
+  String get price;
   @override
   DateTime get dateTime;
   @override

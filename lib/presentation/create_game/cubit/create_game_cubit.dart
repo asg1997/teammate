@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:teammate/core/navigation/app_router.dart';
@@ -20,9 +19,7 @@ class CreateGameCubit extends Cubit<CreateGameState> {
   final Sport sport;
   final GameRepo gameRepo;
 
-  void onSaveGameTapped(BuildContext context) {
-    navigatorKey.currentState?.pop();
-  }
+  void onSaveGameTapped() => navigatorKey.currentState?.pop();
 
   void onNextStep() {
     if (state.currentStep == 0) {
@@ -88,6 +85,7 @@ class CreateGameCubit extends Cubit<CreateGameState> {
         name: state.name,
         location: state.locationName,
         dateTime: state.dateTime,
+        price: '',
       );
       final game = await gameRepo.createGame(gameInfo);
       await navigatorKey.currentState?.popAndPushNamed(

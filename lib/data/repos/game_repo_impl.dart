@@ -30,8 +30,28 @@ class GameRepoImpl implements GameRepo {
   }
 
   @override
-  Future<void> editGame(GameInfo gameInfo, int id) {
-    // TODO: implement editGame
+  Future<void> editGame({
+    required GameInfo gameInfo,
+    required String id,
+  }) async {
+    await _db
+        .collection(FirebaseConsts.games)
+        .doc(id)
+        .update({'gameInfo': gameInfo.toJson()});
+  }
+
+  @override
+  Future<Game> getGame({required String id}) async {
+    final snapshot = await _db.collection(FirebaseConsts.games).doc(id).get();
+    final date = snapshot.data();
+    if (date == null) throw Exception('no data catching game');
+    final game = Game.fromJson(date);
+    return game;
+  }
+
+  @override
+  Future<void> deleteGame({required String id}) {
+    // TODO: implement deleteGame
     throw UnimplementedError();
   }
 }

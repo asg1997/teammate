@@ -12,9 +12,11 @@ GameInfo _$GameInfoFromJson(Map<String, dynamic> json) => GameInfo(
       city: City.fromJson(json['city'] as Map<String, dynamic>),
       dateTime: FirestoreDateTimerConverter.from(json['dateTime'] as int),
       sport: $enumDecode(_$SportEnumMap, json['sport']),
+      price: json['price'] as String?,
     );
 
 Map<String, dynamic> _$GameInfoToJson(GameInfo instance) => <String, dynamic>{
+      'price': instance.price,
       'name': instance.name,
       'location': instance.location,
       'city': instance.city.toJson(),

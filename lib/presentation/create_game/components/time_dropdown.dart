@@ -6,17 +6,18 @@ import 'package:teammate/core/consts/app_fonts.dart';
 class DatePickerWidget extends StatefulWidget {
   const DatePickerWidget({
     required this.onChanged,
+    this.initialData,
     super.key,
   });
   final void Function(DateTime value) onChanged;
-  // final String text;
+  final DateTime? initialData;
 
   @override
   State<DatePickerWidget> createState() => _DatePickerWidgetState();
 }
 
 class _DatePickerWidgetState extends State<DatePickerWidget> {
-  DateTime? choosenTime;
+  late DateTime? choosenTime = widget.initialData;
 
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(

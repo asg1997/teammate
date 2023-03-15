@@ -98,7 +98,6 @@ class _GamesListView extends StatelessWidget {
   final List<Game> games;
   @override
   Widget build(BuildContext context) {
-    final model = context.read<MainScreenModel>();
     return Padding(
       padding: AppDecorations.defaultPadding,
       child: Column(
@@ -115,7 +114,6 @@ class _GamesListView extends StatelessWidget {
             child: GamesListView(
               shrinkWrap: true,
               games: games,
-              onGameSelected: (game) => model.onGameTapped(context, game),
             ),
           ),
         ],

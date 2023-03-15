@@ -60,7 +60,6 @@ class _ListView extends StatelessWidget {
             } else {
               return GamesListView(
                 games: state.games,
-                onGameSelected: (game) => model.onGameTapped(context, game),
               );
             }
           case BaseStatus.error:

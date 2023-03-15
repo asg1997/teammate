@@ -61,7 +61,11 @@ class MainScreenModel extends ChangeNotifier {
     );
   }
 
-  void onGameTapped(BuildContext context, Game game) {
-    navigatorKey.currentState?.pushNamed(AppRoutes.gameInfo, arguments: game);
+  Future<void> onGameTapped(BuildContext context, Game game) async {
+    await navigatorKey.currentState?.pushNamed(
+      AppRoutes.gameInfo,
+      arguments: game,
+    );
+    await _getGames();
   }
 }

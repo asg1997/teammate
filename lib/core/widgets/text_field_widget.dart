@@ -22,7 +22,7 @@ class TextFieldWidget extends StatefulWidget {
   final RegExp? denyRules;
   final bool isPassword;
   final TextInputType textInputType;
-  final void Function(String)? onChanged;
+  final void Function(String value)? onChanged;
   final String? initialText;
 
   @override

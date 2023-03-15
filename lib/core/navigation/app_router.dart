@@ -11,6 +11,7 @@ import 'package:teammate/presentation/auth/registration_info_screen/registration
 import 'package:teammate/presentation/create_game/create_game.dart';
 import 'package:teammate/presentation/create_game/cubit/create_game_cubit.dart';
 import 'package:teammate/presentation/edit_game/edit_game_screen.dart';
+import 'package:teammate/presentation/edit_game/model.dart';
 import 'package:teammate/presentation/game_info/game_info_screen.dart';
 import 'package:teammate/presentation/game_info/model.dart';
 import 'package:teammate/presentation/main_screen/main_screen.dart';
@@ -71,7 +72,7 @@ class AppRouter {
         return _buildSearchGameScreen();
       // Редактирование игры
       case AppRoutes.editGame:
-        return _buildEditGameScreen();
+        return _buildEditGameScreen(routeSettings);
       // splash
       case AppRoutes.splash:
         return _buildSplash();
@@ -144,6 +145,7 @@ class AppRouter {
         create: (_) => GameInfoScreenModel(
           game: game,
           gamesRepo: sl(),
+          gameRepo: sl(),
         ),
         child: const GameInfoScreen(),
       ),
@@ -163,9 +165,16 @@ class AppRouter {
     );
   }
 
-  Route<dynamic> _buildEditGameScreen() {
+  Route<dynamic> _buildEditGameScreen(RouteSettings routeSettings) {
+    final id = routeSettings.arguments as String;
     return MaterialPageRoute(
-      builder: (context) => const EditGameScreen(),
+      builder: (context) => ChangeNotifierProvider(
+        create: (context) => EditGameScreenModel(
+          gameId: id,
+          gameRepo: sl(),
+        ),
+        child: const EditGameScreen(),
+      ),
     );
   }
 

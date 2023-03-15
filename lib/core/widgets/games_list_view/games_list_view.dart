@@ -24,10 +24,14 @@ class GamesListView extends StatelessWidget {
       itemCount: games.length,
       itemBuilder: (_, index) => GamesListViewItem(
         game: games[index],
-        onTap: () => navigatorKey.currentState?.pushNamed(
-          AppRoutes.gameInfo,
-          arguments: games[index],
-        ),
+        onTap: () {
+          onGameSelected != null
+              ? onGameSelected!(games[index])
+              : navigatorKey.currentState?.pushNamed(
+                  AppRoutes.gameInfo,
+                  arguments: games[index],
+                );
+        },
       ),
       separatorBuilder: (_, index) => const SizedBox(height: 10),
     );

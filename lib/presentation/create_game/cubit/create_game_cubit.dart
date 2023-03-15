@@ -74,6 +74,10 @@ class CreateGameCubit extends Cubit<CreateGameState> {
     emit(state.copyWith(dateTime: value));
   }
 
+  void onPriceChanged(String value) {
+    emit(state.copyWith(price: value));
+  }
+
   Future<void> _createGame() async {
     emit(state.copyWith(isCreatingGame: true));
     try {
@@ -85,7 +89,7 @@ class CreateGameCubit extends Cubit<CreateGameState> {
         name: state.name,
         location: state.locationName,
         dateTime: state.dateTime,
-        price: '',
+        price: state.price,
       );
       final game = await gameRepo.createGame(gameInfo);
       await navigatorKey.currentState?.popAndPushNamed(

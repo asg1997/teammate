@@ -31,9 +31,7 @@ class MainScreenModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _init() async {
-    await _getGames();
-  }
+  Future<void> _init() => _getGames();
 
   Future<void> _getGames() async {
     isLoading = true;
@@ -61,7 +59,7 @@ class MainScreenModel extends ChangeNotifier {
     );
   }
 
-  Future<void> onGameTapped(BuildContext context, Game game) async {
+  Future<void> onGameTapped(Game game) async {
     await navigatorKey.currentState?.pushNamed(
       AppRoutes.gameInfo,
       arguments: game,

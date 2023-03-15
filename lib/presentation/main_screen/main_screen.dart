@@ -112,6 +112,7 @@ class _GamesListView extends StatelessWidget {
           SizedBox(
             height: 330,
             child: GamesListView(
+              onGameSelected: context.read<MainScreenModel>().onGameTapped,
               shrinkWrap: true,
               games: games,
             ),

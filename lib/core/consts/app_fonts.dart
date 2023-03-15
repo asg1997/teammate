@@ -75,6 +75,12 @@ abstract class AppFonts {
     fontWeight: FontWeight.w600,
   );
 
+  static final errorText = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.main,
+  );
+
   static final tfMedium16 = GoogleFonts.roboto(
     fontSize: 16,
     color: Colors.black,

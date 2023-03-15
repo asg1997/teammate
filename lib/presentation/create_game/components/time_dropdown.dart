@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 
 class DatePickerWidget extends StatefulWidget {
@@ -50,10 +51,10 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
           // ),
           // const SizedBox(height: 10),
           Container(
-            height: 55,
+            height: 45,
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: AppDecorations.defaultBorderRadius,
               color: Colors.white,
             ),
             child: CupertinoButton(
@@ -75,7 +76,10 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                           .format(choosenTime!),
                       style: AppFonts.regular15.copyWith(color: Colors.black),
                     )
-                  : Container(),
+                  : Text(
+                      'Выберите дату',
+                      style: AppFonts.regular15.copyWith(color: Colors.grey),
+                    ),
             ),
           ),
         ],

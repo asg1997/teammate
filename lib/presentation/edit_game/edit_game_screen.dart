@@ -32,6 +32,7 @@ class EditGameScreen extends StatelessWidget {
                         return const Center(child: LoadingWidget());
                       }
                       return Column(
+                        // TODO: Поля должны быть заполенны
                         children: [
                           // НАЗВАНИЕ
                           TextFieldWidget(
@@ -41,23 +42,42 @@ class EditGameScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           // ДАТА
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Дата*',
+                              style: AppFonts.medium14,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
                           DatePickerWidget(
                             initialData: model.game?.gameInfo.dateTime,
                             onChanged: model.changeDateTime,
                           ),
                           const SizedBox(height: 10),
+                          // МЕСТО
                           TextFieldWidget(
                             initialText: model.game?.gameInfo.location,
-                            title: 'Укажите место*',
+                            title: 'Место*',
                             onChanged: model.changeLocation,
                           ),
                           const SizedBox(height: 10),
+                          // АРЕНДА
                           TextFieldWidget(
                             initialText: model.game?.gameInfo.price,
-                            title: 'Стоимость аренды площадки*',
+                            title: 'Стоимость аренды площадки',
                             onChanged: model.changePrice,
                           ),
-
+                          if (model.error.isNotEmpty) ...[
+                            const SizedBox(height: 10),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                model.error,
+                                style: AppFonts.errorText,
+                              ),
+                            )
+                          ],
                           const SizedBox(height: 71),
                           // КНОПКА СОХРАНИТЬ
                           AppButton(

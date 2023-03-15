@@ -1,3 +1,5 @@
+// ignore_for_file: use_if_null_to_convert_nulls_to_bools
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:teammate/core/teammate_app.dart';
@@ -16,9 +18,17 @@ class EditGameScreenModel extends ChangeNotifier {
 
   bool get isLoading => _isLoading;
   Game? get game => _game;
+  String get error => _error;
+
+  bool get _fieldsEmpty {
+    if (game?.gameInfo.name.isEmpty == true) return true;
+    if (game?.gameInfo.location.isEmpty == true) return true;
+    return false;
+  }
 
   bool _isLoading = false;
   Game? _game;
+  String _error = '';
 
   set isLoading(bool value) {
     _isLoading = value;
@@ -27,6 +37,11 @@ class EditGameScreenModel extends ChangeNotifier {
 
   set game(Game? value) {
     _game = value;
+    notifyListeners();
+  }
+
+  set error(String value) {
+    _error = value;
     notifyListeners();
   }
 
@@ -54,6 +69,10 @@ class EditGameScreenModel extends ChangeNotifier {
 
   Future<void> onSaveTapped() async {
     if (game == null) return;
+    if (_fieldsEmpty) {
+      error = 'Заполните обязательные поля*';
+      return;
+    }
     try {
       isLoading = true;
       await gameRepo.editGame(gameInfo: game!.gameInfo, id: game!.id);

@@ -67,8 +67,9 @@ class CreateGameScreen extends StatelessWidget {
                               onChanged: model.onPlaceChanged,
                             ),
                             const SizedBox(height: 10),
-                            const TextFieldWidget(
+                            TextFieldWidget(
                               title: 'Стоимость аренды площадки',
+                              onChanged: model.onPriceChanged,
                             ),
                             _ErrorText(state.error),
                           ],

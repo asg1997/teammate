@@ -11,24 +11,32 @@ class SearchGamesRepoImpl implements SearchGamesRepo {
   final _db = FirebaseFirestore.instance;
   int get _currentTs => FirestoreDateTimerConverter.to(DateTime.now());
   DocumentSnapshot? _lastDocument;
+  List<Game> _parseGames(QuerySnapshot<Map<String, dynamic>> snapshot) =>
+      snapshot.docs.map((e) => Game.fromJson(e.data())).toList();
 
   @override
   Future<List<Game>> getAllGames({
     required City city,
-    String? searchText,
     bool nextPage = false,
   }) async {
+    if (nextPage && _lastDocument == null) return [];
     try {
       var query = _db
           .collection(FirebaseConsts.games)
           .where('gameInfo.dateTime', isGreaterThanOrEqualTo: _currentTs)
           .where('gameInfo.city.name', isEqualTo: city.name)
           .where('gameInfo.city.region', isEqualTo: city.region)
-          .limit(5);
+          .orderBy('gameInfo.dateTime')
+          .limit(6);
       if (nextPage && _lastDocument != null) {
         query = query.startAfterDocument(_lastDocument!);
       }
-      return _getGames(query);
+
+      final snapshot = await query.get();
+      final games = _parseGames(snapshot);
+      if (games.length < 6) _lastDocument = null;
+      if (games.length >= 6) _lastDocument = snapshot.docs.lastOrNull;
+      return games;
     } catch (e) {
       throw CustomException(causedError: e);
     }
@@ -46,18 +54,11 @@ class SearchGamesRepoImpl implements SearchGamesRepo {
         .where('gameInfo.city.name', isEqualTo: city.name)
         .where('gameInfo.city.region', isEqualTo: city.region)
         .limit(20);
-    final games = await _getGames(query);
+    final snapshot = await query.get();
+    final games = _parseGames(snapshot);
     final now = DateTime.now();
     final actualGames =
         games.where((game) => game.gameInfo.dateTime.isAfter(now)).toList();
     return actualGames;
-  }
-
-  Future<List<Game>> _getGames(Query<Map<String, dynamic>> query) async {
-    final snapshot = await query.get();
-    final games = snapshot.docs.map((e) => Game.fromJson(e.data())).toList();
-    _lastDocument = snapshot.docs.lastOrNull;
-
-    return games;
   }
 }

@@ -14,25 +14,28 @@ class SearchGameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: AppDecorations.defaultPadding,
-          child: Column(
-            children: const [
-              // ПОИСК ИГР
-              MainAppBarWidget(title: 'Поиск игр'),
-              SizedBox(height: 30),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: AppDecorations.defaultPadding,
+            child: Column(
+              children: const [
+                // ПОИСК ИГР
+                MainAppBarWidget(title: 'Поиск игр'),
+                SizedBox(height: 30),
 
-              // ПОИСК
-              SearchTextField(),
-              SizedBox(height: 40),
+                // ПОИСК
+                SearchTextField(),
+                SizedBox(height: 20),
 
-              // ЛИСТВЬЮ С ИГРАМИ
-              Expanded(
-                child: _ListView(),
-              ),
-            ],
+                // ЛИСТВЬЮ С ИГРАМИ
+                Expanded(
+                  child: _ListView(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -45,25 +48,44 @@ class _ListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<SearchGameScreenCubit>();
     return BlocBuilder<SearchGameScreenCubit, SearchGameScreenState>(
       builder: (context, state) {
         switch (state.status) {
           case SearchGameScreenStatus.loading:
             return const LoadingWidget();
-          case SearchGameScreenStatus.loaded:
+
           case SearchGameScreenStatus.search:
-            if (state.games.isEmpty) {
+            if (state.filteredGames.isEmpty) {
               return const Center(
                 child: Text(
                   'По заданному фильтру игры не найдены. Попробуйте изменить поиск',
+                  textAlign: TextAlign.center,
                 ),
               );
+            }
+            return GamesListView(
+              onBottom: context.read<SearchGameScreenCubit>().loadMore,
+              games: state.filteredGames,
+            );
+          case SearchGameScreenStatus.loaded:
+          case SearchGameScreenStatus.loadingMore:
+            if (state.games.isEmpty) {
+              return const Center(child: Text('Игр не найдено'));
             } else {
-              return GamesListView(
-                games: state.status == SearchGameScreenStatus.loaded
-                    ? state.games
-                    : state.filteredGames,
+              return Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  GamesListView(
+                    onBottom: context.read<SearchGameScreenCubit>().loadMore,
+                    games: state.games,
+                  ),
+                  if (state.status == SearchGameScreenStatus.loadingMore) ...[
+                    const Positioned(
+                      bottom: 0,
+                      child: LoadingWidget(),
+                    )
+                  ]
+                ],
               );
             }
           case SearchGameScreenStatus.error:

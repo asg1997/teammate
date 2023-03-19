@@ -25,62 +25,57 @@ class SearchGameScreenCubit extends Cubit<SearchGameScreenState> {
   Timer? _seachDebounce;
 
   Future<void> load() async {
-    // final user = await _profileRepo.getUserInfo();
     await _getAllGames();
-    // emit(state.copyWith(games: games, status: BaseStatus.loaded));
   }
 
   Future<void> _getAllGames({bool nextPage = false}) async {
-    emit(state.copyWith(status: SearchGameScreenStatus.loading));
-    final city = SessionDataService.sessionData?.city;
-    final games = await _searchRepo.getAllGames(
-      city: city!,
-      nextPage: nextPage,
-    );
-    emit(
-      state.copyWith(
-        games: games,
-        status: SearchGameScreenStatus.loaded,
-      ),
-    );
+    try {
+      emit(
+        state.copyWith(
+          status: nextPage
+              ? SearchGameScreenStatus.loadingMore
+              : SearchGameScreenStatus.loading,
+        ),
+      );
+      final city = SessionDataService.sessionData?.city;
+      final games = await _searchRepo.getAllGames(
+        city: city!,
+        nextPage: nextPage,
+      )
+        ..sort((a, b) => a.gameInfo.dateTime.compareTo(b.gameInfo.dateTime));
+      if (games.isEmpty) {
+        emit(
+          state.copyWith(
+            status: SearchGameScreenStatus.loaded,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            games: [...state.games, ...games],
+            status: SearchGameScreenStatus.loaded,
+          ),
+        );
+      }
+    } catch (e) {
+      emit(state.copyWith(status: SearchGameScreenStatus.error));
+    }
   }
 
-  // Поиск по названию
-  Future<void> onSearchChanged(String value) async {
-    if (value.isEmpty) {
+  Future<void> onSearchChanged(String searchText) async {
+    if (searchText.isEmpty) {
       emit(
         state.copyWith(
           status: SearchGameScreenStatus.loaded,
           filteredGames: [],
         ),
       );
-      return;
     }
-
-    final filtered = state.games
-        .where((game) => game.gameInfo.name.contains(value))
-        .toList();
-
-    if (filtered.isEmpty) {
-      _searchInDb(value);
-    } else {
-      emit(
-        state.copyWith(
-          filteredGames: filtered,
-          status: SearchGameScreenStatus.search,
-        ),
-      );
-    }
-  }
-
-  void _searchInDb(String searchText) {
     if (searchText.length < 2) return;
-
     _seachDebounce?.cancel();
     emit(state.copyWith(status: SearchGameScreenStatus.loading));
     _seachDebounce = Timer(const Duration(seconds: 1), () async {
       try {
-        emit(state.copyWith(status: SearchGameScreenStatus.loading));
         final city = SessionDataService.sessionData?.city;
         if (city == null) return;
         final games = await _searchRepo.searchGames(
@@ -89,7 +84,7 @@ class SearchGameScreenCubit extends Cubit<SearchGameScreenState> {
         );
         emit(
           state.copyWith(
-            games: games,
+            filteredGames: games,
             status: SearchGameScreenStatus.search,
           ),
         );
@@ -104,5 +99,10 @@ class SearchGameScreenCubit extends Cubit<SearchGameScreenState> {
       AppRoutes.gameInfo,
       arguments: game,
     );
+  }
+
+  void loadMore() {
+    if (state.status == SearchGameScreenStatus.search) return;
+    _getAllGames(nextPage: true);
   }
 }

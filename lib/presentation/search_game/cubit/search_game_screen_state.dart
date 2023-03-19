@@ -1,6 +1,6 @@
 part of 'search_game_screen_cubit.dart';
 
-enum SearchGameScreenStatus { loading, loaded, search, error }
+enum SearchGameScreenStatus { loading, loaded, search, error, loadingMore }
 
 class SearchGameScreenState extends Equatable {
   const SearchGameScreenState({

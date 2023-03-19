@@ -1,7 +1,8 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
-import 'package:teammate/core/utils/base_status.dart';
 import 'package:teammate/core/widgets/app_bar_auth.dart';
 import 'package:teammate/core/widgets/games_list_view/games_list_view.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
@@ -48,9 +49,10 @@ class _ListView extends StatelessWidget {
     return BlocBuilder<SearchGameScreenCubit, SearchGameScreenState>(
       builder: (context, state) {
         switch (state.status) {
-          case BaseStatus.loading:
+          case SearchGameScreenStatus.loading:
             return const LoadingWidget();
-          case BaseStatus.loaded:
+          case SearchGameScreenStatus.loaded:
+          case SearchGameScreenStatus.search:
             if (state.games.isEmpty) {
               return const Center(
                 child: Text(
@@ -59,10 +61,12 @@ class _ListView extends StatelessWidget {
               );
             } else {
               return GamesListView(
-                games: state.games,
+                games: state.status == SearchGameScreenStatus.loaded
+                    ? state.games
+                    : state.filteredGames,
               );
             }
-          case BaseStatus.error:
+          case SearchGameScreenStatus.error:
             return const Center(
               child: Text('Не удалось загрузить игры'),
             );

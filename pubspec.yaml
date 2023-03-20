@@ -49,6 +49,7 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0
   uuid: ^3.0.7
+  share_plus: ^6.3.1
   
   
     

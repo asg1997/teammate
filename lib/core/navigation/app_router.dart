@@ -12,8 +12,8 @@ import 'package:teammate/presentation/create_game/create_game.dart';
 import 'package:teammate/presentation/create_game/cubit/create_game_cubit.dart';
 import 'package:teammate/presentation/edit_game/edit_game_screen.dart';
 import 'package:teammate/presentation/edit_game/model.dart';
+import 'package:teammate/presentation/game_info/cubit/game_info_cubit.dart';
 import 'package:teammate/presentation/game_info/game_info_screen.dart';
-import 'package:teammate/presentation/game_info/model.dart';
 import 'package:teammate/presentation/main_screen/main_screen.dart';
 import 'package:teammate/presentation/main_screen/model.dart';
 import 'package:teammate/presentation/search_game/cubit/search_game_screen_cubit.dart';
@@ -141,12 +141,12 @@ class AppRouter {
   Route<dynamic> _buildGameInfoScreen(RouteSettings routeSettings) {
     final game = routeSettings.arguments as Game;
     return MaterialPageRoute(
-      builder: (context) => ChangeNotifierProvider(
-        create: (_) => GameInfoScreenModel(
+      builder: (context) => BlocProvider(
+        create: (_) => GameInfoCubit(
           game: game,
-          gamesRepo: sl(),
+          playersRepo: sl(),
           gameRepo: sl(),
-        ),
+        )..init(),
         child: const GameInfoScreen(),
       ),
     );

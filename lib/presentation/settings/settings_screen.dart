@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar_auth.dart';
-import 'package:teammate/core/widgets/app_button.dart';
+import 'package:teammate/core/widgets/main_button.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
 import 'package:teammate/presentation/auth/registration_info_screen/components/city_dropdown.dart';
 
@@ -39,7 +39,7 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 71),
 
               // СОХРАНИТЬ КНОПКУ
-              AppButton(
+              MainButton(
                 title: 'Сохранить',
                 onTap: () => model.onSaveTapped(context),
               ),

@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:teammate/core/consts/firebase_consts.dart';
 import 'package:teammate/core/session_data/session_data_service.dart';
-
 import 'package:teammate/domain/entities/game/game.dart';
-
 import 'package:teammate/domain/entities/game_info/game_info.dart';
 import 'package:teammate/domain/repos/game_repo.dart';
 import 'package:uuid/uuid.dart';

@@ -4,7 +4,7 @@ import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar_auth.dart';
-import 'package:teammate/core/widgets/app_button.dart';
+import 'package:teammate/core/widgets/main_button.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
 import 'package:teammate/presentation/create_game/components/time_dropdown.dart';
 import 'package:teammate/presentation/create_game/cubit/create_game_cubit.dart';
@@ -94,7 +94,7 @@ class CreateGameScreen extends StatelessWidget {
                     // mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
-                        child: AppButton(
+                        child: MainButton(
                           title: 'Назад',
                           onTap: model.onPreviousStep,
                           color: Colors.grey,
@@ -105,7 +105,7 @@ class CreateGameScreen extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 2,
-                        child: AppButton(
+                        child: MainButton(
                           isLoading: state.isCreatingGame,
                           title: 'Далее',
                           onTap: model.onNextStep,

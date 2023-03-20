@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
-import 'package:teammate/core/widgets/app_button.dart';
+import 'package:teammate/core/widgets/main_button.dart';
 import 'package:teammate/presentation/auth/auth_screen/components/phone_tf.dart';
 import 'package:teammate/presentation/auth/auth_screen/cubit/auth_screen_cubit.dart';
 import 'package:teammate/resources/resources.dart';
@@ -63,7 +63,7 @@ class AuthScreen extends StatelessWidget {
                   buildWhen: (previous, current) =>
                       previous.isRequestingCode != current.isRequestingCode,
                   builder: (context, state) {
-                    return AppButton(
+                    return MainButton(
                       isLoading: state.isRequestingCode,
                       title: 'Войти',
                       onTap: () => model.onAuthorizeTapped(context),

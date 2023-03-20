@@ -51,7 +51,7 @@ class _GamesListViewState extends State<GamesListView> {
     return ListView.separated(
       physics: const AlwaysScrollableScrollPhysics(),
       controller: _controller,
-      padding: EdgeInsets.zero,
+      padding: const EdgeInsets.only(bottom: 15),
       shrinkWrap: widget.shrinkWrap,
       itemCount: widget.games.length,
       itemBuilder: (_, index) => GamesListViewItem(

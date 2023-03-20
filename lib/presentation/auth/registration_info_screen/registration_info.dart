@@ -5,9 +5,9 @@ import 'package:teammate/core/consts/app_decorations_prop.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 import 'package:teammate/core/utils/base_status.dart';
 import 'package:teammate/core/widgets/app_bar_auth.dart';
-import 'package:teammate/core/widgets/app_button.dart';
 import 'package:teammate/core/widgets/dropdown_text_field.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
+import 'package:teammate/core/widgets/main_button.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
 import 'package:teammate/presentation/auth/registration_info_screen/cubit/registration_info_screen_cubit.dart';
 
@@ -92,7 +92,7 @@ class RegistrationInfoScreen extends StatelessWidget {
 
                       // КНОПКА СОХРАНИТЬ
                       Center(
-                        child: AppButton(
+                        child: MainButton(
                           title: 'Сохранить',
                           isLoading: state.isRegistering,
                           onTap: () => model.onSaveTapped(context),

@@ -1,9 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:teammate/core/consts/app_colors.dart';
 import 'package:teammate/core/consts/app_fonts.dart';
 
-class AppButton extends StatelessWidget {
-  const AppButton({
+class MainButton extends StatelessWidget {
+  const MainButton({
     required this.title,
     required this.onTap,
     this.isLoading = false,

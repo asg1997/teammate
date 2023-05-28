@@ -1,45 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:teammate/feachers/auth/auth_screen/presentation/auth_screen.dart';
-import 'package:teammate/feachers/auth/otp_screen/otp_screen.dart';
-import 'package:teammate/feachers/auth/registration_info_screen/presentation/cubit/registration_info_screen_cubit.dart';
-import 'package:teammate/feachers/auth/registration_info_screen/presentation/registration_info.dart';
-import 'package:teammate/feachers/game/presentation/create_game_screen/step_one_screen.dart';
-import 'package:teammate/feachers/game/presentation/create_game_screen/step_three_screen.dart';
-import 'package:teammate/feachers/game/presentation/create_game_screen/step_two_screen.dart';
-import 'package:teammate/feachers/game/presentation/edit_game_screen.dart/edit_game_screen.dart';
-import 'package:teammate/feachers/game/presentation/game_info_screen/cubit/game_info_screen_cubit.dart';
-import 'package:teammate/feachers/main/presentation/main_screen/cubit/main_screen_cubit.dart';
-import 'package:teammate/feachers/main/presentation/main_screen/main_screen.dart';
-import 'package:teammate/feachers/search_game/presentation/search_game_screen/cubit/search_game_screen_cubit.dart';
-import 'package:teammate/feachers/search_game/presentation/search_game_screen/search_game_screen.dart';
-import 'package:teammate/feachers/settings/presentation/settings_screen/cubit/settings_screen_cubit.dart';
-import 'package:teammate/feachers/settings/presentation/settings_screen/settings_screen.dart';
-import '../../feachers/game/domain/entites/game.dart';
-import '../../feachers/game/presentation/game_info_screen/game_info_screen.dart';
-import '../injection_container.dart';
+import 'package:provider/provider.dart';
+import 'package:teammate/core/injection_container.dart';
+import 'package:teammate/domain/entities/game/game.dart';
+import 'package:teammate/domain/entities/sport.dart';
+import 'package:teammate/presentation/auth/auth_screen/auth_screen.dart';
+import 'package:teammate/presentation/auth/otp_screen/otp_screen.dart';
+import 'package:teammate/presentation/auth/registration_info_screen/cubit/registration_info_screen_cubit.dart';
+import 'package:teammate/presentation/auth/registration_info_screen/registration_info.dart';
+import 'package:teammate/presentation/create_game/create_game.dart';
+import 'package:teammate/presentation/create_game/cubit/create_game_cubit.dart';
+import 'package:teammate/presentation/edit_game/edit_game_screen.dart';
+import 'package:teammate/presentation/edit_game/model.dart';
+import 'package:teammate/presentation/game_info/cubit/game_info_cubit.dart';
+import 'package:teammate/presentation/game_info/game_info_screen.dart';
+import 'package:teammate/presentation/main_screen/main_screen.dart';
+import 'package:teammate/presentation/main_screen/model.dart';
+import 'package:teammate/presentation/search_game/cubit/search_game_screen_cubit.dart';
+import 'package:teammate/presentation/search_game/search_game_screen.dart';
+import 'package:teammate/presentation/settings/cubit/settings_screen_cubit.dart';
+
+import 'package:teammate/presentation/settings/settings_screen.dart';
+import 'package:teammate/presentation/splash/splash_screen.dart';
 
 class AppRoutes {
   static const auth = 'auth';
   static const otpScreen = 'otpScreen';
   static const recoveredPassword = 'recoveredPassword';
-  static const registration = 'registration';
+
   static const registrationInfo = 'registrationInfo';
   static const vkAuth = 'vkAuth';
   static const main = 'main';
-  static const stepOne = 'stepOne';
-  static const stepTwo = 'stepTwo';
-  static const stepThree = 'stepThree';
   static const searchGame = 'searchGame';
   static const gameInfo = 'gameInfo';
   static const settings = 'settings';
+  static const createGame = 'createGame';
   static const editGame = 'editGame';
+  static const splash = 'splash';
 }
 
 class AppRouter {
-  static const intialRoute = AppRoutes.auth;
+  String get initialRoute => AppRoutes.splash;
 
-  Route onGenerateRoutes(RouteSettings routeSettings) {
+  Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       // АВТОРИЗАЦИЯ
       case AppRoutes.auth:
@@ -57,17 +60,10 @@ class AppRouter {
       case AppRoutes.main:
         return _buildMainScreen();
       // ШАГ ОДИН
-      case AppRoutes.stepOne:
-        return _buildStepOneScreen(routeSettings);
-      // ШАГ ДВА
-      case AppRoutes.stepTwo:
-        return _buildStepTwoScreen(routeSettings);
-      // ШАГ ТРИ
-      case AppRoutes.stepThree:
-        return _buildStepThreeScreen(routeSettings);
+      case AppRoutes.createGame:
+        return _buildCreateGame(routeSettings);
+
       // НАСТРОЙКИ
-      case AppRoutes.settings:
-        return _buildSettingsScreen();
       // ИНФА ОБ ИГРЕ
       case AppRoutes.gameInfo:
         return _buildGameInfoScreen(routeSettings);
@@ -76,103 +72,132 @@ class AppRouter {
         return _buildSearchGameScreen();
       // Редактирование игры
       case AppRoutes.editGame:
-        return _buildEditGameScreen();
+        return _buildEditGameScreen(routeSettings);
+      // splash
+      case AppRoutes.splash:
+        return _buildSplash();
       default:
         return _buildNavigationUnkwown();
     }
   }
 
-  Route _buildAuthScreen() {
+  Route<dynamic> _buildAuthScreen() {
     return MaterialPageRoute(
       builder: (context) => const AuthScreen(),
     );
   }
 
-  Route _buildOtpScreen() {
+  Route<dynamic> _buildOtpScreen() {
     return MaterialPageRoute(
       builder: (context) => const OtpScreen(),
     );
   }
 
-  Route _buildRegistrationInfoScreen() {
+  Route<dynamic> _buildRegistrationInfoScreen() {
     return MaterialPageRoute(
-        builder: (context) => BlocProvider<RegistrationInfoScreenCubit>(
-              lazy: false,
-              create: (_) =>
-                  RegistrationInfoScreenCubit(registrationInfoRepo: sl()),
-              child: const RegistrationInfoScreen(),
-            ));
-  }
-
-  Route _buildMainScreen() {
-    return MaterialPageRoute(
-        builder: (context) => BlocProvider<MainScreenCubit>(
-              lazy: false,
-              create: (_) => MainScreenCubit(gamesRepo: sl())..load(),
-              child: MainScreen(),
-            ));
-  }
-
-  Route _buildStepOneScreen(RouteSettings routeSettings) {
-    return MaterialPageRoute(
-      builder: (context) => const StepOneScreen(),
+      builder: (context) => BlocProvider<RegistrationInfoScreenCubit>(
+        lazy: false,
+        create: (_) => RegistrationInfoScreenCubit(registrationRepo: sl()),
+        child: const RegistrationInfoScreen(),
+      ),
     );
   }
 
-  Route _buildStepTwoScreen(RouteSettings routeSettings) {
+  Route<dynamic> _buildMainScreen() {
     return MaterialPageRoute(
-      builder: (context) => const StepTwoScreen(),
+      builder: (context) => ChangeNotifierProvider<MainScreenModel>(
+        lazy: false,
+        create: (_) => MainScreenModel(gamesRepo: sl()),
+        child: MainScreen(),
+      ),
     );
   }
 
-  Route _buildStepThreeScreen(RouteSettings routeSettings) {
+  Route<dynamic> _buildCreateGame(RouteSettings routeSettings) {
+    final sport = routeSettings.arguments as Sport;
     return MaterialPageRoute(
-      builder: (context) => const StepThreeScreen(),
+      builder: (context) => BlocProvider(
+        create: (context) => CreateGameCubit(
+          sport: sport,
+          gameRepo: sl(),
+        ),
+        child: const CreateGameScreen(),
+      ),
     );
   }
 
-  Route _buildGameInfoScreen(RouteSettings routeSettings) {
+  // Route<dynamic> _buildStepTwoScreen(RouteSettings routeSettings) {
+  //   return MaterialPageRoute(
+  //     builder: (context) => const StepTwoScreen(),
+  //   );
+  // }
+
+  // Route<dynamic> _buildStepThreeScreen(RouteSettings routeSettings) {
+  //   return MaterialPageRoute(
+  //     builder: (context) => const StepThreeScreen(),
+  //   );
+  // }
+
+  Route<dynamic> _buildGameInfoScreen(RouteSettings routeSettings) {
     final game = routeSettings.arguments as Game;
     return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-              create: (_) => GameInfoScreenCubit(
-                game: game,
-                gamesRepo: sl(),
-              )..load(),
-              child: const GameInfoScreen(),
-            ));
-  }
-
-  Route _buildSearchGameScreen() {
-    return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-              lazy: false,
-              create: (_) => SearchGameScreenCubit(
-                searchRepo: sl(),
-                profileRepo: sl(),
-              )..load(),
-              child: const SearchGameScreen(),
-            ));
-  }
-
-  Route _buildEditGameScreen() {
-    return MaterialPageRoute(
-      builder: (context) => const EditGameScreen(),
+      builder: (context) => BlocProvider(
+        create: (_) => GameInfoCubit(
+          game: game,
+          playersRepo: sl(),
+          gameRepo: sl(),
+        )..init(),
+        child: const GameInfoScreen(),
+      ),
     );
   }
 
-  Route _buildSettingsScreen() {
+  Route<dynamic> _buildSearchGameScreen() {
     return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-              create: (_) => SettingsScreenCubit(settingsRepo: sl())..load(),
-              child: const SettingsScreen(),
-            ));
+      builder: (context) => BlocProvider(
+        lazy: false,
+        create: (_) => SearchGameScreenCubit(
+          searchRepo: sl(),
+          profileRepo: sl(),
+        )..load(),
+        child: const SearchGameScreen(),
+      ),
+    );
   }
 
-  Route _buildNavigationUnkwown() {
+  Route<dynamic> _buildEditGameScreen(RouteSettings routeSettings) {
+    final id = routeSettings.arguments as String;
     return MaterialPageRoute(
-        builder: (context) => const Scaffold(
-              body: Center(child: Text('Ошибка навигации')),
-            ));
+      builder: (context) => ChangeNotifierProvider(
+        create: (context) => EditGameScreenModel(
+          gameId: id,
+          gameRepo: sl(),
+        ),
+        child: const EditGameScreen(),
+      ),
+    );
+  }
+
+  Route<dynamic> _buildSettingsScreen() {
+    return MaterialPageRoute(
+      builder: (context) => BlocProvider(
+        create: (_) => SettingsScreenCubit(settingsRepo: sl())..load(),
+        child: const SettingsScreen(),
+      ),
+    );
+  }
+
+  Route<dynamic> _buildNavigationUnkwown() {
+    return MaterialPageRoute(
+      builder: (context) => const Scaffold(
+        body: Center(child: Text('Ошибка навигации')),
+      ),
+    );
+  }
+
+  Route<dynamic> _buildSplash() {
+    return MaterialPageRoute(
+      builder: (context) => const SplashScreen(),
+    );
   }
 }

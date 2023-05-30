@@ -27,7 +27,7 @@ dependencies:
   google_fonts: ^3.0.1
 
   # Форматирование дат и перевод
-  intl: ^0.17.0
+  intl: ^0.18.0
   flutter_localizations:
     sdk: flutter         
   dropdown_search: ^5.0.5
@@ -38,11 +38,17 @@ dependencies:
   firebase_auth: ^4.2.8
   firebase_storage: ^11.0.13
   cloud_firestore: ^4.4.2
-  shared_preferences: ^2.0.17
+  shared_preferences: ^2.1.1
   provider: ^6.0.5
   fluttertoast: ^8.2.1
   flutter_secure_storage: ^8.0.0
+  mask_text_input_formatter: ^2.4.0
+  device_info_plus: ^9.0.1
+
+
+  form_builder_validators: ^9.0.0
   flutter_form_builder: ^9.0.0
+
   
   
     

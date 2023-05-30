@@ -115,43 +115,56 @@ class _GamesPageState extends State<GamesPage> {
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  FormBuilderDropdown(
-                    initialValue: _selectedCity,
-                    onChanged: (value) {
-                      if (value != null) onCityChanged(value);
-                    },
-                    name: 'city',
-                    items: _cities,
-                    validator: FormBuilderValidators.required(),
-                    decoration: _decoration(
-                      'Город*',
-                      'Укажите город, в котором будет игра',
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: isLoading
-                        ? const LoadingWidget()
-                        : games.isEmpty
-                            ? const Center(
-                                child: Text(
-                                'В вашем городе пока нет игр',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ))
-                            : ListView.separated(
-                                itemCount: games.length,
-                                itemBuilder: (_, index) => _GameTile(
-                                    game: games[index],
-                                    onDeleted: () => _removeGame(games[index])),
-                                separatorBuilder: (_, index) =>
-                                    const SizedBox(height: 10),
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  _loadGames();
+                },
+                child: CustomScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    slivers: [
+                      SliverFillRemaining(
+                        child: Column(
+                          children: [
+                            FormBuilderDropdown(
+                              initialValue: _selectedCity,
+                              onChanged: (value) {
+                                if (value != null) onCityChanged(value);
+                              },
+                              name: 'city',
+                              items: _cities,
+                              validator: FormBuilderValidators.required(),
+                              decoration: _decoration(
+                                'Город*',
+                                'Укажите город, в котором будет игра',
                               ),
-                  ),
-                ],
+                            ),
+                            const SizedBox(height: 16),
+                            Expanded(
+                              child: isLoading
+                                  ? const LoadingWidget()
+                                  : games.isEmpty
+                                      ? const Center(
+                                          child: Text(
+                                          'В вашем городе пока нет игр',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ))
+                                      : ListView.separated(
+                                          shrinkWrap: true,
+                                          itemCount: games.length,
+                                          itemBuilder: (_, index) => _GameTile(
+                                              game: games[index],
+                                              onDeleted: () =>
+                                                  _removeGame(games[index])),
+                                          separatorBuilder: (_, index) =>
+                                              const SizedBox(height: 10),
+                                        ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ]),
               ),
             ),
           )),

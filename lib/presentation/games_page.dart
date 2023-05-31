@@ -4,6 +4,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
 import 'package:teammate/app_decorations.dart';
 import 'package:teammate/data/session_data.dart';
+import 'package:teammate/presentation/components/drawer_content.dart';
 import 'package:teammate/presentation/components/loading_widget.dart';
 import 'package:teammate/data/cities.dart';
 import 'package:teammate/data/city_repo.dart';
@@ -106,6 +107,13 @@ class _GamesPageState extends State<GamesPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+          drawer: const Drawer(
+            child: DrawerContent(),
+          ),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
           backgroundColor: AppDecorations.background,
           floatingActionButton: FloatingActionButton(
             backgroundColor: const Color(0xFFFF564B),
@@ -114,7 +122,7 @@ class _GamesPageState extends State<GamesPage> {
           ),
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: RefreshIndicator(
                 onRefresh: () async {
                   _loadGames();

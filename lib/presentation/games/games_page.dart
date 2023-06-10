@@ -8,7 +8,6 @@ import 'package:teammate/data/cities.dart';
 import 'package:teammate/data/games_repo.dart';
 import 'package:teammate/data/session_data.dart';
 import 'package:teammate/models/game.dart';
-import 'package:teammate/presentation/components/drawer_content.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/presentation/games/games_page_model.dart';
 
@@ -32,13 +31,13 @@ class GamesPage extends ConsumerWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-          drawer: const Drawer(
-            child: DrawerContent(),
-          ),
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
+          // drawer: const Drawer(
+          //   child: DrawerContent(),
+          // ),
+          // appBar: AppBar(
+          //   backgroundColor: Colors.transparent,
+          //   elevation: 0,
+          // ),
           backgroundColor: AppDecorations.background,
           floatingActionButton: FloatingActionButton(
             backgroundColor: const Color(0xFFFF564B),

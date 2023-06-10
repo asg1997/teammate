@@ -10,11 +10,16 @@ class GamesRepo {
       final snapshot =
           await _db.collection(_games).where('city', isEqualTo: city).get();
       final games = snapshot.docs.map((e) => Game.fromJson(e.data())).toList();
-      return games;
+      final relevantGamed = _getRelevantDateGames(games);
+      return relevantGamed;
     } catch (e) {
       rethrow;
     }
   }
+
+  List<Game> _getRelevantDateGames(List<Game> games) => games
+      .where((element) => element.dateTime.isAfter(DateTime.now()))
+      .toList();
 
   Future<void> createGame(Game game) async {
     try {

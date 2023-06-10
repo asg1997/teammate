@@ -23,7 +23,6 @@ class CityRepo {
 
   String _cityToTopicName(String city) {
     return Translit().toTranslit(source: city);
-    // city.replaceAll(' ', '').replaceAll('-', '');
   }
 
   Future<void> _unsubscribeFromPreviousCity() async {

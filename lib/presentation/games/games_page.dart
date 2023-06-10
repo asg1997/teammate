@@ -1,82 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+
 import 'package:teammate/app_decorations.dart';
+import 'package:teammate/data/cities.dart';
+import 'package:teammate/data/games_repo.dart';
 import 'package:teammate/data/session_data.dart';
+import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/components/drawer_content.dart';
 import 'package:teammate/presentation/components/loading_widget.dart';
-import 'package:teammate/data/cities.dart';
-import 'package:teammate/data/city_repo.dart';
-import 'package:teammate/data/games_repo.dart';
+import 'package:teammate/presentation/games/games_page_model.dart';
 
-import 'package:teammate/main.dart';
-import 'package:teammate/models/game.dart';
-import 'package:teammate/presentation/create_game_page.dart';
+final gamesPageProvider =
+    ChangeNotifierProvider<GamesPageModel>((ref) => GamesPageModel());
 
-class GamesPage extends StatefulWidget {
+class GamesPage extends ConsumerWidget {
   const GamesPage({super.key});
 
-  @override
-  State<GamesPage> createState() => _GamesPageState();
-}
-
-class _GamesPageState extends State<GamesPage> {
-  List<Game> games = [];
-  var isLoading = false;
-  String _selectedCity = 'Москва';
-
-  final _gamesRepo = GamesRepo();
-  final _cityRepo = CityRepo();
-
-  Future<void> _loadGames() async {
-    isLoading = true;
-    setState(() {});
-    games = await _gamesRepo.getGames(_selectedCity);
-    isLoading = false;
-    setState(() {});
-  }
-
-  Future<void> _getSavedCity() async {
-    final saved = await _cityRepo.getSavedCity();
-    if (saved != null) setState(() => _selectedCity = saved);
-  }
-
-  Future<void> _init() async {
-    isLoading = true;
-    setState(() {});
-    await _getSavedCity();
-    await _loadGames();
-    isLoading = false;
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _init();
-  }
-
-  void onCreateGame() async {
-    final game = await navigatorKey.currentState
-            ?.push(MaterialPageRoute(builder: (_) => const CreateGamePage()))
-        as Game?;
-    if (game != null) _addGame(game);
-  }
-
-  void _addGame(Game game) {
-    if (game.city == _selectedCity) {
-      games.add(game);
-      setState(() {});
-    }
-  }
-
-  InputDecoration _decoration(String label, String hint) {
+  InputDecoration _decoration(String label) {
     return InputDecoration(
       focusedBorder: const OutlineInputBorder(),
       border: const OutlineInputBorder(),
       labelText: label,
-      hintText: hint,
       fillColor: Colors.white,
       filled: true,
       floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -90,20 +35,10 @@ class _GamesPageState extends State<GamesPage> {
           ))
       .toList();
 
-  Future<void> onCityChanged(String city) async {
-    _selectedCity = city;
-    setState(() {});
-    _cityRepo.saveCity(city);
-    await _loadGames();
-  }
-
-  void _removeGame(Game game) {
-    games.remove(game);
-    setState(() {});
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final model = ref.watch(gamesPageProvider);
+    final games = model.games;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -117,40 +52,45 @@ class _GamesPageState extends State<GamesPage> {
           backgroundColor: AppDecorations.background,
           floatingActionButton: FloatingActionButton(
             backgroundColor: const Color(0xFFFF564B),
-            onPressed: onCreateGame,
+            onPressed: model.onCreateGame,
             child: const Icon(Icons.add),
           ),
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: RefreshIndicator(
-                onRefresh: () async {
-                  _loadGames();
-                },
+                onRefresh: model.loadGames,
                 child: CustomScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     slivers: [
                       SliverFillRemaining(
                         child: Column(
                           children: [
-                            FormBuilderDropdown(
-                              initialValue: _selectedCity,
-                              onChanged: (value) {
-                                if (value != null) onCityChanged(value);
-                              },
-                              name: 'city',
-                              items: _cities,
-                              validator: FormBuilderValidators.required(),
-                              decoration: _decoration(
-                                'Город*',
-                                'Укажите город, в котором будет игра',
+                            // Dropdown
+                            Container(
+                              height: 55,
+                              alignment: Alignment.center,
+                              color: Colors.white,
+                              child: DropdownButton<String>(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                underline: Container(),
+                                isExpanded: true,
+                                iconEnabledColor: Colors.black,
+                                focusColor: Colors.white,
+                                dropdownColor: Colors.white,
+                                items: _cities,
+                                value: model.selectedCity,
+                                onChanged: (value) {
+                                  if (value != null) model.onCityChanged(value);
+                                },
                               ),
                             ),
                             const SizedBox(height: 16),
                             Expanded(
-                              child: isLoading
+                              child: model.isLoading
                                   ? const LoadingWidget()
-                                  : games.isEmpty
+                                  : model.games.isEmpty
                                       ? const Center(
                                           child: Text(
                                           'В вашем городе пока нет игр',
@@ -163,8 +103,8 @@ class _GamesPageState extends State<GamesPage> {
                                           itemCount: games.length,
                                           itemBuilder: (_, index) => _GameTile(
                                               game: games[index],
-                                              onDeleted: () =>
-                                                  _removeGame(games[index])),
+                                              onDeleted: () => model
+                                                  .removeGame(games[index])),
                                           separatorBuilder: (_, index) =>
                                               const SizedBox(height: 10),
                                         ),

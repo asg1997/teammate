@@ -1,8 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/data/session_data.dart';
-import 'package:teammate/presentation/games_page.dart';
+import 'package:teammate/firebase_options.dart';
+import 'package:teammate/presentation/games/games_page.dart';
+import 'package:teammate/service/notifications_service.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -10,9 +14,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SessionData().init();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  runApp(const TeammateApp());
+  await NotificationsService().init();
+
+  runApp(const ProviderScope(child: TeammateApp()));
 }
 
 class TeammateApp extends StatelessWidget {
@@ -34,4 +42,8 @@ class TeammateApp extends StatelessWidget {
       home: const GamesPage(),
     );
   }
+}
+
+void _initNotifications() async {
+  FirebaseMessaging.instance.getInitialMessage();
 }

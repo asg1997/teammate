@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "241663777855-1j03bvvvmd7ne51mqot4a38aibefcqnf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.teammate",
+            "certificate_hash": "2a5edf0c86c93ce198efc488caec13016f597f75"
+          }
+        },
+        {
           "client_id": "241663777855-0kg61tuhlpdlqjqs1d1crd4d0n5ko003.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,49 @@
             {
               "client_id": "241663777855-0kg61tuhlpdlqjqs1d1crd4d0n5ko003.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "241663777855-nc2vvjmv3dljnidmkpnbnb4thmj0n6ds.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.teammate"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241663777855:android:d6f7478cc32ba7a5dcec8a",
+        "android_client_info": {
+          "package_name": "com.teammate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241663777855-0kg61tuhlpdlqjqs1d1crd4d0n5ko003.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAULc0il-9nATuhpSGKzZ7KwJsYmAGwooc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241663777855-0kg61tuhlpdlqjqs1d1crd4d0n5ko003.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "241663777855-nc2vvjmv3dljnidmkpnbnb4thmj0n6ds.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.teammate"
+              }
             }
           ]
         }

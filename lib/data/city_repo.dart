@@ -22,7 +22,7 @@ class CityRepo {
   }
 
   String _cityToTopicName(String city) {
-    return Translit().toTranslit(source: city);
+    return Translit().toTranslit(source: city).toLowerCase();
   }
 
   Future<void> _unsubscribeFromPreviousCity() async {

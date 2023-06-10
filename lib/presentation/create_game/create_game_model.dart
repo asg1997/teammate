@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
+import 'package:teammate/data/cities.dart';
+import 'package:teammate/data/city_repo.dart';
 import 'package:teammate/data/games_repo.dart';
 import 'package:teammate/data/session_data.dart';
 import 'package:teammate/main.dart';
@@ -7,26 +10,47 @@ import 'package:teammate/models/game.dart';
 import 'package:teammate/models/sport.dart';
 
 class CreateGameModel extends ChangeNotifier {
-  CreateGameModel();
+  CreateGameModel() {
+    _init();
+  }
+
   final _gamesRepo = GamesRepo();
+  final _cityRepo = CityRepo();
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  final dateTextController = TextEditingController();
 
   String _name = '';
-  String city = '';
+  late String city;
   Sport sport = Sport.soccer;
   String phone = '';
   String description = '';
   DateTime dateTime = DateTime.now();
   String location = '';
 
+  void _init() async {
+    isLoading = true;
+    city = await _cityRepo.getSavedCity() ?? cities.first;
+    isLoading = false;
+  }
+
   void onNameChanged(String value) => _name = value;
   void onCityChanged(String value) => city = value;
   void onSportChanged(Sport value) => sport = value;
   void onPhoneChanged(String value) => phone = value;
   void onDescriptionChanged(String value) => description = value;
-  void onDateTimeChanged(DateTime value) => dateTime = value;
+  void onDateTimeChanged(DateTime value) {
+    dateTime = value;
+    dateTextController.text = DateFormat('dd MMMM HH:mm', 'ru').format(value);
+    notifyListeners();
+  }
+
   void onLocationChanged(String value) => location = value;
 
   Future<void> onCreateGameTapped() async {

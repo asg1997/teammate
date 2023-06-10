@@ -1,28 +1,30 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:teammate/app_decorations.dart';
-import 'package:teammate/presentation/components/loading_widget.dart';
+import 'package:teammate/core/widgets/custom_dropdown.dart';
+import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/data/cities.dart';
 import 'package:teammate/models/sport.dart';
+import 'package:teammate/presentation/components/show_date_time_picker.dart';
 import 'package:teammate/presentation/create_game/create_game_model.dart';
 
-final createGameProvider =
-    StateProvider<CreateGameModel>((ref) => CreateGameModel());
+final createGameProvider = ChangeNotifierProvider.autoDispose(
+  (ref) => CreateGameModel(),
+);
 
 class CreateGamePage extends ConsumerWidget {
   CreateGamePage({Key? key}) : super(key: key);
 
-  late final List<DropdownMenuItem<Sport>> _sportItems = Sport.values
+  final List<DropdownMenuItem<Sport>> _sportItems = Sport.values
       .map((e) => DropdownMenuItem<Sport>(
             value: e,
             child: Text(e.locale),
           ))
       .toList();
 
-  late final List<DropdownMenuItem<String>> _cities = cities
+  final List<DropdownMenuItem<String>> _cities = cities
       .map((e) => DropdownMenuItem<String>(
             value: e,
             child: Text(e),
@@ -45,7 +47,6 @@ class CreateGamePage extends ConsumerWidget {
     );
   }
 
-  final _dateTextController = TextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final model = ref.watch(createGameProvider);
@@ -71,7 +72,7 @@ class CreateGamePage extends ConsumerWidget {
                         child: Column(
                           children: [
                             const SizedBox(height: 16),
-                            DropdownButton<String>(
+                            CustomDropdown<String>(
                               value: model.city,
                               items: _cities,
                               hint: const Text('Город*'),
@@ -79,8 +80,9 @@ class CreateGamePage extends ConsumerWidget {
                                 if (value != null) model.onCityChanged(value);
                               },
                             ),
+
                             const SizedBox(height: 16),
-                            DropdownButton<Sport>(
+                            CustomDropdown<Sport>(
                               value: model.sport,
                               items: _sportItems,
                               hint: const Text('Спорт*'),
@@ -88,15 +90,20 @@ class CreateGamePage extends ConsumerWidget {
                                 if (value != null) model.onSportChanged(value);
                               },
                             ),
+
                             const SizedBox(height: 16),
                             TextField(
-                              controller: _dateTextController,
+                              keyboardType: TextInputType.none,
+                              controller: model.dateTextController,
+                              decoration: _decoration(
+                                'Дата и время*',
+                                'Укажите, когда игра',
+                              ),
                               onTap: () {
-                                showCupertinoModalPopup(
-                                  context: context,
-                                  builder: (_) => CupertinoDatePicker(
-                                    onDateTimeChanged: model.onDateTimeChanged,
-                                  ),
+                                showDateTimePicker(
+                                  context,
+                                  initial: model.dateTime,
+                                  onChanged: model.onDateTimeChanged,
                                 );
                               },
                             ),

@@ -47,7 +47,10 @@ class GamesPageModel extends ChangeNotifier {
 
   void onCreateGame() async {
     final game = await navigatorKey.currentState?.push(
-      MaterialPageRoute(builder: (_) => CreateGamePage()),
+      MaterialPageRoute(
+        maintainState: false,
+        builder: (_) => CreateGamePage(),
+      ),
     ) as Game?;
     if (game != null) _addGame(game);
   }

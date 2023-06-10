@@ -52,6 +52,9 @@ dependencies:
   firebase_messaging: ^14.6.2
   riverpod: ^2.3.6
   flutter_riverpod: ^2.3.6
+  translit: ^2.0.1
+  permission_handler: ^10.3.0
+  
 
   
   

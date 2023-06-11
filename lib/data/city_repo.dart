@@ -1,8 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:teammate/service/notifications_service.dart';
-import 'package:translit/translit.dart';
+import 'package:teammate/data/notifications_repo.dart';
 
 class CityRepo {
+  final _notificationsRepo = NotificationsRepo();
   static const _city = 'city';
   Future<String?> getSavedCity() async {
     final shP = await SharedPreferences.getInstance();
@@ -17,18 +17,12 @@ class CityRepo {
   }
 
   Future<void> _subscribeToCityNotifications(String city) async {
-    final topic = _cityToTopicName(city);
-    await NotificationsService().subscribeToTopic(topic);
-  }
-
-  String _cityToTopicName(String city) {
-    return Translit().toTranslit(source: city).toLowerCase();
+    await _notificationsRepo.subscribeUserToCity(city);
   }
 
   Future<void> _unsubscribeFromPreviousCity() async {
     final previousCity = await getSavedCity();
     if (previousCity == null) return;
-    final topic = _cityToTopicName(previousCity);
-    await NotificationsService().unsubscribeFromTopic(topic);
+    await _notificationsRepo.unsubscribeUserFromCity(previousCity);
   }
 }

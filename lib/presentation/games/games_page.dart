@@ -108,7 +108,7 @@ class _GameTile extends StatefulWidget {
 class _GameTileState extends State<_GameTile> {
   final _gamesRepo = GamesRepo();
 
-  bool get _isMy => SessionData().userId == widget.game.creatorId;
+  bool get _isMy => SessionData().userId == widget.game.creatorPushToken;
   String get _name => _isMy ? '${widget.game.name} (вы)' : widget.game.name;
 
   TapDownDetails? _tapDownDetails;

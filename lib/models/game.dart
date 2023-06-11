@@ -9,7 +9,7 @@ class Game {
     required this.phone,
     required this.description,
     required this.dateTime,
-    required this.creatorId,
+    required this.creatorPushToken,
     required this.location,
   });
   final String id;
@@ -21,7 +21,7 @@ class Game {
   final String location;
   final String? description;
   final DateTime dateTime;
-  final String creatorId;
+  final String creatorPushToken;
 
   Map<String, dynamic> toJson() {
     return {
@@ -32,7 +32,7 @@ class Game {
       'phone': phone,
       'description': description,
       'dateTime': dateTime.millisecondsSinceEpoch,
-      'creatorId': creatorId,
+      'creatorPushToken': creatorPushToken,
       'location': location,
     };
   }
@@ -46,7 +46,7 @@ class Game {
       phone: json['phone'] as String,
       description: json['description'] as String?,
       dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
-      creatorId: json['creatorId'] as String,
+      creatorPushToken: json['creatorPushToken'] as String,
       location: json['location'] as String,
     );
   }

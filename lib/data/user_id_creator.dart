@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 
-class UserId {
-  static Future<String?> get userId async {
+class UserIdCreator {
+  UserIdCreator._();
+  static Future<String?> get deviceId async {
     var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) {
       var iosDeviceInfo = await deviceInfo.iosInfo;

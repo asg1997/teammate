@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:teammate/data/cities.dart';
 import 'package:teammate/data/city_repo.dart';
 import 'package:teammate/data/games_repo.dart';
-import 'package:teammate/data/session_data.dart';
 import 'package:teammate/main.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/models/sport.dart';
+import 'package:teammate/service/notifications_service.dart';
 
 class CreateGameModel extends ChangeNotifier {
   CreateGameModel() {
@@ -80,7 +80,7 @@ class CreateGameModel extends ChangeNotifier {
   }
 
   Future<Game> _getGameFromForm() async {
-    final userId = SessionData().userId;
+    final creatorPushToken = await NotificationsService().getDeviceToken();
 
     var game = Game(
       name: _name,
@@ -88,7 +88,7 @@ class CreateGameModel extends ChangeNotifier {
       sport: sport,
       phone: phone,
       description: description,
-      creatorId: userId,
+      creatorPushToken: creatorPushToken,
       dateTime: dateTime,
       location: location,
       id: DateTime.now().millisecondsSinceEpoch.toString(),

@@ -3,16 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import 'package:teammate/app_decorations.dart';
+import 'package:teammate/core/dependency_injection.dart';
 import 'package:teammate/core/widgets/custom_dropdown.dart';
 import 'package:teammate/data/cities.dart';
-import 'package:teammate/data/games_repo.dart';
 import 'package:teammate/data/session_data.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/presentation/games/games_page_model.dart';
 
-final gamesPageProvider =
-    ChangeNotifierProvider.autoDispose((ref) => GamesPageModel());
+final gamesPageProvider = ChangeNotifierProvider.autoDispose(
+    (ref) => GamesPageModel(cityRepo: sl(), gamesRepo: sl()));
 
 class GamesPage extends ConsumerWidget {
   const GamesPage({super.key});
@@ -46,7 +46,8 @@ class GamesPage extends ConsumerWidget {
           ),
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 40),
               child: RefreshIndicator(
                 onRefresh: model.loadGames,
                 child: CustomScrollView(
@@ -96,119 +97,107 @@ class GamesPage extends ConsumerWidget {
   }
 }
 
-class _GameTile extends StatefulWidget {
+class _GameTile extends ConsumerWidget {
   const _GameTile({required this.game, required this.onDeleted});
   final Game game;
   final VoidCallback onDeleted;
 
+  // late  final    TapDownDetails _tapDownDetails;
+
+  // void _onTapDown(LongPressDownDetails details, ) {}
+
+  // void _showMenu(BuildContext context, WidgetRef ref) {
+  //   final offset = _tapDownDetails!.globalPosition;
+
+  //   showMenu(
+  //     context: context,
+  //     position: RelativeRect.fromLTRB(offset.dx, offset.dy, 0, 0),
+  //     items: [
+  //       PopupMenuItem(
+  //         onTap: () => _onDeleteTapped(ref),
+  //         child: const Text(
+  //           'Удалить игру',
+  //           style: TextStyle(
+  //             color: Colors.red,
+  //             fontWeight: FontWeight.bold,
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  bool _isMy() => SessionData().userId == game.creatorId;
+  String _name() {
+    return _isMy() ? '${game.name} (вы)' : game.name;
+  }
+
+  // void _onDeleteTapped(WidgetRef ref) =>
+  //     ref.read(gamesPageProvider).onDeleteTapped(game);
+
   @override
-  State<_GameTile> createState() => _GameTileState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final date = DateFormat('dd MMM HH:mm', 'ru').format(game.dateTime);
 
-class _GameTileState extends State<_GameTile> {
-  final _gamesRepo = GamesRepo();
-
-  bool get _isMy => SessionData().userId == widget.game.creatorPushToken;
-  String get _name => _isMy ? '${widget.game.name} (вы)' : widget.game.name;
-
-  TapDownDetails? _tapDownDetails;
-
-  void _onTapDown(TapDownDetails details) => _tapDownDetails = details;
-
-  void _showMenu(BuildContext context) {
-    if (!_isMy) return;
-    final offset = _tapDownDetails!.globalPosition;
-
-    showMenu(
-      context: context,
-      position: RelativeRect.fromLTRB(offset.dx, offset.dy, 0, 0),
-      items: [
-        PopupMenuItem(
-          onTap: _onDeleteTapped,
-          child: const Text(
-            'Удалить игру',
-            style: TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+    return GestureDetector(
+      // onLongPressDown: (details) => _showMenu(context, ref),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(3),
         ),
-      ],
-    );
-  }
-
-  void _onDeleteTapped() {
-    _gamesRepo.delete(widget.game);
-    widget.onDeleted();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final date = DateFormat('dd MMM HH:mm', 'ru').format(widget.game.dateTime);
-
-    return Material(
-      color: Colors.white,
-      child: InkWell(
-        onTapDown: _onTapDown,
-        onLongPress: () => _showMenu(context),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(3),
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 15,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // ДАТА
-                  Expanded(
-                    child: Text(
-                      date,
-                      style: const TextStyle(fontSize: 16),
-                    ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 15,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // ДАТА
+                Expanded(
+                  child: Text(
+                    date,
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  // СПОРТ
-                  Text(
-                    widget.game.sport.locale,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+                // СПОРТ
+                Text(
+                  game.sport.locale,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
-
-              // ОПИСАНИЕ
-              const SizedBox(height: 20),
-              if (widget.game.description != null &&
-                  widget.game.description!.isNotEmpty) ...[
-                Text(widget.game.description!),
-                const SizedBox(height: 10),
+                ),
               ],
-              // ИМЯ
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Text(
-                  _name,
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ),
+            ),
+
+            // ОПИСАНИЕ
+            const SizedBox(height: 20),
+            if (game.description != null && game.description!.isNotEmpty) ...[
+              Text(game.description!),
               const SizedBox(height: 10),
-              // ТЕЛЕФОН
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  widget.game.phone,
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ),
             ],
-          ),
+            // ИМЯ
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                _name(),
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
+            const SizedBox(height: 10),
+            // ТЕЛЕФОН
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                game.phone,
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
+          ],
         ),
       ),
     );

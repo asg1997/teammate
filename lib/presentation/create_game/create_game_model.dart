@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:teammate/data/cities.dart';
-import 'package:teammate/data/city_repo.dart';
-import 'package:teammate/data/games_repo.dart';
+import 'package:teammate/domain/cities_repo.dart';
+import 'package:teammate/domain/games_repo.dart';
 import 'package:teammate/main.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/models/sport.dart';
 import 'package:teammate/service/notifications_service.dart';
 
 class CreateGameModel extends ChangeNotifier {
-  CreateGameModel() {
+  CreateGameModel(CityRepo cityRepo, GamesRepo gamesRepo)
+      : _cityRepo = cityRepo,
+        _gamesRepo = gamesRepo {
     _init();
   }
 
-  final _gamesRepo = GamesRepo();
-  final _cityRepo = CityRepo();
+  final GamesRepo _gamesRepo;
+  final CityRepo _cityRepo;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;

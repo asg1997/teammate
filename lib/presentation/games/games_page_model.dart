@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:teammate/data/city_repo.dart';
-import 'package:teammate/data/games_repo.dart';
+import 'package:teammate/data/session_data.dart';
+import 'package:teammate/domain/cities_repo.dart';
+import 'package:teammate/domain/games_repo.dart';
 import 'package:teammate/main.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/create_game/create_game_page.dart';
 
 class GamesPageModel extends ChangeNotifier {
-  GamesPageModel() {
+  GamesPageModel({required CityRepo cityRepo, required GamesRepo gamesRepo})
+      : _cityRepo = cityRepo,
+        _gamesRepo = gamesRepo {
     _init();
   }
 
-  final _gamesRepo = GamesRepo();
-  final _cityRepo = CityRepo();
+  final GamesRepo _gamesRepo;
+  final CityRepo _cityRepo;
   final dateTextController = TextEditingController();
 
   List<Game> games = [];
@@ -40,10 +43,17 @@ class GamesPageModel extends ChangeNotifier {
 
   Future<void> loadGames() async {
     isLoading = true;
-
     games = await _gamesRepo.getGames(_selectedCity);
+
     isLoading = false;
   }
+
+  void onDeleteTapped(Game game) async {
+    await _gamesRepo.delete(game);
+    games.remove(game);
+  }
+
+  bool isMyGame(Game game) => SessionData().userId == game.creatorPushToken;
 
   void onCreateGame() async {
     final game = await navigatorKey.currentState?.push(

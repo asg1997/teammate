@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:teammate/app_decorations.dart';
+import 'package:teammate/core/dependency_injection.dart';
 import 'package:teammate/core/widgets/custom_dropdown.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/data/cities.dart';
@@ -11,7 +12,7 @@ import 'package:teammate/presentation/components/show_date_time_picker.dart';
 import 'package:teammate/presentation/create_game/create_game_model.dart';
 
 final createGameProvider = ChangeNotifierProvider.autoDispose(
-  (ref) => CreateGameModel(),
+  (ref) => CreateGameModel(sl(), sl()),
 );
 
 class CreateGamePage extends ConsumerWidget {

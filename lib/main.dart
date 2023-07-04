@@ -7,13 +7,16 @@ import 'package:teammate/data/session_data.dart';
 import 'package:teammate/firebase_options.dart';
 import 'package:teammate/presentation/games/games_page.dart';
 import 'package:teammate/service/notifications_service.dart';
+import 'package:teammate/core/dependency_injection.dart' as di;
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await SessionData().init();
+  di.init();
+
+  await SessionData().init(di.sl());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

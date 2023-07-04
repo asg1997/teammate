@@ -18,8 +18,8 @@ class CustomDropdown<T> extends StatelessWidget {
       height: 55,
       alignment: Alignment.center,
       color: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: DropdownButton<T>(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
         underline: Container(),
         isExpanded: true,
         hint: hint,

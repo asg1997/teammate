@@ -37,8 +37,11 @@ class GamesPageModel extends ChangeNotifier {
   }
 
   Future<void> _getSavedCity() async {
-    final saved = await _cityRepo.getSavedCity();
-    if (saved != null) onCityChanged(saved);
+    final savedCity = await _cityRepo.getSavedCity();
+
+    savedCity == null
+        ? await onCityChanged(_selectedCity)
+        : await onCityChanged(savedCity);
   }
 
   Future<void> loadGames() async {
@@ -73,6 +76,7 @@ class GamesPageModel extends ChangeNotifier {
   }
 
   Future<void> onCityChanged(String city) async {
+    if (city == _selectedCity) return;
     _selectedCity = city;
     notifyListeners();
     _cityRepo.saveCity(city);

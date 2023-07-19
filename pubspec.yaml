@@ -29,15 +29,17 @@ dependencies:
   # Форматирование дат и перевод
   flutter_localizations:
     sdk: flutter         
-  intl: ^0.17.0
+  intl: ^0.18.0
   dropdown_search: ^5.0.5
   cupertino_stepper: ^0.2.1
   dropdown_button2: ^1.9.3
   pinput: ^2.2.30
+
   firebase_core: ^2.6.1
   firebase_auth: ^4.2.8
   firebase_storage: ^11.0.13
   cloud_firestore: ^4.4.2
+  
   shared_preferences: ^2.1.1
   provider: ^6.0.5
   fluttertoast: ^8.2.1
@@ -55,15 +57,25 @@ dependencies:
   translit: ^2.0.1
   permission_handler: ^10.3.0
   
+  
 
   
   
     
 dev_dependencies:
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
   # Автогенерация картинок
   spider: ^4.0.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/teammate-logo.png"
+  min_sdk_android: 21 
+  remove_alpha_ios: true
+  
 
 flutter:
   assets:

@@ -1,4 +1,4 @@
-package com.example.teammate
+package com.teammate
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -98,7 +98,5 @@ class CreateGameModel extends ChangeNotifier {
     return game;
   }
 
-  Future<void> _createGame(Game game) async {
-    _gamesRepo.createGame(game);
-  }
+  Future<void> _createGame(Game game) => _gamesRepo.createGame(game);
 }

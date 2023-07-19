@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teammate/app_decorations.dart';
+import 'package:teammate/core/app_decorations.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({super.key});

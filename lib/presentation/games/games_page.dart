@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import 'package:teammate/app_decorations.dart';
+import 'package:teammate/core/app_decorations.dart';
 import 'package:teammate/core/dependency_injection.dart';
 import 'package:teammate/core/widgets/custom_dropdown.dart';
 import 'package:teammate/data/cities.dart';

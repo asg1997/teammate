@@ -32,13 +32,6 @@ class GamesPage extends ConsumerWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-          // drawer: const Drawer(
-          //   child: DrawerContent(),
-          // ),
-          // appBar: AppBar(
-          //   backgroundColor: Colors.transparent,
-          //   elevation: 0,
-          // ),
           backgroundColor: AppDecorations.background,
           floatingActionButton: FloatingActionButton(
             backgroundColor: const Color(0xFFFF564B),
@@ -49,49 +42,51 @@ class GamesPage extends ConsumerWidget {
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 40),
-              child: RefreshIndicator(
-                onRefresh: model.loadGames,
-                child: CustomScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    slivers: [
-                      SliverFillRemaining(
-                        child: Column(
-                          children: [
-                            CustomDropdown<String>(
-                              value: model.selectedCity,
-                              items: _cities,
-                              onChanged: (value) {
-                                if (value != null) model.onCityChanged(value);
-                              },
-                            ),
-                            const SizedBox(height: 16),
-                            Expanded(
-                              child: model.isLoading
-                                  ? const LoadingWidget()
-                                  : model.games.isEmpty
-                                      ? const Center(
-                                          child: Text(
-                                          'В вашем городе пока нет игр',
-                                          style: TextStyle(
-                                            color: Colors.white,
+              child: CustomScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  slivers: [
+                    SliverFillRemaining(
+                      child: Column(
+                        children: [
+                          CustomDropdown<String>(
+                            value: model.selectedCity,
+                            items: _cities,
+                            onChanged: (value) {
+                              if (value != null) model.onCityChanged(value);
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          Expanded(
+                            child: model.isLoading
+                                ? const LoadingWidget()
+                                : RefreshIndicator(
+                                    onRefresh: model.loadGames,
+                                    child: model.games.isEmpty
+                                        ? const Center(
+                                            child: Text(
+                                            'В вашем городе пока нет игр',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ))
+                                        : ListView.separated(
+                                            shrinkWrap: true,
+                                            itemCount: games.length,
+                                            itemBuilder: (_, index) =>
+                                                _GameTile(
+                                                    game: games[index],
+                                                    onDeleted: () =>
+                                                        model.removeGame(
+                                                            games[index])),
+                                            separatorBuilder: (_, index) =>
+                                                const SizedBox(height: 10),
                                           ),
-                                        ))
-                                      : ListView.separated(
-                                          shrinkWrap: true,
-                                          itemCount: games.length,
-                                          itemBuilder: (_, index) => _GameTile(
-                                              game: games[index],
-                                              onDeleted: () => model
-                                                  .removeGame(games[index])),
-                                          separatorBuilder: (_, index) =>
-                                              const SizedBox(height: 10),
-                                        ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ]),
-              ),
+                                  ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ]),
             ),
           )),
     );

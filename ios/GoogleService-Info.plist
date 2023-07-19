@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>241663777855-nc2vvjmv3dljnidmkpnbnb4thmj0n6ds.apps.googleusercontent.com</string>
+	<string>241663777855-sa72dsr8lirkcmhfj7hluunjl3h8ihtn.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.241663777855-nc2vvjmv3dljnidmkpnbnb4thmj0n6ds</string>
+	<string>com.googleusercontent.apps.241663777855-sa72dsr8lirkcmhfj7hluunjl3h8ihtn</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>241663777855-1j03bvvvmd7ne51mqot4a38aibefcqnf.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.teammate</string>
+	<string>com.angelinagromova.Teammate</string>
 	<key>PROJECT_ID</key>
 	<string>teammateapp-44b53</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:241663777855:ios:53af854e0178c403dcec8a</string>
+	<string>1:241663777855:ios:103d388cb9f1233adcec8a</string>
 </dict>
 </plist>

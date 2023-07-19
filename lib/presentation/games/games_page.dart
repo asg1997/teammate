@@ -1,6 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 
 import 'package:teammate/core/app_decorations.dart';
 import 'package:teammate/core/dependency_injection.dart';
@@ -10,6 +10,7 @@ import 'package:teammate/data/session_data.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/presentation/games/games_page_model.dart';
+import 'package:teammate/service/date_extension.dart';
 
 final gamesPageProvider = ChangeNotifierProvider.autoDispose(
     (ref) => GamesPageModel(cityRepo: sl(), gamesRepo: sl()));
@@ -102,45 +103,45 @@ class _GameTile extends ConsumerWidget {
   final Game game;
   final VoidCallback onDeleted;
 
-  // late  final    TapDownDetails _tapDownDetails;
-
-  // void _onTapDown(LongPressDownDetails details, ) {}
-
-  // void _showMenu(BuildContext context, WidgetRef ref) {
-  //   final offset = _tapDownDetails!.globalPosition;
-
-  //   showMenu(
-  //     context: context,
-  //     position: RelativeRect.fromLTRB(offset.dx, offset.dy, 0, 0),
-  //     items: [
-  //       PopupMenuItem(
-  //         onTap: () => _onDeleteTapped(ref),
-  //         child: const Text(
-  //           'Удалить игру',
-  //           style: TextStyle(
-  //             color: Colors.red,
-  //             fontWeight: FontWeight.bold,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  bool _isMy() => SessionData().userId == game.creatorId;
-  String _name() {
-    return _isMy() ? '${game.name} (вы)' : game.name;
+  void _showMenu(
+    BuildContext context,
+    WidgetRef ref,
+    LongPressDownDetails details,
+  ) {
+    final offset = details.globalPosition;
+    if (!_isMy) return;
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(offset.dx, offset.dy, 0, 0),
+      items: [
+        PopupMenuItem(
+          onTap: () => _onDeleteTapped(ref),
+          child: const Text(
+            'Удалить игру',
+            style: TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
-  // void _onDeleteTapped(WidgetRef ref) =>
-  //     ref.read(gamesPageProvider).onDeleteTapped(game);
+  bool get _isMy => SessionData().userId == game.creatorId;
+  String get _name {
+    return _isMy ? '${game.name} (вы)' : game.name;
+  }
+
+  void _onDeleteTapped(WidgetRef ref) =>
+      ref.read(gamesPageProvider).onDeleteTapped(game);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final date = DateFormat('dd MMM HH:mm', 'ru').format(game.dateTime);
+    final date = game.dateTime.toDayAndTimeString;
 
     return GestureDetector(
-      // onLongPressDown: (details) => _showMenu(context, ref),
+      onLongPressDown: (details) => _showMenu(context, ref, details),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -180,11 +181,15 @@ class _GameTile extends ConsumerWidget {
               Text(game.description!),
               const SizedBox(height: 10),
             ],
+            // Место
+            Text(game.location),
+            const SizedBox(height: 10),
+
             // ИМЯ
             Align(
               alignment: Alignment.bottomRight,
               child: Text(
-                _name(),
+                _name,
                 style: const TextStyle(fontSize: 16),
               ),
             ),

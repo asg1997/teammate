@@ -17,7 +17,9 @@ class GamesPageModel extends ChangeNotifier {
   final CityRepo _cityRepo;
   final dateTextController = TextEditingController();
 
-  List<Game> games = [];
+  List<Game> _games = [];
+  List<Game> get games =>
+      _games..sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
   var _isLoading = false;
   bool get isLoading => _isLoading;
@@ -46,14 +48,14 @@ class GamesPageModel extends ChangeNotifier {
 
   Future<void> loadGames() async {
     isLoading = true;
-    games = await _gamesRepo.getGames(_selectedCity);
+    _games = await _gamesRepo.getGames(_selectedCity);
 
     isLoading = false;
   }
 
   void onDeleteTapped(Game game) async {
     await _gamesRepo.delete(game);
-    games.remove(game);
+    _games.remove(game);
   }
 
   bool isMyGame(Game game) => SessionData().userId == game.creatorPushToken;
@@ -84,7 +86,7 @@ class GamesPageModel extends ChangeNotifier {
   }
 
   void removeGame(Game game) {
-    games.remove(game);
+    _games.remove(game);
     notifyListeners();
   }
 }

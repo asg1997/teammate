@@ -29,7 +29,7 @@ dependencies:
   # Форматирование дат и перевод
   flutter_localizations:
     sdk: flutter         
-  intl: ^0.18.0
+  intl: ^0.17.0
   dropdown_search: ^5.0.5
   cupertino_stepper: ^0.2.1
   dropdown_button2: ^1.9.3

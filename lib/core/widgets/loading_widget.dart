@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teammate/core/app_decorations.dart';
+import 'package:teammate/core/theme/app_colors.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({super.key});
@@ -8,7 +8,7 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: CircularProgressIndicator(
-        color: AppDecorations.mainColor,
+        color: AppColors.main,
       ),
     );
   }

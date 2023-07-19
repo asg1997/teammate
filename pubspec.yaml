@@ -17,10 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   # Управление состоянием
   equatable: ^2.0.5
-  flutter_bloc: ^8.1.1
   
-  # Навигация
-  # go_router: ^5.0.5
   get_it: ^7.6.0
 
   # Шрифты
@@ -30,6 +27,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter         
   intl: ^0.17.0
+
   dropdown_search: ^5.0.5
   cupertino_stepper: ^0.2.1
   dropdown_button2: ^1.9.3
@@ -39,23 +37,26 @@ dependencies:
   firebase_auth: ^4.2.8
   firebase_storage: ^11.0.13
   cloud_firestore: ^4.4.2
+  firebase_messaging: ^14.6.2
   
   shared_preferences: ^2.1.1
-  provider: ^6.0.5
-  fluttertoast: ^8.2.1
   flutter_secure_storage: ^8.0.0
+
+  fluttertoast: ^8.2.1
+
   mask_text_input_formatter: ^2.4.0
+
   device_info_plus: ^9.0.1
 
-
-
-
   flutter_local_notifications: ^14.1.0
-  firebase_messaging: ^14.6.2
+
   riverpod: ^2.3.6
   flutter_riverpod: ^2.3.6
+
   translit: ^2.0.1
+
   permission_handler: ^10.3.0
+  share_plus: ^7.0.2
   
   
 

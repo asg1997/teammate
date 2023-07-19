@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:teammate/core/app_decorations.dart';
+import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/dependency_injection.dart';
 import 'package:teammate/core/widgets/custom_dropdown.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
@@ -34,7 +34,7 @@ class CreateGamePage extends ConsumerWidget {
 
   InputDecoration _decoration(String label, String hint) {
     return InputDecoration(
-      focusColor: AppDecorations.background,
+      focusColor: AppColors.background,
       focusedBorder: const OutlineInputBorder(),
       errorBorder:
           const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
@@ -55,9 +55,9 @@ class CreateGamePage extends ConsumerWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: AppDecorations.background,
+        backgroundColor: AppColors.background,
         appBar: AppBar(
-          backgroundColor: AppDecorations.background,
+          backgroundColor: AppColors.background,
           centerTitle: true,
           title: const Text('Создать игру'),
         ),
@@ -165,7 +165,7 @@ class CreateGamePage extends ConsumerWidget {
                               width: double.infinity,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppDecorations.mainColor),
+                                    backgroundColor: AppColors.main),
                                 onPressed: model.onCreateGameTapped,
                                 child: const Text(
                                   'Создать игру',

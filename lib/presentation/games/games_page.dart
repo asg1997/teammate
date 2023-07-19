@@ -2,11 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:teammate/core/app_decorations.dart';
+import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/dependency_injection.dart';
 import 'package:teammate/core/widgets/custom_dropdown.dart';
 import 'package:teammate/data/cities.dart';
-import 'package:teammate/data/session_data.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/presentation/games/games_page_model.dart';
@@ -32,7 +31,7 @@ class GamesPage extends ConsumerWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-          backgroundColor: AppDecorations.background,
+          backgroundColor: AppColors.background,
           floatingActionButton: FloatingActionButton(
             backgroundColor: const Color(0xFFFF564B),
             onPressed: model.onCreateGame,
@@ -123,9 +122,8 @@ class _GameTile extends ConsumerWidget {
     );
   }
 
-  bool get _isMy => SessionData().userId == game.creatorId;
   String get _name {
-    return _isMy ? '${game.name} (вы)' : game.name;
+    return game.isMy ? '${game.name} (вы)' : game.name;
   }
 
   void _onDeleteTapped(WidgetRef ref) =>

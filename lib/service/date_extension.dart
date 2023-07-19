@@ -1,6 +1,10 @@
 import 'package:intl/intl.dart';
 
 extension DateString on DateTime {
+  /// 01 января 2022
+  String get toDateAndTimeString =>
+      DateFormat('dd MMMM в HH:mm', 'ru').format(this);
+
   /// Возравщает сегодня, завтра, послезавтра
   /// Если другое время - возвращает даты
   String get toDayAndTimeString {

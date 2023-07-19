@@ -1,3 +1,4 @@
+import 'package:teammate/data/session_data.dart';
 import 'package:teammate/models/sport.dart';
 
 class Game {
@@ -12,8 +13,8 @@ class Game {
     required this.creatorPushToken,
     required this.location,
   });
-  final String id;
 
+  final String id;
   final String name;
   final String city;
   final Sport sport;
@@ -23,6 +24,8 @@ class Game {
   final DateTime dateTime;
   final String creatorPushToken;
   String get creatorId => creatorPushToken;
+
+  bool get isMy => SessionData().userId == creatorId;
 
   Map<String, dynamic> toJson() {
     return {

@@ -14,7 +14,7 @@ class NotificationsService {
     await _initLocalNotifications();
   }
 
-// ios: c0omZBWXTVeypIBt-58nNI:APA91bHYRFqGCVIabL_A_AcbEDpY-JLfGOxIAsnQSflPm3iUOVrmDXF2Q6Kt-ynRuEC3YsNvVMmn6Qz1e39qfolhd_KhAgloCbdO0pT0OJWz2ekCDTXsq24MsJBVFXO7aIgK3QpV2Q4T
+// ios: fd1cpBuIE0pYlq6P0L352x:APA91bHNpddstvWTIWgiFBKCGCTPJA0xt0817h6Yj2sG9AA00IaeJ2i-FiEAuoGyX0rhnqgUzjG6FyQB_VajrivTiuOYxAMpzwyq-sv06bFEYPfx0oz1jmbuExBi7E-W0PsyIubInq9W
 // Android dXualxhHTfmIywSm3DcER1:APA91bHAOvpG9Tv9RlE6QZZayGXoYgakdGa5me65bbVucPrraQgt-YsOxlII3H3HHziUN-MfffJLAh4MAeA1NCOTao1uecmS3btomgRnD00cCl_JNE7MYO9w22pMQXtgwTT7dqdJimyr
   Future<String> getDeviceToken() async {
     final messaging = FirebaseMessaging.instance;
@@ -25,7 +25,10 @@ class NotificationsService {
   Future<void> _getPermissionForNotifications() =>
       FirebaseMessaging.instance.requestPermission();
 
-  static Future<void> onBackgroundMessage(RemoteMessage message) async {}
+  static Future<void> onBackgroundMessage(RemoteMessage message) async {
+    print(message);
+  }
+
   Future<void> onMessage(RemoteMessage message) => _showMessage(message);
 
   Future<void> _showMessage(RemoteMessage message) async {

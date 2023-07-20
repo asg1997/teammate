@@ -5,6 +5,7 @@ import 'package:teammate/domain/games_repo.dart';
 import 'package:teammate/main.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/create_game/create_game_page.dart';
+import 'package:teammate/presentation/game/game_page.dart';
 
 class GamesPageModel extends ChangeNotifier {
   GamesPageModel({required CityRepo cityRepo, required GamesRepo gamesRepo})
@@ -89,4 +90,7 @@ class GamesPageModel extends ChangeNotifier {
     _games.remove(game);
     notifyListeners();
   }
+
+  void onGameTap(Game game) => navigatorKey.currentState
+      ?.push(MaterialPageRoute(builder: (_) => GamePage(game: game)));
 }

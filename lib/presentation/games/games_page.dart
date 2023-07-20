@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -100,10 +99,10 @@ class _GameTile extends ConsumerWidget {
   void _showMenu(
     BuildContext context,
     WidgetRef ref,
-    LongPressDownDetails details,
+    LongPressStartDetails details,
   ) {
+    if (game.isMy) return;
     final offset = details.globalPosition;
-    if (!_isMy) return;
     showMenu(
       context: context,
       position: RelativeRect.fromLTRB(offset.dx, offset.dy, 0, 0),
@@ -131,10 +130,12 @@ class _GameTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final model = ref.read(gamesPageProvider);
     final date = game.dateTime.toDayAndTimeString;
 
     return GestureDetector(
-      onLongPressDown: (details) => _showMenu(context, ref, details),
+      onTap: () => model.onGameTap(game),
+      onLongPressStart: (details) => _showMenu(context, ref, details),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

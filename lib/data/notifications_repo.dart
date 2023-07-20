@@ -10,21 +10,23 @@ class NotificationsRepo {
   Future<void> subscribeUserToCity(String city) async {
     final topic = _cityToTopicName(city);
     final pushToken = await _getPushToken();
-    await _ref.doc(topic).set({
-      'subscribers': FieldValue.arrayUnion(
-        [pushToken],
-      )
-    });
+    await _ref.doc(topic).set(
+      {
+        'subscribers': FieldValue.arrayUnion([pushToken])
+      },
+      SetOptions(merge: true),
+    );
   }
 
   Future<void> unsubscribeUserFromCity(String city) async {
     final topic = _cityToTopicName(city);
     final pushToken = await _getPushToken();
-    await _ref.doc(topic).set({
-      'subscribers': FieldValue.arrayRemove(
-        [pushToken],
-      )
-    });
+    await _ref.doc(topic).set(
+      {
+        'subscribers': FieldValue.arrayRemove([pushToken])
+      },
+      SetOptions(merge: true),
+    );
   }
 
   Future<String> _getPushToken() => NotificationsService().getDeviceToken();

@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
-
+import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/game/game_page_model.dart';
 import 'package:teammate/service/date_extension.dart';
 
-final gamePageRef = Provider.autoDispose(
-  (ref) => GamePageModel(game: null),
+final gamePageRef =
+    ChangeNotifierProvider.family.autoDispose<GamePageModel, Game>(
+  (ref, game) => GamePageModel(game: game),
 );
 
 class GamePage extends ConsumerWidget {
-  const GamePage({super.key});
-
+  const GamePage({super.key, required this.game});
+  final Game game;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final game = ref.read(gamePageRef).game;
+    final model = ref.read(gamePageRef(game));
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
@@ -128,9 +131,9 @@ class GamePage extends ConsumerWidget {
                 // const _PlayersListView(),
                 // const SizedBox(height: 10),
                 // ПОДЕЛИТЬСЯ / ПОЗВАТЬ ДРУЗЕЙ
-                const Align(
+                Align(
                   alignment: Alignment.centerRight,
-                  child: _ShareButton(),
+                  child: _ShareButton(() => model.onInviteUsersTapped()),
                 ),
 
                 const SizedBox(height: 30),
@@ -154,15 +157,14 @@ class GamePage extends ConsumerWidget {
 }
 
 class _ShareButton extends ConsumerWidget {
-  const _ShareButton();
-
+  const _ShareButton(this.onTap);
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final model = ref.read(gamePageRef);
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: model.onInviteUsersTapped,
+        onTap: onTap,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

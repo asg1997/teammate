@@ -1,6 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+Future<void> onBackgroundMessage(RemoteMessage message) async {}
+
 class NotificationsService {
   factory NotificationsService() => _instance;
   const NotificationsService._();
@@ -24,10 +26,6 @@ class NotificationsService {
 
   Future<void> _getPermissionForNotifications() =>
       FirebaseMessaging.instance.requestPermission();
-
-  static Future<void> onBackgroundMessage(RemoteMessage message) async {
-    print(message);
-  }
 
   Future<void> onMessage(RemoteMessage message) => _showMessage(message);
 

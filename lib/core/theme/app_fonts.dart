@@ -22,6 +22,14 @@ abstract class AppFonts {
     fontWeight: FontWeight.w700,
   );
 
+  // LIGHT
+
+  static final light13 = GoogleFonts.openSans(
+    fontSize: 13,
+    color: Colors.black,
+    fontWeight: FontWeight.w400,
+  );
+
   static final bodyLarge = GoogleFonts.roboto(
     fontSize: 18,
     color: AppColors.secondary,
@@ -51,7 +59,7 @@ abstract class AppFonts {
 
   static final medium16 = GoogleFonts.roboto(
     fontSize: 16,
-    color: AppColors.main,
+    color: AppColors.secondary,
     fontWeight: FontWeight.w800,
   );
 

@@ -62,7 +62,7 @@ class GamesPageModel extends ChangeNotifier {
 
   Future<void> loadMore() async {
     _setIsLoadingMore(true);
-    final newGames = await _gamesRepo.getNextGames(_selectedCity);
+    final newGames = await _gamesRepo.getGames(_selectedCity);
     _games = [..._games, ...newGames];
     _setIsLoadingMore(false);
   }

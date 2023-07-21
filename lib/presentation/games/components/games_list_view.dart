@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teammate/core/theme/app_colors.dart';
 
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/games/components/games_list_item.dart';
@@ -8,27 +9,42 @@ class GamesListView extends StatelessWidget {
     required this.games,
     required this.onDeleted,
     required this.onTap,
+    required this.onRefresh,
+    required this.onScrollEnd,
     Key? key,
   }) : super(key: key);
 
   final List<Game> games;
   final void Function(Game game) onDeleted;
   final void Function(Game game) onTap;
+  final Future<void> Function() onRefresh;
+  final VoidCallback onScrollEnd;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      itemCount: games.length,
-      itemBuilder: (_, index) {
-        final game = games[index];
-        return GamesListItem(
-          game: games[index],
-          onDeleted: () => onDeleted(game),
-          onTap: () => onTap(game),
-        );
+    return NotificationListener<ScrollEndNotification>(
+      onNotification: (scrollEnd) {
+        final metrics = scrollEnd.metrics;
+        final isTop = metrics.pixels == 0;
+        if (metrics.atEdge && !isTop) onScrollEnd();
+        return true;
       },
-      separatorBuilder: (_, index) => const SizedBox(height: 10),
+      child: RefreshIndicator(
+        onRefresh: onRefresh,
+        color: AppColors.secondary,
+        child: ListView.separated(
+          itemCount: games.length,
+          itemBuilder: (_, index) {
+            final game = games[index];
+            return GamesListItem(
+              game: game,
+              onDeleted: () => onDeleted(game),
+              onTap: () => onTap(game),
+            );
+          },
+          separatorBuilder: (_, index) => const SizedBox(height: 10),
+        ),
+      ),
     );
   }
 }

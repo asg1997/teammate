@@ -10,8 +10,8 @@ class Game {
     required this.phone,
     required this.description,
     required this.dateTime,
-    required this.creatorPushToken,
     required this.location,
+    required this.creatorId,
   });
 
   final String id;
@@ -22,8 +22,7 @@ class Game {
   final String location;
   final String? description;
   final DateTime dateTime;
-  final String creatorPushToken;
-  String get creatorId => creatorPushToken;
+  final String creatorId;
 
   bool get isMy => SessionData().userId == creatorId;
 
@@ -36,7 +35,7 @@ class Game {
       'phone': phone,
       'description': description,
       'dateTime': dateTime.millisecondsSinceEpoch,
-      'creatorId': creatorPushToken,
+      'creatorId': creatorId,
       'location': location,
     };
   }
@@ -50,7 +49,7 @@ class Game {
       phone: json['phone'] as String,
       description: json['description'] as String?,
       dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
-      creatorPushToken: json['creatorId'] as String,
+      creatorId: json['creatorId'] as String,
       location: json['location'] as String,
     );
   }

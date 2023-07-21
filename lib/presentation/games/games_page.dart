@@ -39,44 +39,47 @@ class GamesPage extends ConsumerWidget {
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 40),
-              child: CustomScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  slivers: [
-                    SliverFillRemaining(
-                      child: Column(
-                        children: [
-                          CustomDropdown<String>(
-                            value: model.selectedCity,
-                            items: _cities,
-                            onChanged: (value) {
-                              if (value != null) model.onCityChanged(value);
-                            },
-                          ),
-                          const SizedBox(height: 16),
-                          Expanded(
-                            child: model.isLoading
-                                ? const LoadingWidget()
-                                : RefreshIndicator(
-                                    onRefresh: model.loadGames,
-                                    child: model.games.isEmpty
-                                        ? const Center(
-                                            child: Text(
-                                            'В вашем городе пока нет игр',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ))
-                                        : GamesListView(
-                                            games: games,
-                                            onDeleted: model.onDeleteTapped,
-                                            onTap: model.onGameTap,
-                                          ),
-                                  ),
-                          ),
-                        ],
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Column(
+                    children: [
+                      CustomDropdown<String>(
+                        value: model.selectedCity,
+                        items: _cities,
+                        onChanged: (value) {
+                          if (value != null) model.onCityChanged(value);
+                        },
                       ),
+                      const SizedBox(height: 16),
+                      Expanded(
+                        child: model.isLoading
+                            ? const LoadingWidget()
+                            : model.games.isEmpty
+                                ? const Center(
+                                    child: Text(
+                                    'В вашем городе пока нет игр',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ))
+                                : GamesListView(
+                                    games: games,
+                                    onDeleted: model.onDeleteTapped,
+                                    onTap: model.onGameTap,
+                                    onRefresh: model.loadGames,
+                                    onScrollEnd: model.loadMore,
+                                  ),
+                      ),
+                    ],
+                  ),
+                  if (model.isLoadingMore)
+                    const Positioned(
+                      bottom: 20,
+                      child: LoadingWidget(),
                     )
-                  ]),
+                ],
+              ),
             ),
           )),
     );

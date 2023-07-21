@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:teammate/core/dependency_injection.dart';
 
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
@@ -10,7 +11,7 @@ import 'package:teammate/service/date_extension.dart';
 
 final gamePageRef =
     ChangeNotifierProvider.family.autoDispose<GamePageModel, Game>(
-  (ref, game) => GamePageModel(game: game),
+  (ref, game) => GamePageModel(game: game, gamesRepo: sl()),
 );
 
 class GamePage extends ConsumerWidget {
@@ -31,15 +32,15 @@ class GamePage extends ConsumerWidget {
           style: AppFonts.titleLarge,
         ),
         // КНОПКА РЕДКТИРОВАНИЯ ИГРЫ
-        // actions: game.isMy
-        //     ? [
-        //         // КНОПКА РЕДАКТИВНОВАНИЯ
-        //         IconButton(
-        //           onPressed: model.onEditTapped,
-        //           icon: const Icon(Icons.edit),
-        //         )
-        //       ]
-        //     : null,
+        actions: game.isMy
+            ? [
+                // КНОПКА РЕДАКТИВНОВАНИЯ
+                IconButton(
+                  onPressed: model.onDeleteTapped,
+                  icon: const Icon(Icons.delete),
+                )
+              ]
+            : null,
       ),
       backgroundColor: AppColors.secondaryBg,
       body: SafeArea(

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:teammate/data/cities.dart';
+import 'package:teammate/data/session_data.dart';
 import 'package:teammate/domain/cities_repo.dart';
 import 'package:teammate/domain/games_repo.dart';
 import 'package:teammate/main.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/models/sport.dart';
-import 'package:teammate/service/notifications_service.dart';
 
 class CreateGameModel extends ChangeNotifier {
   CreateGameModel(CityRepo cityRepo, GamesRepo gamesRepo)
@@ -82,7 +82,7 @@ class CreateGameModel extends ChangeNotifier {
   }
 
   Future<Game> _getGameFromForm() async {
-    final creatorPushToken = await NotificationsService().getDeviceToken();
+    final creatorPushToken = SessionData().userId;
 
     var game = Game(
       name: _name,
@@ -90,7 +90,7 @@ class CreateGameModel extends ChangeNotifier {
       sport: sport,
       phone: phone,
       description: description,
-      creatorPushToken: creatorPushToken,
+      creatorId: creatorPushToken,
       dateTime: dateTime,
       location: location,
       id: DateTime.now().millisecondsSinceEpoch.toString(),

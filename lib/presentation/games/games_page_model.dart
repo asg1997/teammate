@@ -29,6 +29,13 @@ class GamesPageModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  var _isLoadingMore = false;
+  bool get isLoadingMore => _isLoadingMore;
+  void _setIsLoadingMore(bool value) {
+    _isLoadingMore = value;
+    notifyListeners();
+  }
+
   String _selectedCity = 'Москва';
   String get selectedCity => _selectedCity;
 
@@ -50,8 +57,14 @@ class GamesPageModel extends ChangeNotifier {
   Future<void> loadGames() async {
     isLoading = true;
     _games = await _gamesRepo.getGames(_selectedCity);
-
     isLoading = false;
+  }
+
+  Future<void> loadMore() async {
+    _setIsLoadingMore(true);
+    final newGames = await _gamesRepo.getNextGames(_selectedCity);
+    _games = [..._games, ...newGames];
+    _setIsLoadingMore(false);
   }
 
   void onDeleteTapped(Game game) async {
@@ -59,7 +72,7 @@ class GamesPageModel extends ChangeNotifier {
     _games.remove(game);
   }
 
-  bool isMyGame(Game game) => SessionData().userId == game.creatorPushToken;
+  bool isMyGame(Game game) => SessionData().userId == game.creatorId;
 
   void onCreateGame() async {
     final game = await navigatorKey.currentState?.push(

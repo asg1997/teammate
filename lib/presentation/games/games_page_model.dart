@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:teammate/data/session_data.dart';
-import 'package:teammate/domain/cities_repo.dart';
+
 import 'package:teammate/domain/games_repo.dart';
+import 'package:teammate/domain/repos/cities_repo.dart';
 import 'package:teammate/main.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/create_game/create_game_page.dart';
 import 'package:teammate/presentation/game/game_page.dart';
+import 'package:teammate/presentation/notifications/notifications_page.dart';
 
 class GamesPageModel extends ChangeNotifier {
   GamesPageModel({required CityRepo cityRepo, required GamesRepo gamesRepo})
@@ -109,4 +111,12 @@ class GamesPageModel extends ChangeNotifier {
           builder: (_) => GamePage(game: game),
         ),
       );
+
+  void onNotificationsTap() {
+    navigatorKey.currentState?.push(
+      MaterialPageRoute(
+        builder: (_) => const NotificationsPage(),
+      ),
+    );
+  }
 }

@@ -22,6 +22,17 @@ abstract class AppFonts {
     fontWeight: FontWeight.w700,
   );
 
+  static final semiBold16 = GoogleFonts.openSans(
+    fontSize: 16,
+    color: Colors.white,
+    fontWeight: FontWeight.w700,
+  );
+  static final semiBold18 = GoogleFonts.openSans(
+    fontSize: 18,
+    color: Colors.white,
+    fontWeight: FontWeight.w700,
+  );
+
   // LIGHT
 
   static final light13 = GoogleFonts.openSans(
@@ -57,12 +68,20 @@ abstract class AppFonts {
     fontWeight: FontWeight.w800,
   );
 
+// MEDIUM
   static final medium16 = GoogleFonts.roboto(
     fontSize: 16,
     color: AppColors.secondary,
     fontWeight: FontWeight.w800,
   );
 
+  static final medium18 = GoogleFonts.roboto(
+    fontSize: 18,
+    color: AppColors.secondary,
+    fontWeight: FontWeight.w800,
+  );
+
+// REGULAR
   static final regular15 = GoogleFonts.roboto(
     fontSize: 15,
     color: AppColors.main,

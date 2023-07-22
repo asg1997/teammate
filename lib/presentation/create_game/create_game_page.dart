@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/dependency_injection.dart';
+import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/custom_dropdown.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/data/cities.dart';
@@ -56,10 +57,8 @@ class CreateGamePage extends ConsumerWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: AppColors.background,
-        appBar: AppBar(
-          backgroundColor: AppColors.background,
-          centerTitle: true,
-          title: const Text('Создать игру'),
+        appBar: const AppBarWidget(
+          text: 'Создать игру',
         ),
         body: model.isLoading
             ? const LoadingWidget()

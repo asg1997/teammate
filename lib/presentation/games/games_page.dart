@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/dependency_injection.dart';
-import 'package:teammate/core/widgets/custom_dropdown.dart';
-import 'package:teammate/data/cities.dart';
+import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
+import 'package:teammate/presentation/games/components/cities_dropdown.dart';
 import 'package:teammate/presentation/games/components/games_list_view.dart';
 import 'package:teammate/presentation/games/games_page_model.dart';
 
@@ -15,13 +15,6 @@ final gamesPageProvider = ChangeNotifierProvider.autoDispose(
 class GamesPage extends ConsumerWidget {
   const GamesPage({super.key});
 
-  List<DropdownMenuItem<String>> get _cities => cities
-      .map((e) => DropdownMenuItem<String>(
-            value: e,
-            child: Text(e),
-          ))
-      .toList();
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final model = ref.watch(gamesPageProvider);
@@ -29,6 +22,16 @@ class GamesPage extends ConsumerWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+          appBar: AppBarWidget(
+            text: '',
+            leading: IconButton(
+              onPressed: model.onNotificationsTap,
+              icon: const Icon(
+                Icons.notifications_on_outlined,
+                color: Colors.white,
+              ),
+            ),
+          ),
           backgroundColor: AppColors.background,
           floatingActionButton: FloatingActionButton(
             backgroundColor: const Color(0xFFFF564B),
@@ -37,19 +40,15 @@ class GamesPage extends ConsumerWidget {
           ),
           body: SafeArea(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
                   Column(
                     children: [
-                      CustomDropdown<String>(
-                        value: model.selectedCity,
-                        items: _cities,
-                        onChanged: (value) {
-                          if (value != null) model.onCityChanged(value);
-                        },
+                      CitiesDropdown(
+                        initialCity: model.selectedCity,
+                        onCityChanged: model.onCityChanged,
                       ),
                       const SizedBox(height: 16),
                       Expanded(

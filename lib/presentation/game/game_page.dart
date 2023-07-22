@@ -5,6 +5,7 @@ import 'package:teammate/core/dependency_injection.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
+import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/game/game_page_model.dart';
 import 'package:teammate/presentation/games/games_page.dart';
@@ -23,30 +24,21 @@ class GamePage extends ConsumerWidget {
     final model = ref.read(gamePageRef(game));
 
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 70,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Text(
-          game.name,
-          style: AppFonts.titleLarge,
-        ),
-        // КНОПКА РЕДКТИРОВАНИЯ ИГРЫ
-        actions: game.isMy
-            ? [
-                // КНОПКА РЕДАКТИВНОВАНИЯ
-                IconButton(
-                  onPressed: () async {
-                    await model.onDeleteTapped();
-                    ref.read(gamesPageProvider).removeGameFromView(game);
-                  },
-                  icon: const Icon(Icons.delete),
-                )
-              ]
+      appBar: AppBarWidget(
+        text: game.name,
+        leading: game.isMy
+            ?
+            // КНОПКА РЕДАКТИВНОВАНИЯ
+            IconButton(
+                onPressed: () async {
+                  await model.onDeleteTapped();
+                  ref.read(gamesPageProvider).removeGameFromView(game);
+                },
+                icon: const Icon(Icons.delete),
+              )
             : null,
       ),
-      backgroundColor: AppColors.secondaryBg,
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
           padding: AppDecorations.defaultPadding,

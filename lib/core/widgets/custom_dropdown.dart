@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teammate/core/theme/app_decorations.dart';
 
 class CustomDropdown<T> extends StatelessWidget {
   const CustomDropdown({
@@ -23,6 +24,7 @@ class CustomDropdown<T> extends StatelessWidget {
         underline: Container(),
         isExpanded: true,
         hint: hint,
+        borderRadius: AppDecorations.defaultBorderRadius,
         iconEnabledColor: Colors.black,
         focusColor: Colors.white,
         dropdownColor: Colors.white,

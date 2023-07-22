@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:teammate/domain/notifications_repo.dart';
 
 import 'package:teammate/service/notifications_service.dart';
 import 'package:translit/translit.dart';
 
-class NotificationsRepo {
+class NotificationsRepoImpl implements NotificationsRepo {
   final _db = FirebaseFirestore.instance;
   late final _ref = _db.collection('city_subscribers');
 
-  Future<void> subscribeUserToCity(String city) async {
+  @override
+  Future<void> subscribeToCity(String city) async {
     final topic = _cityToTopicName(city);
     final pushToken = await _getPushToken();
     await _ref.doc(topic).set(
@@ -18,7 +20,8 @@ class NotificationsRepo {
     );
   }
 
-  Future<void> unsubscribeUserFromCity(String city) async {
+  @override
+  Future<void> unsubscribeFromCity(String city) async {
     final topic = _cityToTopicName(city);
     final pushToken = await _getPushToken();
     await _ref.doc(topic).set(

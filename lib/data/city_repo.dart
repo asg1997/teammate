@@ -1,10 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teammate/data/cities.dart';
 import 'package:teammate/data/notifications_repo.dart';
-import 'package:teammate/domain/cities_repo.dart';
+
+import 'package:teammate/domain/repos/cities_repo.dart';
 
 class CityRepoImpl implements CityRepo {
-  final _notificationsRepo = NotificationsRepo();
+  final _notificationsRepo = NotificationsRepoImpl();
   static const _city = 'city';
   @override
   Future<String?> getSavedCity() async {
@@ -24,12 +25,12 @@ class CityRepoImpl implements CityRepo {
   Future<List<String>> getCities() async => cities;
 
   Future<void> _subscribeToCityNotifications(String city) async {
-    await _notificationsRepo.subscribeUserToCity(city);
+    await _notificationsRepo.subscribeToCity(city);
   }
 
   Future<void> _unsubscribeFromPreviousCity() async {
     final previousCity = await getSavedCity();
     if (previousCity == null) return;
-    await _notificationsRepo.unsubscribeUserFromCity(previousCity);
+    await _notificationsRepo.unsubscribeFromCity(previousCity);
   }
 }

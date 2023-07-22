@@ -3,8 +3,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:teammate/data/cities.dart';
 import 'package:teammate/data/session_data.dart';
-import 'package:teammate/domain/cities_repo.dart';
+
 import 'package:teammate/domain/games_repo.dart';
+import 'package:teammate/domain/repos/cities_repo.dart';
 import 'package:teammate/main.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/models/sport.dart';

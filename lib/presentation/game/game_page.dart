@@ -7,10 +7,11 @@ import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/game/game_page_model.dart';
+import 'package:teammate/presentation/games/games_page.dart';
 import 'package:teammate/service/date_extension.dart';
 
 final gamePageRef =
-    ChangeNotifierProvider.family.autoDispose<GamePageModel, Game>(
+    ChangeNotifierProvider.autoDispose.family<GamePageModel, Game>(
   (ref, game) => GamePageModel(game: game, gamesRepo: sl()),
 );
 
@@ -36,7 +37,10 @@ class GamePage extends ConsumerWidget {
             ? [
                 // КНОПКА РЕДАКТИВНОВАНИЯ
                 IconButton(
-                  onPressed: model.onDeleteTapped,
+                  onPressed: () async {
+                    await model.onDeleteTapped();
+                    ref.read(gamesPageProvider).removeGameFromView(game);
+                  },
                   icon: const Icon(Icons.delete),
                 )
               ]
@@ -134,7 +138,7 @@ class GamePage extends ConsumerWidget {
                 // ПОДЕЛИТЬСЯ / ПОЗВАТЬ ДРУЗЕЙ
                 Align(
                   alignment: Alignment.centerRight,
-                  child: _ShareButton(() => model.onInviteUsersTapped()),
+                  child: _ShareButton(model.onInviteUsersTapped),
                 ),
 
                 const SizedBox(height: 30),

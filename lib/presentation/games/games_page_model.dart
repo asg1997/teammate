@@ -67,9 +67,9 @@ class GamesPageModel extends ChangeNotifier {
     _setIsLoadingMore(false);
   }
 
-  void onDeleteTapped(Game game) async {
-    await _gamesRepo.delete(game);
+  void removeGameFromView(Game game) async {
     _games.remove(game);
+    notifyListeners();
   }
 
   bool isMyGame(Game game) => SessionData().userId == game.creatorId;
@@ -104,6 +104,9 @@ class GamesPageModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onGameTap(Game game) => navigatorKey.currentState
-      ?.push(MaterialPageRoute(builder: (_) => GamePage(game: game)));
+  void onGameTap(Game game) => navigatorKey.currentState?.push(
+        MaterialPageRoute(
+          builder: (_) => GamePage(game: game),
+        ),
+      );
 }

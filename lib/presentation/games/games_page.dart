@@ -65,7 +65,7 @@ class GamesPage extends ConsumerWidget {
                                   ))
                                 : GamesListView(
                                     games: games,
-                                    onDeleted: model.onDeleteTapped,
+                                    onDeleted: model.removeGameFromView,
                                     onTap: model.onGameTap,
                                     onRefresh: model.loadGames,
                                     onScrollEnd: model.loadMore,

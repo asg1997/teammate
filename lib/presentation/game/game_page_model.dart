@@ -14,13 +14,6 @@ class GamePageModel extends ChangeNotifier {
   final Game game;
   final GamesRepo gamesRepo;
 
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  void _setLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
-  }
-
   Future<void> onInviteUsersTapped() async {
     final gameStr = game.sport.locale.toLowerCase();
     final whenStr = game.dateTime.toDateAndTimeString;
@@ -33,8 +26,7 @@ class GamePageModel extends ChangeNotifier {
   }
 
   Future<void> onDeleteTapped() async {
-    _setLoading(true);
     await gamesRepo.delete(game);
-    navigatorKey.currentState?.pop(game);
+    navigatorKey.currentState?.pop();
   }
 }

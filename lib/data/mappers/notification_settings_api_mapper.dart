@@ -6,13 +6,13 @@ class NotificationSettingsApiMapper {
 
   static NotificationSettings fromApi(Map<String, dynamic> json) {
     return NotificationSettings(
-      sport: _sportFromApi(json['sport'] as Map<String, bool>),
+      sport: _sportFromApi(json['sport'] as Map<String, dynamic>),
       cityPostcode: json['cityPostcode'] as int,
     );
   }
 
-  static Map<Sport, bool> _sportFromApi(Map<String, bool> json) => json.map(
-        (key, value) => MapEntry(_sportValueFromApi(key), value),
+  static Map<Sport, bool> _sportFromApi(Map<String, dynamic> json) => json.map(
+        (key, value) => MapEntry(_sportValueFromApi(key), value as bool),
       );
 
   static Sport _sportValueFromApi(String json) => Sport.values.firstWhere(

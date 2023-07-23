@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_positional_boolean_parameters
+
 import 'package:flutter/material.dart';
 import 'package:teammate/domain/repos/cities_repo.dart';
 import 'package:teammate/domain/repos/cities_storage.dart';
@@ -47,7 +49,10 @@ class NotificationsPageModel extends ChangeNotifier {
     _setLoading(false);
   }
 
-  void onCityChanged(City city) {}
+  void onCityChanged(City city) {
+    _selectedCity = city;
+    notifyListeners();
+  }
 
   void onSportNotificationsChanged(Sport sport, bool value) {
     if (_sportSettings.containsKey(sport)) {

@@ -1,4 +1,6 @@
+import 'package:teammate/models/notification_settings.dart';
+
 abstract class NotificationsRepo {
-  Future<void> subscribeToCity(String city);
-  Future<void> unsubscribeFromCity(String city);
+  Future<void> changeSettings(NotificationSettings settings);
+  Future<NotificationSettings?> getSettings();
 }

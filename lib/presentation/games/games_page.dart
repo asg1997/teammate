@@ -5,7 +5,7 @@ import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/dependency_injection.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
-import 'package:teammate/presentation/games/components/cities_dropdown.dart';
+import 'package:teammate/core/widgets/cities_dropdown.dart';
 import 'package:teammate/presentation/games/components/games_list_view.dart';
 import 'package:teammate/presentation/games/games_page_model.dart';
 

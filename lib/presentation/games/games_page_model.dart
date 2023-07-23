@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:teammate/data/session_data.dart';
-
-import 'package:teammate/domain/games_repo.dart';
+import 'package:teammate/domain/repos/cities_storage.dart';
+import 'package:teammate/domain/repos/games_repo.dart';
 import 'package:teammate/domain/repos/cities_repo.dart';
 import 'package:teammate/main.dart';
+import 'package:teammate/models/city.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/create_game/create_game_page.dart';
 import 'package:teammate/presentation/game/game_page.dart';
 import 'package:teammate/presentation/notifications/notifications_page.dart';
+import 'package:collection/collection.dart';
 
 class GamesPageModel extends ChangeNotifier {
   GamesPageModel({required CityRepo cityRepo, required GamesRepo gamesRepo})
@@ -38,33 +40,35 @@ class GamesPageModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _selectedCity = 'Москва';
-  String get selectedCity => _selectedCity;
+  late City? _selectedCity = CitiesStorage().cities.firstOrNull;
+  City? get selectedCity => _selectedCity;
 
   Future<void> _init() async {
     isLoading = true;
-    await _getSavedCity();
+
+    await _initSavedCity();
     await loadGames();
     isLoading = false;
   }
 
-  Future<void> _getSavedCity() async {
+  Future<void> _initSavedCity() async {
     final savedCity = await _cityRepo.getSavedCity();
-
-    savedCity == null
-        ? await onCityChanged(_selectedCity)
-        : await onCityChanged(savedCity);
+    if (savedCity != null) {
+      _selectedCity = savedCity;
+      notifyListeners();
+    }
   }
 
   Future<void> loadGames() async {
+    if (_selectedCity == null) return;
     isLoading = true;
-    _games = await _gamesRepo.getGames(_selectedCity);
+    _games = await _gamesRepo.getGames(_selectedCity!);
     isLoading = false;
   }
 
   Future<void> loadMore() async {
     _setIsLoadingMore(true);
-    final newGames = await _gamesRepo.getGames(_selectedCity);
+    final newGames = await _gamesRepo.getGames(_selectedCity!);
     _games = [..._games, ...newGames];
     _setIsLoadingMore(false);
   }
@@ -80,20 +84,20 @@ class GamesPageModel extends ChangeNotifier {
     final game = await navigatorKey.currentState?.push(
       MaterialPageRoute(
         maintainState: false,
-        builder: (_) => CreateGamePage(),
+        builder: (_) => const CreateGamePage(),
       ),
     ) as Game?;
     if (game != null) _addGame(game);
   }
 
   void _addGame(Game game) {
-    if (game.city == _selectedCity) {
+    if (game.cityCode == _selectedCity?.postcode) {
       games.add(game);
       notifyListeners();
     }
   }
 
-  Future<void> onCityChanged(String city) async {
+  Future<void> onCityChanged(City city) async {
     if (city == _selectedCity) return;
     _selectedCity = city;
     notifyListeners();

@@ -5,7 +5,7 @@ class Game {
   Game({
     required this.id,
     required this.name,
-    required this.city,
+    required this.cityCode,
     required this.sport,
     required this.phone,
     required this.description,
@@ -16,7 +16,7 @@ class Game {
 
   final String id;
   final String name;
-  final String city;
+  final int cityCode;
   final Sport sport;
   final String phone;
   final String location;
@@ -30,7 +30,7 @@ class Game {
     return {
       'id': id,
       'name': name,
-      'city': city,
+      'city': cityCode,
       'sport': sport.name,
       'phone': phone,
       'description': description,
@@ -44,7 +44,7 @@ class Game {
     return Game(
       id: json['id'] as String,
       name: json['name'] as String,
-      city: json['city'] as String,
+      cityCode: json['cityCode'] as int,
       sport: Sport.fromJson(json['sport'] as String),
       phone: json['phone'] as String,
       description: json['description'] as String?,

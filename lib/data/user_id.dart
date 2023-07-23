@@ -1,4 +1,4 @@
-import 'package:teammate/domain/user_id.dart';
+import 'package:teammate/domain/repos/user_id.dart';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';

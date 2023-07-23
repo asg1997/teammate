@@ -5,33 +5,19 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/dependency_injection.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
-import 'package:teammate/core/widgets/custom_dropdown.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
-import 'package:teammate/data/cities.dart';
-import 'package:teammate/models/sport.dart';
+import 'package:teammate/core/widgets/sport_dropdown.dart';
+
 import 'package:teammate/presentation/components/show_date_time_picker.dart';
 import 'package:teammate/presentation/create_game/create_game_model.dart';
+import 'package:teammate/core/widgets/cities_dropdown.dart';
 
 final createGameProvider = ChangeNotifierProvider.autoDispose(
   (ref) => CreateGameModel(sl(), sl()),
 );
 
 class CreateGamePage extends ConsumerWidget {
-  CreateGamePage({Key? key}) : super(key: key);
-
-  final List<DropdownMenuItem<Sport>> _sportItems = Sport.values
-      .map((e) => DropdownMenuItem<Sport>(
-            value: e,
-            child: Text(e.locale),
-          ))
-      .toList();
-
-  final List<DropdownMenuItem<String>> _cities = cities
-      .map((e) => DropdownMenuItem<String>(
-            value: e,
-            child: Text(e),
-          ))
-      .toList();
+  const CreateGamePage({Key? key}) : super(key: key);
 
   InputDecoration _decoration(String label, String hint) {
     return InputDecoration(
@@ -72,23 +58,15 @@ class CreateGamePage extends ConsumerWidget {
                         child: Column(
                           children: [
                             const SizedBox(height: 16),
-                            CustomDropdown<String>(
-                              value: model.city,
-                              items: _cities,
-                              hint: const Text('Город*'),
-                              onChanged: (value) {
-                                if (value != null) model.onCityChanged(value);
-                              },
+                            CitiesDropdown(
+                              onCityChanged: model.onCityChanged,
+                              initialCity: model.city,
                             ),
 
                             const SizedBox(height: 16),
-                            CustomDropdown<Sport>(
-                              value: model.sport,
-                              items: _sportItems,
-                              hint: const Text('Спорт*'),
-                              onChanged: (value) {
-                                if (value != null) model.onSportChanged(value);
-                              },
+                            SportDropdown(
+                              initialSport: model.sport,
+                              onSportChanged: model.onSportChanged,
                             ),
 
                             const SizedBox(height: 16),

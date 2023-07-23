@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:teammate/domain/games_repo.dart';
+import 'package:teammate/domain/repos/games_repo.dart';
 import 'package:teammate/main.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/service/date_extension.dart';

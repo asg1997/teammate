@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:teammate/domain/games_repo.dart';
+import 'package:teammate/domain/repos/games_repo.dart';
+import 'package:teammate/models/city.dart';
 import 'package:teammate/models/game.dart';
 
 class GamesRepoImpl implements GamesRepo {
@@ -8,7 +9,7 @@ class GamesRepoImpl implements GamesRepo {
   DocumentSnapshot? _lastDocument;
 
   @override
-  Future<List<Game>> getGames(String city, {int limit = 10}) async {
+  Future<List<Game>> getGames(City city, {int limit = 10}) async {
     try {
       var query = _gamesRef.where('city', isEqualTo: city);
 

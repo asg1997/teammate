@@ -1,5 +1,6 @@
+import 'package:teammate/models/city.dart';
+
 abstract class CityRepo {
-  Future<String?> getSavedCity();
-  Future<void> saveCity(String city);
-  Future<List<String>> getCities();
+  Future<City?> getSavedCity();
+  Future<void> saveCity(City city);
 }

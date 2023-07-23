@@ -6,6 +6,7 @@ import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
+import 'package:teammate/domain/repos/cities_storage.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/game/game_page_model.dart';
 import 'package:teammate/presentation/games/games_page.dart';
@@ -19,10 +20,11 @@ final gamePageRef =
 class GamePage extends ConsumerWidget {
   const GamePage({super.key, required this.game});
   final Game game;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final model = ref.read(gamePageRef(game));
-
+    final cityName = CitiesStorage().fromPostcode(game.cityCode).name;
     return Scaffold(
       appBar: AppBarWidget(
         text: game.name,
@@ -73,7 +75,7 @@ class GamePage extends ConsumerWidget {
                 const SizedBox(height: 5),
 
                 Text(
-                  game.city,
+                  cityName,
                   style: AppFonts.bodyLarge.copyWith(
                     color: Colors.white,
                   ),

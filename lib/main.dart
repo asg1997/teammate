@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/data/session_data.dart';
+import 'package:teammate/domain/repos/cities_storage.dart';
 import 'package:teammate/firebase_options.dart';
 import 'package:teammate/presentation/games/games_page.dart';
 import 'package:teammate/service/notifications_service.dart';
@@ -16,6 +17,9 @@ void main() async {
   di.init();
 
   await SessionData().init(di.sl());
+
+  await CitiesStorage().init();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

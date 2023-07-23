@@ -57,6 +57,7 @@ dependencies:
 
   permission_handler: ^10.3.0
   share_plus: ^7.0.2
+  collection: ^1.17.0
   
   
 

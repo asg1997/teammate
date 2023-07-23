@@ -6,13 +6,14 @@ import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
+import 'package:teammate/core/widgets/main_button.dart';
 import 'package:teammate/presentation/notifications/notifications_page_model.dart';
 
 import '../../models/sport.dart';
-import '../games/components/cities_dropdown.dart';
+import '../../core/widgets/cities_dropdown.dart';
 
 final notificationsPageProvider = ChangeNotifierProvider.autoDispose(
-    (ref) => NotificationsPageModel(notificationsRepo: sl()));
+    (ref) => NotificationsPageModel(notificationsRepo: sl(), cityRepo: sl()));
 
 class NotificationsPage extends ConsumerWidget {
   const NotificationsPage({super.key});
@@ -59,9 +60,15 @@ class NotificationsPage extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               CitiesDropdown(
-                onCityChanged: (_) {},
+                onCityChanged: model.onCityChanged,
                 initialCity: selectedCity,
               ),
+              const Spacer(),
+              MainButton(
+                title: 'Сохранить',
+                onTap: model.onSave,
+                width: double.infinity,
+              )
             ],
           ),
         ),

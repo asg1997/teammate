@@ -1,36 +1,32 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:teammate/data/cities.dart';
-import 'package:teammate/data/notifications_repo.dart';
+
+import 'package:teammate/data/mappers/city_mapper.dart';
 
 import 'package:teammate/domain/repos/cities_repo.dart';
+import 'package:teammate/models/city.dart';
 
 class CityRepoImpl implements CityRepo {
-  final _notificationsRepo = NotificationsRepoImpl();
   static const _city = 'city';
+
   @override
-  Future<String?> getSavedCity() async {
+  Future<City?> getSavedCity() async {
     final shP = await SharedPreferences.getInstance();
-    return shP.getString(_city);
+
+    final json = shP.getString(_city);
+    if (json == null) return null;
+
+    final map = jsonDecode(json);
+    return CityMapper.fromJson(map);
   }
 
   @override
-  Future<void> saveCity(String city) async {
-    await _unsubscribeFromPreviousCity();
+  Future<void> saveCity(City city) async {
     final shP = await SharedPreferences.getInstance();
-    await shP.setString(_city, city);
-    await _subscribeToCityNotifications(city);
-  }
 
-  @override
-  Future<List<String>> getCities() async => cities;
-
-  Future<void> _subscribeToCityNotifications(String city) async {
-    await _notificationsRepo.subscribeToCity(city);
-  }
-
-  Future<void> _unsubscribeFromPreviousCity() async {
-    final previousCity = await getSavedCity();
-    if (previousCity == null) return;
-    await _notificationsRepo.unsubscribeFromCity(previousCity);
+    final map = CityMapper.toJson(city);
+    final json = jsonEncode(map);
+    await shP.setString(_city, json);
   }
 }

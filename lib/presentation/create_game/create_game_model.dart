@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-import 'package:teammate/data/cities.dart';
-import 'package:teammate/data/session_data.dart';
 
-import 'package:teammate/domain/games_repo.dart';
+import 'package:teammate/data/session_data.dart';
+import 'package:teammate/domain/repos/cities_storage.dart';
+
+import 'package:teammate/domain/repos/games_repo.dart';
 import 'package:teammate/domain/repos/cities_repo.dart';
 import 'package:teammate/main.dart';
+import 'package:teammate/models/city.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/models/sport.dart';
 
@@ -30,7 +32,7 @@ class CreateGameModel extends ChangeNotifier {
   final dateTextController = TextEditingController();
 
   String _name = '';
-  late String city;
+  late City city;
   Sport sport = Sport.soccer;
   String phone = '';
   String description = '';
@@ -39,12 +41,13 @@ class CreateGameModel extends ChangeNotifier {
 
   void _init() async {
     isLoading = true;
-    city = await _cityRepo.getSavedCity() ?? cities.first;
+    final savedCity = await _cityRepo.getSavedCity();
+    city = savedCity ?? CitiesStorage().cities.first;
     isLoading = false;
   }
 
   void onNameChanged(String value) => _name = value;
-  void onCityChanged(String value) => city = value;
+  void onCityChanged(City value) => city = value;
   void onSportChanged(Sport value) => sport = value;
   void onPhoneChanged(String value) => phone = value;
   void onDescriptionChanged(String value) => description = value;
@@ -75,7 +78,7 @@ class CreateGameModel extends ChangeNotifier {
   }
 
   bool _fieldsValid() {
-    if (_name.isEmpty && city.isEmpty && phone.isEmpty && location.isEmpty) {
+    if (_name.isEmpty && phone.isEmpty && location.isEmpty) {
       Fluttertoast.showToast(msg: 'Заполните все поля *');
       return false;
     }
@@ -87,7 +90,7 @@ class CreateGameModel extends ChangeNotifier {
 
     var game = Game(
       name: _name,
-      city: city,
+      cityCode: city.postcode,
       sport: sport,
       phone: phone,
       description: description,

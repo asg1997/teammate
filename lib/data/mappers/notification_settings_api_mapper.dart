@@ -6,7 +6,7 @@ class NotificationSettingsApiMapper {
 
   static NotificationSettings fromApi(Map<String, dynamic> json) {
     return NotificationSettings(
-      sport: _sportFromApi(json['sport']),
+      sport: _sportFromApi(json['sport'] as Map<String, bool>),
       cityPostcode: json['cityPostcode'] as int,
     );
   }

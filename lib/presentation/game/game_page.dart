@@ -18,7 +18,10 @@ final gamePageRef =
 );
 
 class GamePage extends ConsumerWidget {
-  const GamePage({super.key, required this.game});
+  const GamePage({
+    required this.game,
+    super.key,
+  });
   final Game game;
 
   @override

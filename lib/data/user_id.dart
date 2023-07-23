@@ -1,7 +1,7 @@
-import 'package:teammate/domain/repos/user_id.dart';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:teammate/domain/repos/user_id.dart';
 
 class UserIdInfoImpl implements UserIdInfo {
   final _deviceInfo = DeviceInfoPlugin();
@@ -13,11 +13,12 @@ class UserIdInfoImpl implements UserIdInfo {
       return _getForAndroid();
     }
     throw UnimplementedError(
-        'unable to get current user id: device type is unknown');
+      'unable to get current user id: device type is unknown',
+    );
   }
 
   Future<String> _getForIos() async {
-    var iosDeviceInfo = await _deviceInfo.iosInfo;
+    final iosDeviceInfo = await _deviceInfo.iosInfo;
     final id = iosDeviceInfo.identifierForVendor;
     if (id == null) {
       throw UnimplementedError('unable to get current user id for IOS');
@@ -26,7 +27,7 @@ class UserIdInfoImpl implements UserIdInfo {
   }
 
   Future<String> _getForAndroid() async {
-    var androidDeviceInfo = await _deviceInfo.androidInfo;
+    final androidDeviceInfo = await _deviceInfo.androidInfo;
     return androidDeviceInfo.id;
   }
 }

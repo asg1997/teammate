@@ -7,18 +7,20 @@ class SportDropdown extends StatelessWidget {
   const SportDropdown({
     required this.onSportChanged,
     required this.initialSport,
-    Key? key,
-  }) : super(key: key);
-  final Function(Sport value) onSportChanged;
+    super.key,
+  });
+  final void Function(Sport value) onSportChanged;
   final Sport? initialSport;
 
   @override
   Widget build(BuildContext context) {
-    final List<DropdownMenuItem<Sport>> sportItems = Sport.values
-        .map((e) => DropdownMenuItem<Sport>(
-              value: e,
-              child: Text(e.locale),
-            ))
+    final sportItems = Sport.values
+        .map(
+          (e) => DropdownMenuItem<Sport>(
+            value: e,
+            child: Text(e.locale),
+          ),
+        )
         .toList();
     return CustomDropdown<Sport>(
       hint: const Text('Спорт'),

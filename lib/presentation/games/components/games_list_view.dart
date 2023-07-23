@@ -11,8 +11,8 @@ class GamesListView extends StatelessWidget {
     required this.onTap,
     required this.onRefresh,
     required this.onScrollEnd,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final List<Game> games;
   final void Function(Game game) onDeleted;

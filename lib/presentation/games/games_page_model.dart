@@ -1,15 +1,15 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:teammate/data/session_data.dart';
+import 'package:teammate/domain/repos/cities_repo.dart';
 import 'package:teammate/domain/repos/cities_storage.dart';
 import 'package:teammate/domain/repos/games_repo.dart';
-import 'package:teammate/domain/repos/cities_repo.dart';
 import 'package:teammate/main.dart';
 import 'package:teammate/models/city.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/create_game/create_game_page.dart';
 import 'package:teammate/presentation/game/game_page.dart';
 import 'package:teammate/presentation/notifications/notifications_page.dart';
-import 'package:collection/collection.dart';
 
 class GamesPageModel extends ChangeNotifier {
   GamesPageModel({required CityRepo cityRepo, required GamesRepo gamesRepo})
@@ -73,14 +73,14 @@ class GamesPageModel extends ChangeNotifier {
     _setIsLoadingMore(false);
   }
 
-  void removeGameFromView(Game game) async {
+  Future<void> removeGameFromView(Game game) async {
     _games.remove(game);
     notifyListeners();
   }
 
   bool isMyGame(Game game) => SessionData().userId == game.creatorId;
 
-  void onCreateGame() async {
+  Future<void> onCreateGame() async {
     final game = await navigatorKey.currentState?.push(
       MaterialPageRoute(
         maintainState: false,
@@ -101,7 +101,7 @@ class GamesPageModel extends ChangeNotifier {
     if (city == _selectedCity) return;
     _selectedCity = city;
     notifyListeners();
-    _cityRepo.saveCity(city);
+    await _cityRepo.saveCity(city);
     await loadGames();
   }
 
@@ -111,14 +111,14 @@ class GamesPageModel extends ChangeNotifier {
   }
 
   void onGameTap(Game game) => navigatorKey.currentState?.push(
-        MaterialPageRoute(
+        MaterialPageRoute<void>(
           builder: (_) => GamePage(game: game),
         ),
       );
 
   void onNotificationsTap() {
     navigatorKey.currentState?.push(
-      MaterialPageRoute(
+      MaterialPageRoute<void>(
         builder: (_) => const NotificationsPage(),
       ),
     );

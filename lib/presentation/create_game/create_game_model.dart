@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-
 import 'package:teammate/data/session_data.dart';
-import 'package:teammate/domain/repos/cities_storage.dart';
-
-import 'package:teammate/domain/repos/games_repo.dart';
 import 'package:teammate/domain/repos/cities_repo.dart';
+import 'package:teammate/domain/repos/cities_storage.dart';
+import 'package:teammate/domain/repos/games_repo.dart';
 import 'package:teammate/main.dart';
 import 'package:teammate/models/city.dart';
 import 'package:teammate/models/game.dart';
@@ -39,7 +37,7 @@ class CreateGameModel extends ChangeNotifier {
   DateTime dateTime = DateTime.now();
   String location = '';
 
-  void _init() async {
+  Future<void> _init() async {
     isLoading = true;
     final savedCity = await _cityRepo.getSavedCity();
     city = savedCity ?? CitiesStorage().cities.first;
@@ -70,7 +68,9 @@ class CreateGameModel extends ChangeNotifier {
       await _createGame(game);
       navigatorKey.currentState?.pop(game);
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Не удается создать игру, попробуйте позже');
+      await Fluttertoast.showToast(
+        msg: 'Не удается создать игру, попробуйте позже',
+      );
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -88,7 +88,7 @@ class CreateGameModel extends ChangeNotifier {
   Future<Game> _getGameFromForm() async {
     final creatorPushToken = SessionData().userId;
 
-    var game = Game(
+    final game = Game(
       name: _name,
       cityCode: city.postcode,
       sport: sport,

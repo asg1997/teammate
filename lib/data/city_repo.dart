@@ -13,12 +13,15 @@ class CityRepoImpl implements CityRepo {
   @override
   Future<City?> getSavedCity() async {
     final shP = await SharedPreferences.getInstance();
+    try {
+      final json = shP.getString(_city);
+      if (json == null) return null;
 
-    final json = shP.getString(_city);
-    if (json == null) return null;
-
-    final map = jsonDecode(json);
-    return CityMapper.fromJson(map);
+      final map = jsonDecode(json);
+      return CityMapper.fromJson(map as Map<String, dynamic>);
+    } catch (e) {
+      return null;
+    }
   }
 
   @override

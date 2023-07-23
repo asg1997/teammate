@@ -34,15 +34,17 @@ class NotificationsService {
     final body = message.notification?.body ?? '';
     final id = message.notification.hashCode;
     await FlutterLocalNotificationsPlugin().show(
-        id,
-        title,
-        body,
-        const NotificationDetails(
-            android: AndroidNotificationDetails(
+      id,
+      title,
+      body,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
           'high_importance_channel',
           'High Importance Notifications',
           importance: Importance.high,
-        )));
+        ),
+      ),
+    );
   }
 
   Future<void> _initLocalNotifications() async {

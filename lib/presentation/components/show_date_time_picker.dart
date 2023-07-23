@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 void showDateTimePicker(
   BuildContext context, {
   required DateTime initial,
-  required Function(DateTime value) onChanged,
+  required void Function(DateTime value) onChanged,
 }) {
-  showCupertinoModalPopup(
-      context: context,
-      builder: (_) => _DatePickerPopUp(
-            initialValue: initial,
-            onDatePicked: onChanged,
-          ));
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (_) => _DatePickerPopUp(
+      initialValue: initial,
+      onDatePicked: onChanged,
+    ),
+  );
 }
 
 class _DatePickerPopUp extends StatelessWidget {
@@ -25,12 +26,12 @@ class _DatePickerPopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime selectedDate = initialValue ?? DateTime.now();
+    var selectedDate = initialValue ?? DateTime.now();
     return Material(
       child: Container(
         color: Colors.white,
         height: 300,
-        padding: const EdgeInsets.only(top: 10.0, right: 16),
+        padding: const EdgeInsets.only(top: 10, right: 16),
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),

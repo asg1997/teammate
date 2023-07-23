@@ -13,8 +13,8 @@ class GamesListItem extends StatelessWidget {
     required this.game,
     required this.onDeleted,
     required this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Game game;
   final VoidCallback onDeleted;
@@ -27,7 +27,7 @@ class GamesListItem extends StatelessWidget {
       context: context,
       position: RelativeRect.fromLTRB(offset.dx, offset.dy, 0, 0),
       items: [
-        PopupMenuItem(
+        PopupMenuItem<void>(
           onTap: onDeleted,
           child: const Text(
             'Удалить игру',
@@ -59,129 +59,127 @@ class GamesListItem extends StatelessWidget {
     final name = game.isMy ? '${game.name} (вы)' : game.name;
 
     return GestureDetector(
-        onTap: onTap,
-        onLongPressStart: (details) => _showMenu(context, details),
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: ShapeDecoration(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-            shadows: const [
-              BoxShadow(
-                color: Color(0x1152588F),
-                blurRadius: 10,
-                offset: Offset(0, 0),
-                spreadRadius: 0,
-              )
-            ],
+      onTap: onTap,
+      onLongPressStart: (details) => _showMenu(context, details),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: ShapeDecoration(
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
           ),
-          child: Row(
-            children: [
-              Image.asset(_assetName),
-              const SizedBox(width: 9),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: AppFonts.medium16,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      'Место: ${game.location}',
-                      style: AppFonts.light13,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 9),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+          shadows: const [
+            BoxShadow(
+              color: Color(0x1152588F),
+              blurRadius: 10,
+            )
+          ],
+        ),
+        child: Row(
+          children: [
+            Image.asset(_assetName),
+            const SizedBox(width: 9),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    day,
-                    style: AppFonts.regular14.copyWith(
-                      color: AppColors.secondary,
-                    ),
+                    name,
+                    style: AppFonts.medium16,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    time,
-                    style: AppFonts.regular14.copyWith(
-                      color: AppColors.secondary,
-                    ),
+                    'Место: ${game.location}',
+                    style: AppFonts.light13,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
-              )
-            ],
-          ),
-        )
-        // Container(
-        //   decoration: BoxDecoration(
-        //     color: Colors.white,
-        //     borderRadius: BorderRadius.circular(3),
-        //   ),
-        //   padding: const EdgeInsets.symmetric(
-        //     horizontal: 20,
-        //     vertical: 15,
-        //   ),
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: [
-        //           // ДАТА
-        //           Expanded(
-        //             child: Text(
-        //               date,
-        //               style: const TextStyle(fontSize: 16),
-        //             ),
-        //           ),
-        //           // СПОРТ
-        //           Text(
-        //             game.sport.locale,
-        //             style: const TextStyle(
-        //               fontSize: 16,
-        //               fontWeight: FontWeight.bold,
-        //             ),
-        //           ),
-        //         ],
-        //       ),
+              ),
+            ),
+            const SizedBox(width: 9),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  day,
+                  style: AppFonts.regular14.copyWith(
+                    color: AppColors.secondary,
+                  ),
+                ),
+                Text(
+                  time,
+                  style: AppFonts.regular14.copyWith(
+                    color: AppColors.secondary,
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+      // Container(
+      //   decoration: BoxDecoration(
+      //     color: Colors.white,
+      //     borderRadius: BorderRadius.circular(3),
+      //   ),
+      //   padding: const EdgeInsets.symmetric(
+      //     horizontal: 20,
+      //     vertical: 15,
+      //   ),
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: [
+      //       Row(
+      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //         children: [
+      //           // ДАТА
+      //           Expanded(
+      //             child: Text(
+      //               date,
+      //               style: const TextStyle(fontSize: 16),
+      //             ),
+      //           ),
+      //           // СПОРТ
+      //           Text(
+      //             game.sport.locale,
+      //             style: const TextStyle(
+      //               fontSize: 16,
+      //               fontWeight: FontWeight.bold,
+      //             ),
+      //           ),
+      //         ],
+      //       ),
 
-        //       // ОПИСАНИЕ
-        //       const SizedBox(height: 20),
-        //       if (game.description != null && game.description!.isNotEmpty) ...[
-        //         Text(game.description!),
-        //         const SizedBox(height: 10),
-        //       ],
-        //       // Место
-        //       Text(game.location),
-        //       const SizedBox(height: 10),
+      //       // ОПИСАНИЕ
+      //       const SizedBox(height: 20),
+      //       if (game.description != null && game.description!.isNotEmpty) ...[
+      //         Text(game.description!),
+      //         const SizedBox(height: 10),
+      //       ],
+      //       // Место
+      //       Text(game.location),
+      //       const SizedBox(height: 10),
 
-        //       // ИМЯ
-        //       Align(
-        //         alignment: Alignment.bottomRight,
-        //         child: Text(
-        //           name,
-        //           style: const TextStyle(fontSize: 16),
-        //         ),
-        //       ),
-        //       const SizedBox(height: 10),
-        //       // ТЕЛЕФОН
-        //       Align(
-        //         alignment: Alignment.centerRight,
-        //         child: Text(
-        //           game.phone,
-        //           style: const TextStyle(fontSize: 16),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        );
+      //       // ИМЯ
+      //       Align(
+      //         alignment: Alignment.bottomRight,
+      //         child: Text(
+      //           name,
+      //           style: const TextStyle(fontSize: 16),
+      //         ),
+      //       ),
+      //       const SizedBox(height: 10),
+      //       // ТЕЛЕФОН
+      //       Align(
+      //         alignment: Alignment.centerRight,
+      //         child: Text(
+      //           game.phone,
+      //           style: const TextStyle(fontSize: 16),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+    );
   }
 }

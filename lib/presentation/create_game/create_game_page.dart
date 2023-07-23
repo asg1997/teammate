@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/dependency_injection.dart';
+import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
+import 'package:teammate/core/widgets/cities_dropdown.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/core/widgets/sport_dropdown.dart';
-
 import 'package:teammate/presentation/components/show_date_time_picker.dart';
 import 'package:teammate/presentation/create_game/create_game_model.dart';
-import 'package:teammate/core/widgets/cities_dropdown.dart';
 
 final createGameProvider = ChangeNotifierProvider.autoDispose(
   (ref) => CreateGameModel(sl(), sl()),
 );
 
 class CreateGamePage extends ConsumerWidget {
-  const CreateGamePage({Key? key}) : super(key: key);
+  const CreateGamePage({super.key});
 
   InputDecoration _decoration(String label, String hint) {
     return InputDecoration(
@@ -127,7 +125,7 @@ class CreateGamePage extends ConsumerWidget {
                               inputFormatters: [
                                 MaskTextInputFormatter(
                                   mask: '+7 (###) ###-##-##',
-                                  filter: {"#": RegExp(r'[0-9]')},
+                                  filter: {'#': RegExp('[0-9]')},
                                 )
                               ],
                               decoration: _decoration(
@@ -142,7 +140,8 @@ class CreateGamePage extends ConsumerWidget {
                               width: double.infinity,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.main),
+                                  backgroundColor: AppColors.main,
+                                ),
                                 onPressed: model.onCreateGameTapped,
                                 child: const Text(
                                   'Создать игру',

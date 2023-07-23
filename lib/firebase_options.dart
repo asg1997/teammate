@@ -2,7 +2,7 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_classes_with_only_static_members
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, kIsWeb, TargetPlatform;
+    show TargetPlatform, defaultTargetPlatform, kIsWeb;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -63,8 +63,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '241663777855',
     projectId: 'teammateapp-44b53',
     storageBucket: 'teammateapp-44b53.appspot.com',
-    androidClientId: '241663777855-1j03bvvvmd7ne51mqot4a38aibefcqnf.apps.googleusercontent.com',
-    iosClientId: '241663777855-sa72dsr8lirkcmhfj7hluunjl3h8ihtn.apps.googleusercontent.com',
+    androidClientId:
+        '241663777855-1j03bvvvmd7ne51mqot4a38aibefcqnf.apps.googleusercontent.com',
+    iosClientId:
+        '241663777855-sa72dsr8lirkcmhfj7hluunjl3h8ihtn.apps.googleusercontent.com',
     iosBundleId: 'com.angelinagromova.Teammate',
   );
 }

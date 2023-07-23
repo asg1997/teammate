@@ -4,8 +4,11 @@ import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 
 class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
-  const AppBarWidget({Key? key, required this.text, this.leading})
-      : super(key: key);
+  const AppBarWidget({
+    required this.text,
+    super.key,
+    this.leading,
+  });
 
   final String text;
   final Widget? leading;

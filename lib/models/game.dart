@@ -13,6 +13,19 @@ class Game {
     required this.location,
     required this.creatorId,
   });
+  factory Game.fromJson(Map<String, dynamic> json) {
+    return Game(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      cityCode: json['cityCode'] as int,
+      sport: Sport.fromJson(json['sport'] as String),
+      phone: json['phone'] as String,
+      description: json['description'] as String?,
+      dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime'] as int),
+      creatorId: json['creatorId'] as String,
+      location: json['location'] as String,
+    );
+  }
 
   final String id;
   final String name;
@@ -38,19 +51,5 @@ class Game {
       'creatorId': creatorId,
       'location': location,
     };
-  }
-
-  factory Game.fromJson(Map<String, dynamic> json) {
-    return Game(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      cityCode: json['cityCode'] as int,
-      sport: Sport.fromJson(json['sport'] as String),
-      phone: json['phone'] as String,
-      description: json['description'] as String?,
-      dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
-      creatorId: json['creatorId'] as String,
-      location: json['location'] as String,
-    );
   }
 }

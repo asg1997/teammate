@@ -35,7 +35,7 @@ class NotificationsPageModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _init() async {
+  Future<void> _init() async {
     _setLoading(true);
 
     final settings = await notificationsRepo.getSettings();
@@ -56,13 +56,15 @@ class NotificationsPageModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onSave() async {
+  Future<void> onSave() async {
     _setLoading(true);
     try {
-      await notificationsRepo.changeSettings(NotificationSettings(
-        sport: _sportSettings,
-        cityPostcode: _selectedCity.postcode,
-      ));
+      await notificationsRepo.changeSettings(
+        NotificationSettings(
+          sport: _sportSettings,
+          cityPostcode: _selectedCity.postcode,
+        ),
+      );
       navigatorKey.currentState?.pop();
     } catch (e) {
       _setLoading(false);

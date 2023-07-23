@@ -3,6 +3,18 @@ enum Sport {
   basketball,
   volleyball;
 
+  factory Sport.fromJson(String json) {
+    switch (json) {
+      case 'soccer':
+        return soccer;
+      case 'volleyball':
+        return volleyball;
+      case 'basketball':
+        return basketball;
+    }
+    return soccer;
+  }
+
   String get locale {
     switch (this) {
       case Sport.soccer:
@@ -15,15 +27,4 @@ enum Sport {
   }
 
   String toJson() => name;
-  factory Sport.fromJson(String json) {
-    switch (json) {
-      case 'soccer':
-        return soccer;
-      case 'volleyball':
-        return volleyball;
-      case 'basketball':
-        return basketball;
-    }
-    return soccer;
-  }
 }

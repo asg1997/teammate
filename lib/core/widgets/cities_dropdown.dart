@@ -8,17 +8,19 @@ class CitiesDropdown extends StatelessWidget {
   const CitiesDropdown({
     required this.onCityChanged,
     required this.initialCity,
-    Key? key,
-  }) : super(key: key);
-  final Function(City value) onCityChanged;
+    super.key,
+  });
+  final void Function(City value) onCityChanged;
   final City? initialCity;
 
   List<DropdownMenuItem<City>> get _cities => CitiesStorage()
       .cities
-      .map((e) => DropdownMenuItem<City>(
-            value: e,
-            child: Text(e.name),
-          ))
+      .map(
+        (e) => DropdownMenuItem<City>(
+          value: e,
+          child: Text(e.name),
+        ),
+      )
       .toList();
 
   @override

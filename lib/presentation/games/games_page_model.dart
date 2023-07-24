@@ -82,7 +82,7 @@ class GamesPageModel extends ChangeNotifier {
 
   Future<void> onCreateGame() async {
     final game = await navigatorKey.currentState?.push(
-      MaterialPageRoute(
+      MaterialPageRoute<void>(
         maintainState: false,
         builder: (_) => const CreateGamePage(),
       ),

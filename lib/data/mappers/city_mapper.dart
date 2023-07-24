@@ -5,24 +5,21 @@ class CityMapper {
   static List<City> listFromJson(List<dynamic> json) {
     return json.map((e) {
       e as Map<String, dynamic>;
-      return City(
-        name: e['city'] as String,
-        postcode: int.parse(e['code'] as String),
-      );
+      return fromJson(e);
     }).toList();
   }
 
   static City fromJson(Map<String, dynamic> json) {
     return City(
-      name: json['name'] as String,
-      postcode: json['code'] as int,
+      name: json['city'] as String,
+      postcode: int.parse(json['code'] as String),
     );
   }
 
   static Map<String, dynamic> toJson(City city) {
     return {
-      'name': city.name,
-      'postcode': city.postcode,
+      'city': city.name,
+      'code': city.postcode.toString(),
     };
   }
 }

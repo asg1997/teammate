@@ -6,15 +6,21 @@ import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
+import 'package:teammate/core/widgets/main_button.dart';
 import 'package:teammate/domain/repos/cities_storage.dart';
 import 'package:teammate/models/game.dart';
+import 'package:teammate/presentation/game/components/players_list_view.dart';
 import 'package:teammate/presentation/game/game_page_model.dart';
 import 'package:teammate/presentation/games/games_page.dart';
 import 'package:teammate/service/date_extension.dart';
 
 final gamePageRef =
     ChangeNotifierProvider.autoDispose.family<GamePageModel, Game>(
-  (ref, game) => GamePageModel(game: game, gamesRepo: sl()),
+  (ref, game) => GamePageModel(
+    game: game,
+    gamesRepo: sl(),
+    playersRepo: sl(),
+  ),
 );
 
 class GamePage extends ConsumerWidget {
@@ -37,7 +43,7 @@ class GamePage extends ConsumerWidget {
             IconButton(
                 onPressed: () async {
                   await model.onDeleteTapped();
-                  ref.read(gamesPageProvider).removeGameFromView(game);
+                  await ref.read(gamesPageProvider).removeGameFromView(game);
                 },
                 icon: const Icon(Icons.delete),
               )
@@ -118,20 +124,22 @@ class GamePage extends ConsumerWidget {
                 ),
                 const SizedBox(height: 40),
                 // КОЛИЧЕСТВО УЧАСТНИКОВ
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Text(
-                //       'Участники (${state.players.length})',
-                //       style: AppFonts.titleMedium.copyWith(
-                //         color: AppColors.main,
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(height: 10),
-                // const _PlayersListView(),
-                // const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Участники (${model.players.length})',
+                      style: AppFonts.medium18.copyWith(
+                        color: AppColors.main,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                PlayersListView(
+                  players: model.players,
+                ),
+                const SizedBox(height: 10),
                 // ПОДЕЛИТЬСЯ / ПОЗВАТЬ ДРУЗЕЙ
                 Align(
                   alignment: Alignment.centerRight,
@@ -140,15 +148,13 @@ class GamePage extends ConsumerWidget {
 
                 const SizedBox(height: 30),
                 // КНОПКА ПРИСОЕДИНИТЬСЯ / ВЫЙТИ
-                // if (!game.isMy) ...[
-                //   MainButton(
-                //     width: double.infinity,
-                //     title: model.joinTitle,
-                //     onTap: model.onJoinToggle,
-                //     isLoading:
-                //         state.status == GameInfoStatus.isChangingJoinStatus,
-                //   )
-                // ]
+                if (!game.isMy) ...[
+                  MainButton(
+                    width: double.infinity,
+                    title: model.isJoin ? 'Играть' : 'Отказаться',
+                    onTap: model.onJoinTapped,
+                  )
+                ]
               ],
             ),
           ),
@@ -186,12 +192,12 @@ class _ShareButton extends ConsumerWidget {
   }
 }
 
-// class _PlayersListView extends ConsumerWidget {
-//   const _PlayersListView();
+// class PlayersListView extends ConsumerWidget {
+//   const PlayersListView();
 
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
-//      final isLoading = state.status == GameInfoStatus.isLoadingPLayers;
+
 
 //         return SizedBox(
 //           height: 200,

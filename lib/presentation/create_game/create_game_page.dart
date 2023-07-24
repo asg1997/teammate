@@ -60,13 +60,11 @@ class CreateGamePage extends ConsumerWidget {
                               onCityChanged: model.onCityChanged,
                               initialCity: model.city,
                             ),
-
                             const SizedBox(height: 16),
                             SportDropdown(
                               initialSport: model.sport,
                               onSportChanged: model.onSportChanged,
                             ),
-
                             const SizedBox(height: 16),
                             TextField(
                               keyboardType: TextInputType.none,
@@ -83,16 +81,6 @@ class CreateGamePage extends ConsumerWidget {
                                 );
                               },
                             ),
-                            // FormBuilderDateTimePicker(
-                            //   firstDate: DateTime.now(),
-                            //   name: dateTime,
-                            //   format: DateFormat('dd MMMM yyyy, HH:mm', 'ru'),
-                            //   validator: FormBuilderValidators.required(),
-                            //   decoration: _decoration(
-                            //     'Дата и время*',
-                            //     'Укажите дату игры',
-                            //   ),
-                            // ),
                             const SizedBox(height: 16),
                             TextField(
                               onChanged: model.onLocationChanged,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:teammate/core/teammate_app.dart';
+
 import 'package:teammate/data/session_data.dart';
 import 'package:teammate/domain/repos/cities_repo.dart';
 import 'package:teammate/domain/repos/cities_storage.dart';
 import 'package:teammate/domain/repos/games_repo.dart';
-import 'package:teammate/main.dart';
 import 'package:teammate/models/city.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/models/sport.dart';

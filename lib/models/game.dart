@@ -17,7 +17,7 @@ class Game {
     return Game(
       id: json['id'] as String,
       name: json['name'] as String,
-      cityCode: json['cityCode'] as int,
+      cityCode: json['city'] as int,
       sport: Sport.fromJson(json['sport'] as String),
       phone: json['phone'] as String,
       description: json['description'] as String?,

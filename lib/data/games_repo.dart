@@ -11,7 +11,7 @@ class GamesRepoImpl implements GamesRepo {
   @override
   Future<List<Game>> getGames(City city, {int limit = 10}) async {
     try {
-      var query = _gamesRef.where('cityCode', isEqualTo: city.postcode);
+      var query = _gamesRef.where('city', isEqualTo: city.postcode);
 
       if (_lastDocument != null) {
         query = query.startAfterDocument(_lastDocument!);

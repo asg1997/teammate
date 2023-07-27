@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:teammate/data/mappers/game_mapper.dart';
 import 'package:teammate/domain/repos/games_repo.dart';
 import 'package:teammate/models/city.dart';
 import 'package:teammate/models/game.dart';
@@ -19,7 +20,8 @@ class GamesRepoImpl implements GamesRepo {
 
       final snapshot = await query.limit(limit).get();
       if (snapshot.docs.isNotEmpty) _lastDocument = snapshot.docs.last;
-      final games = snapshot.docs.map((e) => Game.fromJson(e.data())).toList();
+      final games =
+          snapshot.docs.map((e) => GameMapper.fromApi(e.data())).toList();
       final relevantGames = _getRelevantDateGames(games);
 
       return relevantGames;
@@ -35,7 +37,7 @@ class GamesRepoImpl implements GamesRepo {
   @override
   Future<void> createGame(Game game) async {
     try {
-      await _gamesRef.doc(game.id).set(game.toJson());
+      await _gamesRef.doc(game.id).set(GameMapper.toApi(game));
     } catch (e) {
       rethrow;
     }

@@ -1,7 +1,8 @@
 // ignore_for_file: one_member_abstracts
 
-import 'package:teammate/models/user.dart';
+import 'package:teammate/models/game.dart';
 
 abstract class PlayersRepo {
-  Future<List<Player>> getPlayers(String gameId);
+  Future<void> joinGame(Game game);
+  Future<void> quitGame(Game game);
 }

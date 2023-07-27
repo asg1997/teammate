@@ -13,7 +13,8 @@ class PlayersListView extends StatelessWidget {
   final List<Player> players;
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
+    return Container(
+      height: 200,
       decoration: BoxDecoration(
         borderRadius: AppDecorations.defaultBorderRadius,
         color: Colors.white,
@@ -29,7 +30,8 @@ class PlayersListView extends StatelessWidget {
               ),
             )
           : ListView.separated(
-              padding: const EdgeInsets.all(20),
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               itemCount: players.length,
               itemBuilder: (_, index) =>
                   PlayersListItem(player: players[index]),

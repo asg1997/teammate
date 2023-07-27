@@ -15,13 +15,13 @@ import 'package:teammate/presentation/games/games_page.dart';
 import 'package:teammate/service/date_extension.dart';
 
 final gamePageRef =
-    ChangeNotifierProvider.autoDispose.family<GamePageModel, Game>(
-  (ref, game) => GamePageModel(
+    ChangeNotifierProvider.autoDispose.family<GamePageModel, Game>((ref, game) {
+  return GamePageModel(
     game: game,
     gamesRepo: sl(),
     playersRepo: sl(),
-  ),
-);
+  );
+});
 
 class GamePage extends ConsumerWidget {
   const GamePage({
@@ -151,7 +151,7 @@ class GamePage extends ConsumerWidget {
                 if (!game.isMy) ...[
                   MainButton(
                     width: double.infinity,
-                    title: model.isJoin ? 'Играть' : 'Отказаться',
+                    title: model.isJoin ? 'Отказаться' : 'Играть',
                     onTap: model.onJoinTapped,
                   )
                 ]

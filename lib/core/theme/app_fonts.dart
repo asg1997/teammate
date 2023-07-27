@@ -82,6 +82,10 @@ abstract class AppFonts {
   );
 
 // REGULAR
+  static final regular18 = GoogleFonts.roboto(
+    fontSize: 18,
+    color: Colors.white,
+  );
   static final regular15 = GoogleFonts.roboto(
     fontSize: 15,
     color: AppColors.main,

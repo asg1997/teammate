@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:teammate/core/teammate_app.dart';
@@ -22,31 +21,23 @@ class GamePageModel extends ChangeNotifier {
   final GamesRepo gamesRepo;
   final PlayersRepo playersRepo;
 
-  bool loadingPlayers = false;
-  void _setLoadingPlayers(bool value) {
-    loadingPlayers = value;
-    notifyListeners();
-  }
+  final Player _currentUser = SessionData().currentUser;
+  List<Player> get players => game.players;
+
+  // bool loadingPlayers = false;
+  // void _setLoadingPlayers(bool value) {
+  //   loadingPlayers = value;
+  //   notifyListeners();
+  // }
 
   bool get isJoin {
     if (game.isMy) return true;
-    final isAmoundPlayers = players.firstWhereOrNull(
-          (element) => element.id == SessionData().userId,
-        ) !=
-        null;
-
-    return isAmoundPlayers;
+    final playersIds = game.players.map((e) => e.id).toList();
+    final myId = SessionData().userId;
+    return playersIds.contains(myId);
   }
 
-  List<Player> players = [];
-
-  Future<void> _init() async {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _setLoadingPlayers(true);
-      players = await playersRepo.getPlayers(game.id);
-      _setLoadingPlayers(false);
-    });
-  }
+  Future<void> _init() async {}
 
   Future<void> onInviteUsersTapped() async {
     final gameStr = game.sport.locale.toLowerCase();
@@ -65,8 +56,18 @@ class GamePageModel extends ChangeNotifier {
   }
 
   Future<void> onJoinTapped() async {
-    final currentUser = SessionData().currentUser;
-    isJoin ? players.remove(currentUser) : players.add(currentUser);
+    isJoin ? await _quitGame() : await _joinGame();
+
     notifyListeners();
+  }
+
+  Future<void> _joinGame() async {
+    await playersRepo.joinGame(game);
+    game.players.add(_currentUser);
+  }
+
+  Future<void> _quitGame() async {
+    await playersRepo.quitGame(game);
+    game.players.remove(_currentUser);
   }
 }

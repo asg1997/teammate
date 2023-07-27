@@ -6,6 +6,9 @@ class PlayerMapper {
     return Player(
       nickname: json['nickname'] as String,
       id: json['id'] as String,
+      teammatesIds: (json['teammatesIds'] as List<dynamic>? ?? [])
+          .map((e) => e as String)
+          .toList(),
     );
   }
 
@@ -13,6 +16,7 @@ class PlayerMapper {
     return {
       'nickname': player.nickname,
       'id': player.id,
+      'teammatesIds': player.teammatesIds.map((e) => e).toList()
     };
   }
 }

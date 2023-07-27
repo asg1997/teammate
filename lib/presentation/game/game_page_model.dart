@@ -39,7 +39,9 @@ class GamePageModel extends ChangeNotifier {
 
   Future<void> _init() async {}
 
-  Future<void> onInviteUsersTapped() async {
+  Future<void> onInviteUsersTapped() async {}
+
+  Future<void> onShareTapped() async {
     final gameStr = game.sport.locale.toLowerCase();
     final whenStr = game.dateTime.toDateAndTimeString;
 

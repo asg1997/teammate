@@ -10,6 +10,7 @@ import 'package:teammate/core/widgets/main_button.dart';
 import 'package:teammate/domain/repos/cities_storage.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/game/components/players_list_view.dart';
+import 'package:teammate/presentation/game/components/teammates_pop_up/teammates_pop_up.dart';
 import 'package:teammate/presentation/game/game_page_model.dart';
 import 'package:teammate/presentation/games/games_page.dart';
 import 'package:teammate/service/date_extension.dart';
@@ -39,7 +40,7 @@ class GamePage extends ConsumerWidget {
         text: game.name,
         leading: game.isMy
             ?
-            // КНОПКА РЕДАКТИВНОВАНИЯ
+            // КНОПКА УДАЛЕНИЯ
             IconButton(
                 onPressed: () async {
                   await model.onDeleteTapped();
@@ -143,7 +144,15 @@ class GamePage extends ConsumerWidget {
                 // ПОДЕЛИТЬСЯ / ПОЗВАТЬ ДРУЗЕЙ
                 Align(
                   alignment: Alignment.centerRight,
-                  child: _ShareButton(model.onInviteUsersTapped),
+                  child: _ShareButton(() {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (_) {
+                        return const TeammatesPopUp();
+                      },
+                    );
+                    model.onInviteUsersTapped();
+                  }),
                 ),
 
                 const SizedBox(height: 30),

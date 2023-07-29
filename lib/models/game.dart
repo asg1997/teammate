@@ -10,7 +10,6 @@ class Game {
     required this.name,
     required this.cityCode,
     required this.sport,
-    required this.phone,
     required this.description,
     required this.dateTime,
     required this.location,
@@ -22,7 +21,6 @@ class Game {
   final String name;
   final int cityCode;
   final Sport sport;
-  final String phone;
   final String location;
   final String? description;
   final DateTime dateTime;

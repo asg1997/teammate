@@ -35,7 +35,7 @@ class CreateGameModel extends ChangeNotifier {
   String _name = '';
   late City city;
   Sport sport = Sport.soccer;
-  String phone = '';
+
   String description = '';
   DateTime dateTime = DateTime.now();
   String location = '';
@@ -50,7 +50,6 @@ class CreateGameModel extends ChangeNotifier {
   void onNameChanged(String value) => _name = value;
   void onCityChanged(City value) => city = value;
   void onSportChanged(Sport value) => sport = value;
-  void onPhoneChanged(String value) => phone = value;
   void onDescriptionChanged(String value) => description = value;
   void onDateTimeChanged(DateTime value) {
     dateTime = value;
@@ -81,7 +80,7 @@ class CreateGameModel extends ChangeNotifier {
   }
 
   bool _fieldsValid() {
-    if (_name.isEmpty && phone.isEmpty && location.isEmpty) {
+    if (_name.isEmpty && location.isEmpty) {
       Fluttertoast.showToast(msg: 'Заполните все поля *');
       return false;
     }
@@ -95,7 +94,6 @@ class CreateGameModel extends ChangeNotifier {
       name: _name,
       cityCode: city.postcode,
       sport: sport,
-      phone: phone,
       description: description,
       creatorId: creatorPushToken,
       dateTime: dateTime,

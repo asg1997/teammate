@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:teammate/core/dependency_injection.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
@@ -104,21 +103,6 @@ class CreateGamePage extends ConsumerWidget {
                               decoration: _decoration(
                                 'Имя*',
                                 'Как вас зовут',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            TextField(
-                              onChanged: model.onPhoneChanged,
-                              keyboardType: TextInputType.phone,
-                              inputFormatters: [
-                                MaskTextInputFormatter(
-                                  mask: '+7 (###) ###-##-##',
-                                  filter: {'#': RegExp('[0-9]')},
-                                )
-                              ],
-                              decoration: _decoration(
-                                'Телефон*',
-                                'Укажите телефон, как с вами связаться',
                               ),
                             ),
                             const Spacer(),

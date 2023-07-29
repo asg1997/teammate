@@ -12,8 +12,10 @@ import 'package:teammate/feachers/game/domain/repo/games_repo.dart';
 import 'package:teammate/feachers/game/domain/repo/players_repo.dart';
 import 'package:teammate/feachers/notifications/data/repo/notifications_repo.dart';
 import 'package:teammate/feachers/notifications/domain/repo/notifications_repo.dart';
-import 'package:teammate/feachers/teammates/data/repo/teammates_repo.dart';
-import 'package:teammate/feachers/teammates/domain/repo/teammates_repo.dart';
+import 'package:teammate/feachers/players/data/datasource/players_local_storage.dart';
+import 'package:teammate/feachers/players/data/datasource/players_remote_storage.dart';
+import 'package:teammate/feachers/players/data/repo/teammates_repo.dart';
+import 'package:teammate/feachers/players/domain/repo/teammates_repo.dart';
 
 final sl = GetIt.instance;
 Future<void> init() async {
@@ -28,7 +30,15 @@ Future<void> init() async {
     ..registerLazySingleton<CityRepo>(CityRepoImpl.new)
     ..registerLazySingleton<NotificationsRepo>(NotificationsRepoImpl.new)
     ..registerLazySingleton<GamesRepo>(GamesRepoImpl.new)
-    ..registerLazySingleton<TeammatesRepo>(TeammatesRepoImpl.new)
+    ..registerLazySingleton<PlayersLocalStorage>(
+      () => PlayersLocalStorageImpl(sl()),
+    )
+    ..registerLazySingleton<PlayersRemoteStorage>(
+      PlayersRemoteStorageImpl.new,
+    )
+    ..registerLazySingleton<PlayersStorage>(
+      () => PlayersStorageImpl(localStorage: sl(), remoteStorage: sl()),
+    )
     ..registerLazySingleton<UserIdInfo>(UserIdInfoImpl.new);
 
   await sl.allReady();

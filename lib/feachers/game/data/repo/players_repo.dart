@@ -13,8 +13,7 @@ import 'package:teammate/feachers/game/domain/repo/players_repo.dart';
 class NoGameFoundException extends CustomExeption {}
 
 class PlayersRepoImpl implements PlayersRepo {
-  final _ref =
-      FirebaseFirestore.instance.collection(FirebaseConsts.gamesCollection);
+  final _ref = FirebaseFirestore.instance.collection(FirebaseCollections.games);
 
   StreamSubscription? _onPlayersUpdateSubscription;
 
@@ -42,7 +41,7 @@ class PlayersRepoImpl implements PlayersRepo {
 
   Map<String, dynamic> _currentUserToApi() {
     final currentUser = SessionData().currentUser;
-    return PlayerMapper.toApi(currentUser);
+    return UserMapper.toApi(currentUser);
   }
 
   @override
@@ -54,13 +53,11 @@ class PlayersRepoImpl implements PlayersRepo {
       final data = snapshot.data()!;
       final players = data['players'] as List<dynamic>;
       yield players
-          .map((e) => PlayerMapper.fromApi(e as Map<String, dynamic>))
+          .map((e) => UserMapper.fromApi(e as Map<String, dynamic>))
           .toList();
     }
   }
 
   @override
-  Future<void> close() async {
-    await _onPlayersUpdateSubscription?.cancel();
-  }
+  Future<void> close() async {}
 }

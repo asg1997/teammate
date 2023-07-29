@@ -10,6 +10,7 @@ class Player extends Equatable {
   });
   final String nickname;
   final PlayerId id;
+  // TODO: Переделать, чтобы отдельная коллекция из teammates для кажд юзера
   final List<String> teammatesIds;
 
   @override

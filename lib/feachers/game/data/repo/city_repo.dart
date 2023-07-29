@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:teammate/data/mappers/city_mapper.dart';
+
+import 'package:teammate/feachers/game/data/mapper/city_mapper.dart';
 import 'package:teammate/feachers/game/domain/entities/city.dart';
 import 'package:teammate/feachers/game/domain/repo/cities_repo.dart';
 

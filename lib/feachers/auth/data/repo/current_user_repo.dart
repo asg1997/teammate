@@ -26,7 +26,7 @@ class CurrentUserRepoImpl implements CurrentUserRepo {
       nickname: nickname,
       id: SessionData().userId,
     );
-    final json = PlayerMapper.toApi(player);
+    final json = UserMapper.toApi(player);
     await ref.doc(player.id).set(json);
 
     await localStorage.saveString(nickname, _nickname);

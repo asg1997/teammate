@@ -15,7 +15,7 @@ class GameMapper {
       'dateTime': game.dateTime.millisecondsSinceEpoch,
       'creatorId': game.creatorId,
       'location': game.location,
-      'players': game.players.map(PlayerMapper.toApi).toList(),
+      'players': game.players.map(UserMapper.toApi).toList(),
     };
   }
 
@@ -31,7 +31,7 @@ class GameMapper {
       location: json['location'] as String,
       players: (json['players'] as List<dynamic>? ?? []).map((e) {
         e as Map<String, dynamic>;
-        return PlayerMapper.fromApi(e);
+        return UserMapper.fromApi(e);
       }).toList(),
     );
   }

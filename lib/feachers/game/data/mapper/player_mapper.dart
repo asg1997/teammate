@@ -1,7 +1,7 @@
 import 'package:teammate/feachers/auth/domain/entities/player.dart';
 
-class PlayerMapper {
-  PlayerMapper._();
+class UserMapper {
+  UserMapper._();
   static Player fromApi(Map<String, dynamic> json) {
     return Player(
       nickname: json['nickname'] as String,

@@ -1,4 +1,4 @@
-import 'package:teammate/data/mappers/player_mapper.dart';
+import 'package:teammate/feachers/game/data/mapper/player_mapper.dart';
 import 'package:teammate/feachers/game/domain/entities/game.dart';
 import 'package:teammate/feachers/game/domain/entities/sport.dart';
 

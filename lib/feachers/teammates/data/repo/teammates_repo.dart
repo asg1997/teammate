@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:teammate/data/mappers/teammate_mapper.dart';
-
-import 'package:teammate/domain/repos/teammates_repo.dart';
 import 'package:teammate/feachers/auth/data/repo/session_data.dart';
 import 'package:teammate/feachers/auth/domain/entities/player.dart';
+import 'package:teammate/feachers/teammates/data/mappers/teammate_mapper.dart';
+import 'package:teammate/feachers/teammates/domain/repo/teammates_repo.dart';
 
 class TeammatesRepoImpl implements TeammatesRepo {
   final _ref = FirebaseFirestore.instance.collection('teammates');

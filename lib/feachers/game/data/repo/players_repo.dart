@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:teammate/core/consts/firebase_consts.dart';
 import 'package:teammate/core/exceptions/custom_exception.dart';
-import 'package:teammate/data/mappers/player_mapper.dart';
+
 import 'package:teammate/feachers/auth/data/repo/session_data.dart';
 import 'package:teammate/feachers/auth/domain/entities/player.dart';
+import 'package:teammate/feachers/game/data/mapper/player_mapper.dart';
 import 'package:teammate/feachers/game/domain/entities/game.dart';
 import 'package:teammate/feachers/game/domain/repo/players_repo.dart';
 

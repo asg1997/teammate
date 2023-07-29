@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:teammate/core/teammate_app.dart';
-import 'package:teammate/domain/repos/notifications_repo.dart';
 import 'package:teammate/feachers/game/domain/entities/city.dart';
 import 'package:teammate/feachers/game/domain/entities/sport.dart';
 import 'package:teammate/feachers/game/domain/repo/cities_repo.dart';
 import 'package:teammate/feachers/game/domain/repo/cities_storage.dart';
 import 'package:teammate/feachers/notifications/domain/entities/notification_settings.dart';
+import 'package:teammate/feachers/notifications/domain/repo/notifications_repo.dart';
 
 class NotificationsPageModel extends ChangeNotifier {
   NotificationsPageModel({

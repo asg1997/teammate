@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:teammate/data/mappers/notification_settings_api_mapper.dart';
-
-import 'package:teammate/domain/repos/notifications_repo.dart';
+import 'package:teammate/feachers/notifications/data/mappers/notification_settings_api_mapper.dart';
 import 'package:teammate/feachers/notifications/domain/entities/notification_settings.dart';
-
+import 'package:teammate/feachers/notifications/domain/repo/notifications_repo.dart';
 import 'package:teammate/service/notifications_service.dart';
 
 class NotificationsRepoImpl implements NotificationsRepo {

@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:teammate/data/mappers/game_mapper.dart';
+import 'package:teammate/feachers/game/data/mapper/game_mapper.dart';
+
+import 'package:teammate/feachers/game/domain/entities/city.dart';
 import 'package:teammate/feachers/game/domain/entities/game.dart';
 import 'package:teammate/feachers/game/domain/repo/games_repo.dart';
-import 'package:teammate/feachers/game/domain/entities/city.dart';
 
 class GamesRepoImpl implements GamesRepo {
   final _gamesRef = FirebaseFirestore.instance.collection('games');

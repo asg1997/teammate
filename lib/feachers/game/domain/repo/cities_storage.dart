@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:teammate/data/mappers/city_mapper.dart';
+
+import 'package:teammate/feachers/game/data/mapper/city_mapper.dart';
 import 'package:teammate/feachers/game/domain/entities/city.dart';
 
 class CitiesStorage {

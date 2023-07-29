@@ -1,8 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:teammate/data/notifications_repo.dart';
-import 'package:teammate/data/teammates_repo.dart';
-import 'package:teammate/domain/repos/notifications_repo.dart';
-import 'package:teammate/domain/repos/teammates_repo.dart';
 import 'package:teammate/feachers/auth/data/repo/current_user_repo.dart';
 import 'package:teammate/feachers/auth/data/repo/local_storage.dart';
 import 'package:teammate/feachers/auth/data/repo/user_id.dart';
@@ -14,6 +10,10 @@ import 'package:teammate/feachers/game/data/repo/players_repo.dart';
 import 'package:teammate/feachers/game/domain/repo/cities_repo.dart';
 import 'package:teammate/feachers/game/domain/repo/games_repo.dart';
 import 'package:teammate/feachers/game/domain/repo/players_repo.dart';
+import 'package:teammate/feachers/notifications/data/repo/notifications_repo.dart';
+import 'package:teammate/feachers/notifications/domain/repo/notifications_repo.dart';
+import 'package:teammate/feachers/teammates/data/repo/teammates_repo.dart';
+import 'package:teammate/feachers/teammates/domain/repo/teammates_repo.dart';
 
 final sl = GetIt.instance;
 Future<void> init() async {

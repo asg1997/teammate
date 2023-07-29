@@ -5,14 +5,14 @@ import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/main_button.dart';
-import 'package:teammate/data/moduls/teammates_repo_provider.dart';
-import 'package:teammate/feachers/game/domain/repo/cities_storage.dart';
 import 'package:teammate/feachers/game/domain/entities/game.dart';
+import 'package:teammate/feachers/game/domain/repo/cities_storage.dart';
 import 'package:teammate/feachers/game/presentation/game_info/components/players_list_view.dart';
 import 'package:teammate/feachers/game/presentation/game_info/providers/game_page_provider.dart';
+import 'package:teammate/feachers/game/presentation/games/games_page.dart';
 import 'package:teammate/feachers/game/presentation/share_game_pop_up/providers/share_repo_provider.dart';
 import 'package:teammate/feachers/game/presentation/share_game_pop_up/share_game_pop_up.dart';
-import 'package:teammate/feachers/game/presentation/games/games_page.dart';
+import 'package:teammate/feachers/teammates/data/providers/teammates_repo_provider.dart';
 import 'package:teammate/feachers/teammates/presentation/teammates_list_view/providers/selected_teammates_provider.dart';
 import 'package:teammate/service/date_extension.dart';
 

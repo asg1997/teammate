@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
-import 'package:teammate/presentation/teammates/components/teammates_list_view.dart';
+import 'package:teammate/presentation/teammates_list_view/teammates_list_view.dart';
 
 class MyTeammmatesPage extends ConsumerWidget {
   const MyTeammmatesPage({super.key});
@@ -18,7 +18,9 @@ class MyTeammmatesPage extends ConsumerWidget {
           child: Column(
             children: const [
               AppBarWidget(text: 'С кем вы играли'),
-              Expanded(child: TeammatesListView()),
+              Expanded(
+                child: TeammatesListView(),
+              ),
             ],
           ),
         ),

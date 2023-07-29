@@ -1,6 +1,8 @@
 import 'package:teammate/data/session_data.dart';
+import 'package:teammate/models/player.dart';
 import 'package:teammate/models/sport.dart';
-import 'package:teammate/models/user.dart';
+
+typedef GameId = String;
 
 class Game {
   Game({
@@ -16,7 +18,7 @@ class Game {
     this.players = const [],
   });
 
-  final String id;
+  final GameId id;
   final String name;
   final int cityCode;
   final Sport sport;

@@ -50,14 +50,17 @@ dependencies:
 
   flutter_local_notifications: ^14.1.0
 
-  riverpod: ^2.3.6
-  flutter_riverpod: ^2.3.6
 
   translit: ^2.0.1
 
   permission_handler: ^10.3.0
   share_plus: ^7.0.2
   collection: ^1.17.0
+  
+  riverpod: ^2.3.6
+  flutter_riverpod: ^2.3.6
+
+
   
   
 

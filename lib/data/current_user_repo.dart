@@ -3,7 +3,7 @@ import 'package:teammate/data/mappers/player_mapper.dart';
 import 'package:teammate/data/session_data.dart';
 import 'package:teammate/domain/repos/current_user_repo.dart';
 import 'package:teammate/domain/repos/local_storage.dart';
-import 'package:teammate/models/user.dart';
+import 'package:teammate/models/player.dart';
 
 // class UserAlreadyExistsException extends CustomExeption {}
 

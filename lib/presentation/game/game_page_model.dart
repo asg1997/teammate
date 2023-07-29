@@ -5,7 +5,7 @@ import 'package:teammate/data/session_data.dart';
 import 'package:teammate/domain/repos/games_repo.dart';
 import 'package:teammate/domain/repos/players_repo.dart';
 import 'package:teammate/models/game.dart';
-import 'package:teammate/models/user.dart';
+import 'package:teammate/models/player.dart';
 import 'package:teammate/service/date_extension.dart';
 import 'package:teammate/service/dynamic_links_generator.dart';
 
@@ -38,8 +38,6 @@ class GamePageModel extends ChangeNotifier {
   }
 
   Future<void> _init() async {}
-
-  Future<void> onInviteUsersTapped() async {}
 
   Future<void> onShareTapped() async {
     final gameStr = game.sport.locale.toLowerCase();

@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:teammate/core/dependency_injection.dart';
 
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/main_button.dart';
+import 'package:teammate/data/moduls/teammates_repo_provider.dart';
 import 'package:teammate/domain/repos/cities_storage.dart';
 import 'package:teammate/models/game.dart';
 import 'package:teammate/presentation/game/components/players_list_view.dart';
-import 'package:teammate/presentation/game/components/teammates_pop_up/teammates_pop_up.dart';
-import 'package:teammate/presentation/game/game_page_model.dart';
+import 'package:teammate/presentation/game/providers/game_page_provider.dart';
 import 'package:teammate/presentation/games/games_page.dart';
+import 'package:teammate/presentation/share_game_pop_up/providers/share_repo_provider.dart';
+import 'package:teammate/presentation/share_game_pop_up/share_game_pop_up.dart';
+import 'package:teammate/presentation/teammates_list_view/providers/selected_teammates_provider.dart';
 import 'package:teammate/service/date_extension.dart';
-
-final gamePageRef =
-    ChangeNotifierProvider.autoDispose.family<GamePageModel, Game>((ref, game) {
-  return GamePageModel(
-    game: game,
-    gamesRepo: sl(),
-    playersRepo: sl(),
-  );
-});
 
 class GamePage extends ConsumerWidget {
   const GamePage({
@@ -33,7 +26,7 @@ class GamePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final model = ref.read(gamePageRef(game));
+    final model = ref.read(gamePageProvider(game));
     final cityName = CitiesStorage().fromPostcode(game.cityCode).name;
     return Scaffold(
       appBar: AppBarWidget(
@@ -124,34 +117,26 @@ class GamePage extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-                // КОЛИЧЕСТВО УЧАСТНИКОВ
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Участники (${model.players.length})',
-                      style: AppFonts.medium18.copyWith(
-                        color: AppColors.main,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                PlayersListView(
-                  players: model.players,
-                ),
+
+                PlayersListView(game: model.game),
                 const SizedBox(height: 10),
                 // ПОДЕЛИТЬСЯ / ПОЗВАТЬ ДРУЗЕЙ
                 Align(
                   alignment: Alignment.centerRight,
-                  child: _ShareButton(() {
-                    showModalBottomSheet<void>(
+                  child: _ShareButton(() async {
+                    await showModalBottomSheet<void>(
                       context: context,
+                      backgroundColor: AppColors.background,
                       builder: (_) {
-                        return const TeammatesPopUp();
+                        return ShareGamePopUp(
+                          game: game,
+                        );
                       },
                     );
-                    model.onInviteUsersTapped();
+                    ref
+                      ..invalidate(selectedTeammatesProvider)
+                      ..invalidate(shareRepoProvider)
+                      ..invalidate(teammatesRepoProvider);
                   }),
                 ),
 

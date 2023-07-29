@@ -1,6 +1,6 @@
 import 'package:teammate/domain/repos/current_user_repo.dart';
 import 'package:teammate/domain/repos/user_id.dart';
-import 'package:teammate/models/user.dart';
+import 'package:teammate/models/player.dart';
 
 class SessionData {
   factory SessionData() {

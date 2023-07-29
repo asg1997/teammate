@@ -1,4 +1,4 @@
-import 'package:teammate/models/notification_settings.dart';
+import 'package:teammate/feachers/notifications/domain/entities/notification_settings.dart';
 
 abstract class NotificationsRepo {
   Future<void> changeSettings(NotificationSettings settings);

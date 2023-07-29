@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:teammate/core/widgets/custom_dropdown.dart';
-import 'package:teammate/models/sport.dart';
+import 'package:teammate/feachers/game/domain/entities/sport.dart';
 
 class SportDropdown extends StatelessWidget {
   const SportDropdown({

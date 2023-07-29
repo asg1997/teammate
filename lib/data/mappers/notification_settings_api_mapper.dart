@@ -1,5 +1,5 @@
-import 'package:teammate/models/notification_settings.dart';
-import 'package:teammate/models/sport.dart';
+import 'package:teammate/feachers/game/domain/entities/sport.dart';
+import 'package:teammate/feachers/notifications/domain/entities/notification_settings.dart';
 
 class NotificationSettingsApiMapper {
   NotificationSettingsApiMapper._();

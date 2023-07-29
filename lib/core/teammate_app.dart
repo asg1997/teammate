@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:teammate/data/session_data.dart';
-import 'package:teammate/presentation/nickname/nickname_page.dart';
-import 'package:teammate/presentation/tabbar/tabbar_page.dart';
+
+import 'package:teammate/feachers/auth/data/repo/session_data.dart';
+import 'package:teammate/feachers/auth/presentation/nickname/nickname_page.dart';
+import 'package:teammate/feachers/tabbar/tabbar_page.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

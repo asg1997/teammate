@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:teammate/core/dependency_injection.dart' as di;
 import 'package:teammate/core/teammate_app.dart';
-import 'package:teammate/data/session_data.dart';
-import 'package:teammate/domain/repos/cities_storage.dart';
+import 'package:teammate/feachers/auth/data/repo/session_data.dart';
+import 'package:teammate/feachers/game/domain/repo/cities_storage.dart';
 import 'package:teammate/firebase_options.dart';
 import 'package:teammate/service/notifications_service.dart';
 

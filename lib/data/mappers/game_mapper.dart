@@ -1,6 +1,6 @@
 import 'package:teammate/data/mappers/player_mapper.dart';
-import 'package:teammate/models/game.dart';
-import 'package:teammate/models/sport.dart';
+import 'package:teammate/feachers/game/domain/entities/game.dart';
+import 'package:teammate/feachers/game/domain/entities/sport.dart';
 
 class GameMapper {
   GameMapper._();

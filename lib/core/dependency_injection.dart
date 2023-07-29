@@ -1,19 +1,19 @@
 import 'package:get_it/get_it.dart';
-import 'package:teammate/data/city_repo.dart';
-import 'package:teammate/data/current_user_repo.dart';
-import 'package:teammate/data/games_repo.dart';
-import 'package:teammate/data/local_storage.dart';
 import 'package:teammate/data/notifications_repo.dart';
-import 'package:teammate/data/players_repo.dart';
 import 'package:teammate/data/teammates_repo.dart';
-import 'package:teammate/data/user_id.dart';
-import 'package:teammate/domain/repos/cities_repo.dart';
-import 'package:teammate/domain/repos/current_user_repo.dart';
-import 'package:teammate/domain/repos/games_repo.dart';
 import 'package:teammate/domain/repos/notifications_repo.dart';
-import 'package:teammate/domain/repos/players_repo.dart';
 import 'package:teammate/domain/repos/teammates_repo.dart';
-import 'package:teammate/domain/repos/user_id.dart';
+import 'package:teammate/feachers/auth/data/repo/current_user_repo.dart';
+import 'package:teammate/feachers/auth/data/repo/local_storage.dart';
+import 'package:teammate/feachers/auth/data/repo/user_id.dart';
+import 'package:teammate/feachers/auth/domain/repo/current_user_repo.dart';
+import 'package:teammate/feachers/auth/domain/repo/user_id.dart';
+import 'package:teammate/feachers/game/data/repo/city_repo.dart';
+import 'package:teammate/feachers/game/data/repo/games_repo.dart';
+import 'package:teammate/feachers/game/data/repo/players_repo.dart';
+import 'package:teammate/feachers/game/domain/repo/cities_repo.dart';
+import 'package:teammate/feachers/game/domain/repo/games_repo.dart';
+import 'package:teammate/feachers/game/domain/repo/players_repo.dart';
 
 final sl = GetIt.instance;
 Future<void> init() async {

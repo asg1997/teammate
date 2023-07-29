@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:teammate/core/widgets/custom_dropdown.dart';
-import 'package:teammate/domain/repos/cities_storage.dart';
-import 'package:teammate/models/city.dart';
+import 'package:teammate/feachers/game/domain/entities/city.dart';
+import 'package:teammate/feachers/game/domain/repo/cities_storage.dart';
 
 class CitiesDropdown extends StatelessWidget {
   const CitiesDropdown({

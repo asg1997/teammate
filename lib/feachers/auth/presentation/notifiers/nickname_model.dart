@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/feachers/auth/data/nickname_storage.dart';
-import 'package:teammate/feachers/auth/data/nickname_storage.dart';
 import 'package:teammate/feachers/auth/presentation/notifiers/nickname_state.dart';
 
 class NicknameNotifier extends StateNotifier<NicknameState> {

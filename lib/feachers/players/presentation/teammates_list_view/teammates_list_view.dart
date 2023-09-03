@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
-import 'package:teammate/feachers/auth/domain/entities/player.dart';
+import 'package:teammate/feachers/players/domain/entities/player.dart';
 import 'package:teammate/feachers/players/presentation/teammates_list_view/providers/get_my_teammates_provider.dart';
 import 'package:teammate/feachers/players/presentation/teammates_list_view/providers/is_teammate_selected_provider.dart';
 import 'package:teammate/feachers/players/presentation/teammates_list_view/providers/selected_teammates_provider.dart';

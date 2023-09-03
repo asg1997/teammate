@@ -1,12 +1,9 @@
 abstract class FirebaseCollections {
   FirebaseCollections._();
-  static const games = 'games';
-  static const notifications = 'notificationsSettings';
-
   // хранится инфа о пользователе
   static const players = 'players';
-  // хранятся друзья
-  static const teammates = 'teammates';
+  static const games = 'games';
+  static const notifications = 'notificationsSettings';
 
 // TODO: Notification settings?
 }

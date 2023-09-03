@@ -1,4 +1,4 @@
-import 'package:teammate/feachers/game/domain/entities/city.dart';
+import 'package:teammate/feachers/cities/entities/city.dart';
 
 class CityMapper {
   CityMapper._();

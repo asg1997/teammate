@@ -1,13 +1,19 @@
-import 'package:teammate/feachers/game/domain/entities/sport.dart';
+import 'package:teammate/feachers/game/entities/sport.dart';
 import 'package:teammate/feachers/notifications/domain/entities/notification_settings.dart';
 
 class NotificationSettingsApiMapper {
   NotificationSettingsApiMapper._();
 
   static NotificationSettings fromApi(Map<String, dynamic> json) {
+    // FirebaseFirestore.instance..collection('notification_settings'). doc('new_game_in_city').update({'0121312': FieldValue.arrayUnion(elements)});
     return NotificationSettings(
       sport: _sportFromApi(json['sport'] as Map<String, dynamic>),
       cityPostcode: json['cityPostcode'] as int,
+      gameStartsInTwoHours: json['cityPostcode'] as bool,
+      gameWasDeleted: json['cityPostcode'] as bool,
+      myTeammateCreatedNewGame: json['cityPostcode'] as bool,
+      onGameDateTimeChanged: json['onGameDateTimeChanged'] as bool,
+      onGameTeammatesChanged: json['onGameTeammatesChanged'] as bool,
     );
   }
 

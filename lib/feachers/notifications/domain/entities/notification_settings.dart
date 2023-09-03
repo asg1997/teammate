@@ -1,8 +1,18 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:teammate/feachers/game/entities/sport.dart';
 
-import 'package:teammate/feachers/game/domain/entities/sport.dart';
+part 'notification_settings.freezed.dart';
 
-class NotificationSettings {
-  NotificationSettings({required this.sport, required this.cityPostcode});
-  final Map<Sport, bool> sport;
-  final int cityPostcode;
+@freezed
+class NotificationSettings with _$NotificationSettings {
+  const factory NotificationSettings({
+    required Map<Sport, bool> sport,
+    required int cityPostcode,
+    required bool onGameTeammatesChanged,
+    required bool onGameDateTimeChanged,
+    required bool gameStartsInTwoHours,
+    required bool gameWasDeleted,
+    required bool myTeammateCreatedNewGame,
+    @Default(true) bool enabled,
+  }) = _NotificationSettings;
 }

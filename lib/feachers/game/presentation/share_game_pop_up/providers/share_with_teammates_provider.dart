@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:teammate/feachers/auth/domain/entities/player.dart';
-import 'package:teammate/feachers/game/presentation/share_game_pop_up/providers/share_repo_provider.dart';
+import 'package:teammate/feachers/game/data/repo/share_repo.dart';
+import 'package:teammate/feachers/players/domain/entities/player.dart';
 
 final shareWithTeammatesProvider =
     FutureProvider.family.autoDispose<void, Iterable<Player>>((ref, players) {

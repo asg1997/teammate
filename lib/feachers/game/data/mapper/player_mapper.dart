@@ -1,4 +1,4 @@
-import 'package:teammate/feachers/auth/domain/entities/player.dart';
+import 'package:teammate/feachers/players/domain/entities/player.dart';
 
 class UserMapper {
   UserMapper._();
@@ -16,7 +16,7 @@ class UserMapper {
     return {
       'nickname': player.nickname,
       'id': player.id,
-      'teammatesIds': player.teammatesIds.map((e) => e).toList()
+      'teammatesIds': player.teammatesIds,
     };
   }
 }

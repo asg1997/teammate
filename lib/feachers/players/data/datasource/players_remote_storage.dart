@@ -1,11 +1,16 @@
 // ignore_for_file: one_member_abstracts
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/core/consts/firebase_consts.dart';
-import 'package:teammate/feachers/auth/data/repo/session_data.dart';
-import 'package:teammate/feachers/auth/domain/entities/player.dart';
 import 'package:teammate/feachers/game/data/mapper/player_mapper.dart';
-import 'package:teammate/feachers/game/domain/repo/share_repo.dart';
+import 'package:teammate/feachers/game/data/repo/share_repo.dart';
+
+import 'package:teammate/feachers/players/domain/entities/player.dart';
+
+final playersRemoteStorageProvider = Provider<PlayersRemoteStorage>(
+  (ref) => PlayersRemoteStorageImpl(),
+);
 
 abstract class PlayersRemoteStorage {
   Future<PlayersIds> getMyTeammatesIds();
@@ -15,8 +20,6 @@ abstract class PlayersRemoteStorage {
 class PlayersRemoteStorageImpl implements PlayersRemoteStorage {
   final _playersRef =
       FirebaseFirestore.instance.collection(FirebaseCollections.players);
-  final _teammatesRef =
-      FirebaseFirestore.instance.collection(FirebaseCollections.teammates);
 
   /// Пагинация тут не нужна, выдаст сразу всех пользователей,
   /// потому что я не делаю запрос на насколько документов,
@@ -26,15 +29,16 @@ class PlayersRemoteStorageImpl implements PlayersRemoteStorage {
   // TODO: Протестировать
   @override
   Future<PlayersIds> getMyTeammatesIds() async {
-    final myId = SessionData().userId;
-    final query = _teammatesRef.doc(myId);
+    // final myId = SessionData().userId;
+    // final query = _teammatesRef.doc(myId);
 
-    final snapshot = await query.get();
-    if (!snapshot.exists) return [];
+    // final snapshot = await query.get();
+    // if (!snapshot.exists) return [];
 
-    final data = snapshot.data()!;
-    final ids = _parse(data);
-    return ids;
+    // final data = snapshot.data()!;
+    // final ids = _parse(data);
+    // return ids;
+    throw UnimplementedError();
   }
 
   PlayersIds _parse(Map<String, dynamic> data) {

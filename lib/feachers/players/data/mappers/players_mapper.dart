@@ -1,4 +1,4 @@
-import 'package:teammate/feachers/auth/domain/entities/player.dart';
+import 'package:teammate/feachers/players/domain/entities/player.dart';
 
 class PlayerMapper {
   PlayerMapper._();

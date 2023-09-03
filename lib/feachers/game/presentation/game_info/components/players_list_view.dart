@@ -4,10 +4,9 @@ import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
-import 'package:teammate/feachers/auth/domain/entities/player.dart';
-import 'package:teammate/feachers/game/domain/entities/game.dart';
-import 'package:teammate/feachers/game/presentation/game_info/providers/game_teammates_provider.dart';
-import 'package:teammate/feachers/game/presentation/game_info/providers/players_count_provider.dart';
+import 'package:teammate/feachers/game/entities/game.dart';
+import 'package:teammate/feachers/game/presentation/game_info/providers/get_players_for_game_provider.dart';
+import 'package:teammate/feachers/players/domain/entities/player.dart';
 
 class PlayersListView extends ConsumerWidget {
   const PlayersListView({
@@ -18,7 +17,7 @@ class PlayersListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final players = ref.watch(getPlayersForGameProvider(game.id));
-    final playersCount = ref.watch(playersCountProvider(game.id));
+    final playersCount = players.asData?.value.length ?? 0;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

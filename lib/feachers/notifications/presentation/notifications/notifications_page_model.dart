@@ -2,12 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:teammate/core/teammate_app.dart';
-import 'package:teammate/feachers/game/domain/entities/city.dart';
-import 'package:teammate/feachers/game/domain/entities/sport.dart';
-import 'package:teammate/feachers/game/domain/repo/cities_repo.dart';
-import 'package:teammate/feachers/game/domain/repo/cities_storage.dart';
-import 'package:teammate/feachers/notifications/domain/entities/notification_settings.dart';
-import 'package:teammate/feachers/notifications/domain/repo/notifications_repo.dart';
+import 'package:teammate/feachers/cities/data/city_repo.dart';
+
+import 'package:teammate/feachers/game/entities/sport.dart';
+import 'package:teammate/feachers/notifications/data/repo/notifications_repo.dart';
 
 class NotificationsPageModel extends ChangeNotifier {
   NotificationsPageModel({
@@ -27,9 +25,6 @@ class NotificationsPageModel extends ChangeNotifier {
     Sport.volleyball: true,
   };
 
-  late var _selectedCity = CitiesStorage().cities.first;
-  City get selectedCity => _selectedCity;
-
   bool _isLoading = false;
   bool get isLoading => _isLoading;
   void _setLoading(bool value) {
@@ -42,16 +37,10 @@ class NotificationsPageModel extends ChangeNotifier {
 
     final settings = await notificationsRepo.getSettings();
     if (settings != null) {
-      _selectedCity = CitiesStorage().fromPostcode(settings.cityPostcode);
       _sportSettings = settings.sport;
     }
 
     _setLoading(false);
-  }
-
-  void onCityChanged(City city) {
-    _selectedCity = city;
-    notifyListeners();
   }
 
   void onSportNotificationsChanged(Sport sport, bool value) {
@@ -64,12 +53,12 @@ class NotificationsPageModel extends ChangeNotifier {
   Future<void> onSave() async {
     _setLoading(true);
     try {
-      await notificationsRepo.changeSettings(
-        NotificationSettings(
-          sport: _sportSettings,
-          cityPostcode: _selectedCity.postcode,
-        ),
-      );
+      // await notificationsRepo.changeSettings(
+      //   NotificationSettings(
+      //     sport: _sportSettings,
+      //     cityPostcode: _selectedCity.postcode,
+      //   ),
+      // );
       navigatorKey.currentState?.pop();
     } catch (e) {
       _setLoading(false);

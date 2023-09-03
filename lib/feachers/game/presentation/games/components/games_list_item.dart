@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
-
-import 'package:teammate/feachers/game/domain/entities/game.dart';
-
-import 'package:teammate/feachers/game/domain/entities/sport.dart';
+import 'package:teammate/feachers/game/entities/game.dart';
+import 'package:teammate/feachers/game/entities/sport.dart';
 import 'package:teammate/resources/resources.dart';
 import 'package:teammate/service/date_extension.dart';
 
@@ -57,7 +55,7 @@ class GamesListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final day = game.dateTime.toDayString;
     final time = DateFormat('HH:mm').format(game.dateTime);
-    final name = game.isMy ? '${game.name} (вы)' : game.name;
+    final name = game.isMy ? 'ваша игра' : '';
 
     return GestureDetector(
       onTap: onTap,

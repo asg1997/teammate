@@ -3,7 +3,7 @@ import 'package:teammate/core/theme/app_colors.dart';
 
 import 'package:teammate/core/theme/app_fonts.dart';
 
-class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
+class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({
     required this.text,
     super.key,

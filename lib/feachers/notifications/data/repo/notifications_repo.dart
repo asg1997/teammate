@@ -1,8 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/feachers/notifications/data/mappers/notification_settings_api_mapper.dart';
 import 'package:teammate/feachers/notifications/domain/entities/notification_settings.dart';
-import 'package:teammate/feachers/notifications/domain/repo/notifications_repo.dart';
 import 'package:teammate/service/notifications_service.dart';
+
+final notificationRepoProvider =
+    Provider<NotificationsRepo>((ref) => NotificationsRepoImpl());
+
+abstract class NotificationsRepo {
+  Future<void> changeSettings(NotificationSettings settings);
+  Future<NotificationSettings?> getSettings();
+}
 
 class NotificationsRepoImpl implements NotificationsRepo {
   final _db = FirebaseFirestore.instance;

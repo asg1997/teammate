@@ -1,11 +1,17 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/core/consts/local_storage_consts.dart';
 import 'package:teammate/core/exceptions/custom_exception.dart';
-import 'package:teammate/feachers/auth/domain/entities/player.dart';
-import 'package:teammate/feachers/auth/domain/repo/local_storage.dart';
+import 'package:teammate/feachers/auth/data/local_storage.dart';
+
 import 'package:teammate/feachers/game/data/mapper/player_mapper.dart';
 import 'package:teammate/feachers/players/data/mappers/players_mapper.dart';
+import 'package:teammate/feachers/players/domain/entities/player.dart';
+
+final playersLocalStorageProvider = Provider<PlayersLocalStorage>(
+  (ref) => PlayersLocalStorageImpl(ref.read(localStorageProvider)),
+);
 
 class NoPlayerInLocalStorageException extends CustomExeption {}
 

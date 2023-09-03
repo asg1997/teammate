@@ -1,10 +1,23 @@
-import 'package:teammate/feachers/auth/domain/entities/player.dart';
-import 'package:teammate/feachers/game/domain/repo/share_repo.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:teammate/feachers/game/data/repo/share_repo.dart';
 import 'package:teammate/feachers/players/data/datasource/players_local_storage.dart';
 import 'package:teammate/feachers/players/data/datasource/players_remote_storage.dart';
-import 'package:teammate/feachers/players/domain/repo/teammates_repo.dart';
+import 'package:teammate/feachers/players/domain/entities/player.dart';
+
+final teammatesRepoProvider = Provider<PlayersStorage>(
+  (ref) => PlayersStorageImpl(
+    localStorage: ref.read(playersLocalStorageProvider),
+    remoteStorage: ref.read(playersRemoteStorageProvider),
+  ),
+);
 
 typedef Players = List<Player>;
+
+abstract class PlayersStorage {
+  // Future<void> addTeammate(Player player);
+
+  Future<List<Player>> getMyTeammates();
+}
 
 class PlayersStorageImpl implements PlayersStorage {
   PlayersStorageImpl({

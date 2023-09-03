@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:teammate/core/teammate_app.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/main_button.dart';
-import 'package:teammate/feachers/game/domain/entities/game.dart';
-import 'package:teammate/feachers/game/domain/repo/cities_storage.dart';
+import 'package:teammate/feachers/cities/providers/get_city_by_postcode_provider.dart';
+import 'package:teammate/feachers/game/entities/game.dart';
+
 import 'package:teammate/feachers/game/presentation/game_info/components/players_list_view.dart';
-import 'package:teammate/feachers/game/presentation/game_info/providers/game_page_provider.dart';
-import 'package:teammate/feachers/game/presentation/games/games_page.dart';
-import 'package:teammate/feachers/game/presentation/share_game_pop_up/providers/share_repo_provider.dart';
+import 'package:teammate/feachers/game/presentation/game_info/providers/change_join_state_provider.dart';
+import 'package:teammate/feachers/game/presentation/game_info/providers/delete_game_provider.dart';
+import 'package:teammate/feachers/game/presentation/game_info/providers/is_in_provider.dart';
+
 import 'package:teammate/feachers/game/presentation/share_game_pop_up/share_game_pop_up.dart';
-import 'package:teammate/feachers/players/data/providers/teammates_repo_provider.dart';
-import 'package:teammate/feachers/players/presentation/teammates_list_view/providers/selected_teammates_provider.dart';
 import 'package:teammate/service/date_extension.dart';
 
 class GamePage extends ConsumerWidget {
@@ -25,18 +26,30 @@ class GamePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final model = ref.read(gamePageProvider(game));
-    final cityName = CitiesStorage().fromPostcode(game.cityCode).name;
+    // final model = ref.read(gamePageProvider(game));
+    final cityName = ref
+            .watch(getCityByPostcodeProvider(game.cityCode))
+            .asData
+            ?.value
+            .name ??
+        '';
+
+    ref.listen(deleteGameNotifierProvider, (_, state) {
+      state.whenOrNull(
+        success: () {
+          navigatorKey.currentState?.pop(game);
+        },
+      );
+    });
     return Scaffold(
       appBar: AppBarWidget(
-        text: game.name,
+        text: game.creatorId,
         leading: game.isMy
             ?
             // КНОПКА УДАЛЕНИЯ
             IconButton(
                 onPressed: () async {
-                  await model.onDeleteTapped();
-                  await ref.read(gamesPageProvider).removeGameFromView(game);
+                  // TODO: Удалить игру с предыдущего экрана при удалении ее
                 },
                 icon: const Icon(Icons.delete),
               )
@@ -117,7 +130,7 @@ class GamePage extends ConsumerWidget {
                 ),
                 const SizedBox(height: 40),
 
-                PlayersListView(game: model.game),
+                PlayersListView(game: game),
                 const SizedBox(height: 10),
                 // ПОДЕЛИТЬСЯ / ПОЗВАТЬ ДРУЗЕЙ
                 Align(
@@ -132,10 +145,10 @@ class GamePage extends ConsumerWidget {
                         );
                       },
                     );
-                    ref
-                      ..invalidate(selectedTeammatesProvider)
-                      ..invalidate(shareRepoProvider)
-                      ..invalidate(teammatesRepoProvider);
+                    // ref
+                    //   ..invalidate(selectedTeammatesProvider)
+                    //   ..invalidate(shareRepoProvider)
+                    //   ..invalidate(teammatesRepoProvider);
                   }),
                 ),
 
@@ -144,8 +157,9 @@ class GamePage extends ConsumerWidget {
                 if (!game.isMy) ...[
                   MainButton(
                     width: double.infinity,
-                    title: model.isJoin ? 'Отказаться' : 'Играть',
-                    onTap: model.onJoinTapped,
+                    title:
+                        ref.watch(isInProvider(game)) ? 'Отказаться' : 'Играть',
+                    onTap: () => ref.read(toggleIsInProvider(game)),
                   )
                 ]
               ],

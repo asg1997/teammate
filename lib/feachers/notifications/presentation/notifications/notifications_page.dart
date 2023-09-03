@@ -1,18 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:teammate/core/dependency_injection.dart';
+
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
-import 'package:teammate/core/widgets/cities_dropdown.dart';
 import 'package:teammate/core/widgets/main_button.dart';
-import 'package:teammate/feachers/game/domain/entities/sport.dart';
+import 'package:teammate/feachers/cities/data/city_repo.dart';
+import 'package:teammate/feachers/cities/presentation/cities_dropdown.dart';
+import 'package:teammate/feachers/game/entities/sport.dart';
+import 'package:teammate/feachers/notifications/data/repo/notifications_repo.dart';
 import 'package:teammate/feachers/notifications/presentation/notifications/notifications_page_model.dart';
 
 final notificationsPageProvider = ChangeNotifierProvider.autoDispose(
-  (ref) => NotificationsPageModel(notificationsRepo: sl(), cityRepo: sl()),
+  (ref) => NotificationsPageModel(
+    notificationsRepo: ref.read(notificationRepoProvider),
+    cityRepo: ref.read(cityRepoProvider),
+  ),
 );
 
 class NotificationsPage extends ConsumerWidget {
@@ -22,7 +27,7 @@ class NotificationsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final model = ref.read(notificationsPageProvider);
     final sportSettings = ref.watch(notificationsPageProvider).sportSettings;
-    final selectedCity = ref.watch(notificationsPageProvider).selectedCity;
+
     return Scaffold(
       appBar: const AppBarWidget(text: 'Настройки уведолмений'),
       backgroundColor: AppColors.background,
@@ -58,8 +63,7 @@ class NotificationsPage extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               CitiesDropdown(
-                onCityChanged: model.onCityChanged,
-                initialCity: selectedCity,
+                onCityChanged: (city) {},
               ),
               const Spacer(),
               MainButton(

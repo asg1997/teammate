@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:teammate/core/teammate_app.dart';
 
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
@@ -11,7 +10,7 @@ import 'package:teammate/feachers/auth/presentation/notifiers/nickname_state.dar
 import 'package:teammate/feachers/auth/presentation/providers/nickname_form_provider.dart';
 import 'package:teammate/feachers/auth/presentation/providers/nickname_state_provider.dart';
 import 'package:teammate/feachers/auth/presentation/providers/submit_nickname_provider.dart';
-import 'package:teammate/feachers/game/presentation/games/games_page.dart';
+import 'package:teammate/feachers/launch/providers/configure_app_proivder.dart';
 
 class NicknamePage extends ConsumerWidget {
   const NicknamePage({super.key});
@@ -21,10 +20,9 @@ class NicknamePage extends ConsumerWidget {
     ref.listen(nicknameNotifierProvider, (_, state) {
       state.whenOrNull(
         error: (error) => Fluttertoast.showToast(msg: error),
-        success: () => navigatorKey.currentState?.pushAndRemoveUntil(
-          MaterialPageRoute<void>(builder: (_) => const GamesPage()),
-          (_) => false,
-        ),
+        success: (nickname) => ref
+            .read(appConfigProvider.notifier)
+            .configureApp(withNickname: nickname),
       );
     });
     return Scaffold(

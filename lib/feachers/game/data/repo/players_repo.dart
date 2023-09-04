@@ -50,7 +50,7 @@ class PlayersRepoImpl implements PlayersRepo {
   }
 
   Map<String, dynamic> _currentUserToApi() {
-    final currentUser = SessionData().currentUser;
+    final currentUser = SessionData.currentUser;
     return UserMapper.toApi(currentUser);
   }
 

@@ -25,5 +25,5 @@ class Game with _$Game {
 
   static GameId generateDateBasedId(DateTime date) =>
       date.millisecondsSinceEpoch.toString();
-  bool get isMy => SessionData().userId == creatorId;
+  bool get isMy => SessionData.userId == creatorId;
 }

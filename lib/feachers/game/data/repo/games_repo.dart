@@ -50,7 +50,7 @@ class GamesRepoImpl implements GamesRepo {
   @override
   Future<Game> createGame(CreateGameParams params) async {
     try {
-      final userId = SessionData().userId;
+      final userId = SessionData.userId;
       final game = Game(
         id: Game.generateDateBasedId(params.dateTime),
         creatorId: userId,

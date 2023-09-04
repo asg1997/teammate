@@ -4,7 +4,7 @@ import 'package:teammate/feachers/game/entities/game.dart';
 
 final isInProvider = StateProvider.autoDispose.family<bool, Game>((ref, game) {
   if (game.isMy) return true;
-  final myId = SessionData().userId;
+  final myId = SessionData.userId;
 
   return game.players?.contains(myId) ?? false;
 });

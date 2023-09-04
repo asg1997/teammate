@@ -20,7 +20,7 @@ mixin _$NicknameState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() initial,
-    required TResult Function() success,
+    required TResult Function(String nickname) success,
     required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$NicknameState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? initial,
-    TResult? Function()? success,
+    TResult? Function(String nickname)? success,
     TResult? Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$NicknameState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? initial,
-    TResult Function()? success,
+    TResult Function(String nickname)? success,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
@@ -126,7 +126,7 @@ class _$_LoadingState implements _LoadingState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() initial,
-    required TResult Function() success,
+    required TResult Function(String nickname) success,
     required TResult Function(String error) error,
   }) {
     return loading();
@@ -137,7 +137,7 @@ class _$_LoadingState implements _LoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? initial,
-    TResult? Function()? success,
+    TResult? Function(String nickname)? success,
     TResult? Function(String error)? error,
   }) {
     return loading?.call();
@@ -148,7 +148,7 @@ class _$_LoadingState implements _LoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? initial,
-    TResult Function()? success,
+    TResult Function(String nickname)? success,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -240,7 +240,7 @@ class _$_InitialState implements _InitialState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() initial,
-    required TResult Function() success,
+    required TResult Function(String nickname) success,
     required TResult Function(String error) error,
   }) {
     return initial();
@@ -251,7 +251,7 @@ class _$_InitialState implements _InitialState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? initial,
-    TResult? Function()? success,
+    TResult? Function(String nickname)? success,
     TResult? Function(String error)? error,
   }) {
     return initial?.call();
@@ -262,7 +262,7 @@ class _$_InitialState implements _InitialState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? initial,
-    TResult Function()? success,
+    TResult Function(String nickname)? success,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -319,6 +319,8 @@ abstract class _$$_SuccessStateCopyWith<$Res> {
   factory _$$_SuccessStateCopyWith(
           _$_SuccessState value, $Res Function(_$_SuccessState) then) =
       __$$_SuccessStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String nickname});
 }
 
 /// @nodoc
@@ -328,36 +330,61 @@ class __$$_SuccessStateCopyWithImpl<$Res>
   __$$_SuccessStateCopyWithImpl(
       _$_SuccessState _value, $Res Function(_$_SuccessState) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? nickname = null,
+  }) {
+    return _then(_$_SuccessState(
+      null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_SuccessState implements _SuccessState {
-  const _$_SuccessState();
+  const _$_SuccessState(this.nickname);
+
+  @override
+  final String nickname;
 
   @override
   String toString() {
-    return 'NicknameState.success()';
+    return 'NicknameState.success(nickname: $nickname)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_SuccessState);
+        (other.runtimeType == runtimeType &&
+            other is _$_SuccessState &&
+            (identical(other.nickname, nickname) ||
+                other.nickname == nickname));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, nickname);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SuccessStateCopyWith<_$_SuccessState> get copyWith =>
+      __$$_SuccessStateCopyWithImpl<_$_SuccessState>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() initial,
-    required TResult Function() success,
+    required TResult Function(String nickname) success,
     required TResult Function(String error) error,
   }) {
-    return success();
+    return success(nickname);
   }
 
   @override
@@ -365,10 +392,10 @@ class _$_SuccessState implements _SuccessState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? initial,
-    TResult? Function()? success,
+    TResult? Function(String nickname)? success,
     TResult? Function(String error)? error,
   }) {
-    return success?.call();
+    return success?.call(nickname);
   }
 
   @override
@@ -376,12 +403,12 @@ class _$_SuccessState implements _SuccessState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? initial,
-    TResult Function()? success,
+    TResult Function(String nickname)? success,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success();
+      return success(nickname);
     }
     return orElse();
   }
@@ -425,7 +452,12 @@ class _$_SuccessState implements _SuccessState {
 }
 
 abstract class _SuccessState implements NicknameState {
-  const factory _SuccessState() = _$_SuccessState;
+  const factory _SuccessState(final String nickname) = _$_SuccessState;
+
+  String get nickname;
+  @JsonKey(ignore: true)
+  _$$_SuccessStateCopyWith<_$_SuccessState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -494,7 +526,7 @@ class _$_ErrorState implements _ErrorState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() initial,
-    required TResult Function() success,
+    required TResult Function(String nickname) success,
     required TResult Function(String error) error,
   }) {
     return error(this.error);
@@ -505,7 +537,7 @@ class _$_ErrorState implements _ErrorState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? initial,
-    TResult? Function()? success,
+    TResult? Function(String nickname)? success,
     TResult? Function(String error)? error,
   }) {
     return error?.call(this.error);
@@ -516,7 +548,7 @@ class _$_ErrorState implements _ErrorState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? initial,
-    TResult Function()? success,
+    TResult Function(String nickname)? success,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {

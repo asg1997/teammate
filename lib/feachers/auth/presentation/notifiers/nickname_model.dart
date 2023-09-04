@@ -16,7 +16,7 @@ class NicknameNotifier extends StateNotifier<NicknameState> {
     try {
       state = const NicknameState.loading();
       await nicknameRepo.saveUser(name);
-      state = const NicknameState.success();
+      state = NicknameState.success(name);
     } catch (e) {
       state = NicknameState.error(e.toString());
     }

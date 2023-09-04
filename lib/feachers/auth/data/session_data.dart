@@ -1,26 +1,19 @@
-import 'package:teammate/feachers/auth/data/nickname_storage.dart';
-import 'package:teammate/feachers/auth/data/user_id.dart';
 import 'package:teammate/feachers/players/domain/entities/player.dart';
 
 class SessionData {
-  factory SessionData() {
+  factory SessionData.initialize({
+    required String nickname,
+    required String userId,
+  }) {
+    _currentUser = Player(nickname: nickname, id: userId);
     return _singleton;
   }
   SessionData._();
   static final _singleton = SessionData._();
 
-  late Player currentUser;
-  late String _userId;
-  String get userId => _userId;
+  static late Player _currentUser;
+  static Player get currentUser => _currentUser;
 
-  Future<void> init(
-    UniqueUserIdFetcher idInfo,
-    NicknameStorage nicknameRepo,
-  ) async {
-    _userId = await idInfo.currentUserId;
-
-    final nickname = await nicknameRepo.getNickname() ?? '';
-
-    currentUser = Player(nickname: nickname, id: _userId);
-  }
+  static String get userId => _currentUser.id;
+  static String get nickname => _currentUser.nickname;
 }

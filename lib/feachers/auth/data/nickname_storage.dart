@@ -31,7 +31,7 @@ class CurrentUserRepoImpl implements NicknameStorage {
   Future<void> saveUser(String nickname) async {
     final player = Player(
       nickname: nickname,
-      id: SessionData().userId,
+      id: SessionData.userId,
     );
     final json = UserMapper.toApi(player);
     await ref.doc(player.id).set(json);

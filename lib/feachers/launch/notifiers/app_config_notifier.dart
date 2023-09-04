@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/feachers/auth/data/nickname_storage.dart';
 import 'package:teammate/feachers/auth/data/session_data.dart';
 import 'package:teammate/feachers/auth/data/user_id.dart';
+import 'package:teammate/feachers/cities/data/cities_storage.dart';
+import 'package:teammate/feachers/cities/providers/get_cities.dart';
 
 import 'package:teammate/feachers/launch/notifiers/app_config_state.dart';
 
@@ -11,6 +13,11 @@ class AppConfigNotifier extends StateNotifier<AppConfigState> {
   final Ref ref;
 
   Future<void> configureApp({String? withNickname}) async {
+    await _getCitiesFromAssets();
+    await _configureSessionData(withNickname);
+  }
+
+  Future<void> _configureSessionData(String? withNickname) async {
     if (withNickname != null) {
       return _initSessionData(withNickname);
     } else {
@@ -36,5 +43,10 @@ class AppConfigNotifier extends StateNotifier<AppConfigState> {
     } catch (e) {
       state = const AppConfigState.loggedOut();
     }
+  }
+
+  Future<void> _getCitiesFromAssets() async {
+    final cities = await ref.watch(citiesStorageProvider).cities;
+    ref.read(getCitiesProvider.notifier).state = cities;
   }
 }

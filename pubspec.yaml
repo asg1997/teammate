@@ -91,6 +91,7 @@ flutter_launcher_icons:
 flutter:
   assets:
     - assets/
+    - assets/cities/
   uses-material-design: true
 
  

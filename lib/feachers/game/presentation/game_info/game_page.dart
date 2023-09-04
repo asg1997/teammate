@@ -26,14 +26,6 @@ class GamePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final model = ref.read(gamePageProvider(game));
-    final cityName = ref
-            .watch(getCityByPostcodeProvider(game.cityCode))
-            .asData
-            ?.value
-            .name ??
-        '';
-
     ref.listen(deleteGameNotifierProvider, (_, state) {
       state.whenOrNull(
         success: () {
@@ -90,7 +82,7 @@ class GamePage extends ConsumerWidget {
                 const SizedBox(height: 5),
 
                 Text(
-                  cityName,
+                  ref.watch(getCityByPostcodeProvider(game.cityCode)).name,
                   style: AppFonts.bodyLarge.copyWith(
                     color: Colors.white,
                   ),

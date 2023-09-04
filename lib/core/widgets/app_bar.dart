@@ -5,7 +5,7 @@ import 'package:teammate/core/theme/app_fonts.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({
-    required this.text,
+    this.text = '',
     super.key,
     this.leading,
   });

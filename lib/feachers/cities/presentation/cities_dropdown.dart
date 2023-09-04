@@ -20,22 +20,24 @@ class CitiesDropdown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final citiesResult = ref.watch(getCitiesProvider);
-    return citiesResult.maybeWhen(
-      data: (cities) => CustomDropdown<City>(
-        value: cities.first,
-        items: cities
-            .map((e) => DropdownMenuItem<City>(child: Text(e.name)))
-            .toList(),
-        onChanged: (value) async {
-          if (value == null) return;
-          onCityChanged(value);
-          if (saveCityWhenChange) {
-            await ref.read(cityRepoProvider).saveCity(value);
-          }
-        },
-      ),
-      orElse: Container.new,
+    final cities = ref.watch(getCitiesProvider);
+    return CustomDropdown<City>(
+      value: cities.first,
+      items: cities
+          .map(
+            (e) => DropdownMenuItem<City>(
+              value: e,
+              child: Text(e.name),
+            ),
+          )
+          .toList(),
+      onChanged: (value) async {
+        if (value == null) return;
+        onCityChanged(value);
+        if (saveCityWhenChange) {
+          await ref.read(cityRepoProvider).saveCity(value);
+        }
+      },
     );
   }
 }

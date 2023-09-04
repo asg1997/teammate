@@ -5,6 +5,7 @@ import 'package:teammate/core/teammate_app.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
+import 'package:teammate/feachers/auth/data/session_data.dart';
 import 'package:teammate/feachers/cities/entities/city.dart';
 import 'package:teammate/feachers/cities/presentation/cities_dropdown.dart';
 import 'package:teammate/feachers/cities/providers/get_current_city_provider.dart';
@@ -24,7 +25,7 @@ class GamesPage extends ConsumerWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBarWidget(
-          text: '',
+          text: SessionData.nickname,
           leading: IconButton(
             onPressed: () => navigatorKey.currentState?.push(
               MaterialPageRoute<void>(

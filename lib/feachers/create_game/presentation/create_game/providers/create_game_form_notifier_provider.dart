@@ -3,8 +3,8 @@ import 'package:teammate/core/field/field.dart';
 import 'package:teammate/feachers/cities/entities/city.dart';
 import 'package:teammate/feachers/cities/providers/get_current_city_provider.dart';
 import 'package:teammate/feachers/game/entities/sport.dart';
-import 'package:teammate/feachers/game/presentation/create_game/models/create_game_model.dart';
-import 'package:teammate/feachers/game/presentation/create_game/notifiers/create_game_form_notifier.dart';
+import 'package:teammate/feachers/create_game/presentation/create_game/models/create_game_model.dart';
+import 'package:teammate/feachers/create_game/presentation/create_game/notifiers/create_game_form_notifier.dart';
 
 final createGameFormNotifierProvider =
     StateNotifierProvider.autoDispose<CreateGameFormNotifier, CreateGameModel>(

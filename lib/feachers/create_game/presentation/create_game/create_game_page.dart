@@ -9,11 +9,11 @@ import 'package:teammate/core/widgets/main_button.dart';
 import 'package:teammate/core/widgets/sport_dropdown.dart';
 import 'package:teammate/feachers/cities/presentation/cities_dropdown.dart';
 import 'package:teammate/feachers/game/entities/sport.dart';
-import 'package:teammate/feachers/game/presentation/create_game/components/show_date_time_picker.dart';
-import 'package:teammate/feachers/game/presentation/create_game/models/game_creator_state.dart';
-import 'package:teammate/feachers/game/presentation/create_game/providers/create_game_form_notifier_provider.dart';
-import 'package:teammate/feachers/game/presentation/create_game/providers/create_game_provider.dart';
-import 'package:teammate/feachers/game/presentation/create_game/providers/game_creator_notifier_provider.dart';
+import 'package:teammate/feachers/create_game/presentation/create_game/components/show_date_time_picker.dart';
+import 'package:teammate/feachers/create_game/presentation/create_game/models/game_creator_state.dart';
+import 'package:teammate/feachers/create_game/presentation/create_game/providers/create_game_form_notifier_provider.dart';
+import 'package:teammate/feachers/create_game/presentation/create_game/providers/create_game_provider.dart';
+import 'package:teammate/feachers/create_game/presentation/create_game/providers/game_creator_notifier_provider.dart';
 
 class CreateGamePage extends ConsumerWidget {
   const CreateGamePage({super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 
 import 'package:teammate/feachers/game/entities/game.dart';
-import 'package:teammate/feachers/game/presentation/games/components/games_list_item.dart';
+import 'package:teammate/feachers/create_game/presentation/games/components/games_list_item.dart';
 
 class GamesListView extends StatelessWidget {
   const GamesListView({

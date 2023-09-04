@@ -21,11 +21,12 @@ dependencies:
 
 
   # Шрифты
-  google_fonts: ^3.0.1
+  google_fonts: ^5.1.0
 
   # Форматирование дат и перевод
   flutter_localizations:
     sdk: flutter         
+  localization: ^2.1.0
   intl: ^0.18.0
 
   dropdown_search: ^5.0.5
@@ -55,7 +56,7 @@ dependencies:
 
   permission_handler: ^10.3.0
   share_plus: ^7.0.2
-  collection: ^1.17.0
+  collection: ^1.17.2
   
   riverpod: ^2.3.6
   flutter_riverpod: ^2.3.6
@@ -74,7 +75,7 @@ dev_dependencies:
 
   very_good_analysis: ^4.0.0
   # Автогенерация картинок
-  spider: ^4.0.0
+  spider: ^4.2.2
   freezed: ^2.4.2
   build_runner: ^2.4.6
 

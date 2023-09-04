@@ -19,6 +19,7 @@ mixin _$CreateGameParams {
   String get location => throw _privateConstructorUsedError;
   Sport get sport => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
   City get city => throw _privateConstructorUsedError;
 
@@ -37,6 +38,7 @@ abstract class $CreateGameParamsCopyWith<$Res> {
       {String location,
       Sport sport,
       String description,
+      String name,
       DateTime dateTime,
       City city});
 
@@ -59,6 +61,7 @@ class _$CreateGameParamsCopyWithImpl<$Res, $Val extends CreateGameParams>
     Object? location = null,
     Object? sport = null,
     Object? description = null,
+    Object? name = null,
     Object? dateTime = null,
     Object? city = null,
   }) {
@@ -74,6 +77,10 @@ class _$CreateGameParamsCopyWithImpl<$Res, $Val extends CreateGameParams>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       dateTime: null == dateTime
           ? _value.dateTime
@@ -107,6 +114,7 @@ abstract class _$$_CreateGameParamsCopyWith<$Res>
       {String location,
       Sport sport,
       String description,
+      String name,
       DateTime dateTime,
       City city});
 
@@ -128,6 +136,7 @@ class __$$_CreateGameParamsCopyWithImpl<$Res>
     Object? location = null,
     Object? sport = null,
     Object? description = null,
+    Object? name = null,
     Object? dateTime = null,
     Object? city = null,
   }) {
@@ -143,6 +152,10 @@ class __$$_CreateGameParamsCopyWithImpl<$Res>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       dateTime: null == dateTime
           ? _value.dateTime
@@ -163,6 +176,7 @@ class _$_CreateGameParams implements _CreateGameParams {
       {required this.location,
       required this.sport,
       required this.description,
+      required this.name,
       required this.dateTime,
       required this.city});
 
@@ -173,13 +187,15 @@ class _$_CreateGameParams implements _CreateGameParams {
   @override
   final String description;
   @override
+  final String name;
+  @override
   final DateTime dateTime;
   @override
   final City city;
 
   @override
   String toString() {
-    return 'CreateGameParams(location: $location, sport: $sport, description: $description, dateTime: $dateTime, city: $city)';
+    return 'CreateGameParams(location: $location, sport: $sport, description: $description, name: $name, dateTime: $dateTime, city: $city)';
   }
 
   @override
@@ -192,14 +208,15 @@ class _$_CreateGameParams implements _CreateGameParams {
             (identical(other.sport, sport) || other.sport == sport) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime) &&
             (identical(other.city, city) || other.city == city));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, location, sport, description, dateTime, city);
+  int get hashCode => Object.hash(
+      runtimeType, location, sport, description, name, dateTime, city);
 
   @JsonKey(ignore: true)
   @override
@@ -213,6 +230,7 @@ abstract class _CreateGameParams implements CreateGameParams {
       {required final String location,
       required final Sport sport,
       required final String description,
+      required final String name,
       required final DateTime dateTime,
       required final City city}) = _$_CreateGameParams;
 
@@ -222,6 +240,8 @@ abstract class _CreateGameParams implements CreateGameParams {
   Sport get sport;
   @override
   String get description;
+  @override
+  String get name;
   @override
   DateTime get dateTime;
   @override

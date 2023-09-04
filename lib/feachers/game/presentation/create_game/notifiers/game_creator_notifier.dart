@@ -18,6 +18,7 @@ class GameCreatorNotifier extends StateNotifier<GameCreatorState> {
       description: model.description.value,
       dateTime: model.dateTime,
       city: model.city,
+      name: model.name.value,
     );
     const GameCreatorState.loading();
     try {

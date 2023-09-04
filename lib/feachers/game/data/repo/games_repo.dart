@@ -59,6 +59,7 @@ class GamesRepoImpl implements GamesRepo {
         location: params.location,
         description: params.description,
         dateTime: params.dateTime,
+        name: params.name,
       );
 
       await _gamesRef.doc(game.id).set(GameMapper.toApi(game));

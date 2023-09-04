@@ -7,6 +7,10 @@ import 'package:teammate/feachers/game/presentation/create_game/models/create_ga
 class CreateGameFormNotifier extends StateNotifier<CreateGameModel> {
   CreateGameFormNotifier(super._state);
 
+  void setName(String value) {
+    state = state.copyWith(name: Field(value: value));
+  }
+
   void setCity(City value) {
     state = state.copyWith(city: value);
   }

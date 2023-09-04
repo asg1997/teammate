@@ -105,14 +105,14 @@ class CreateGamePage extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      // зачем имя?
-                      // TextField(
-                      //   onChanged: createGameNotifier.setName,
-                      //   decoration: _decoration(
-                      //     'Название игры*',
-                      //     'Как вас зовут',
-                      //   ),
-                      // ),
+
+                      TextField(
+                        onChanged: createGameNotifier.setName,
+                        decoration: _decoration(
+                          'Название игры*',
+                          'Так вашим друзьям будет проще вас найти',
+                        ),
+                      ),
                       const Spacer(),
                       const SizedBox(height: 40),
                       MainButton(

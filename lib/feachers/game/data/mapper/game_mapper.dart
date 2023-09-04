@@ -14,11 +14,13 @@ class GameMapper {
       'creatorId': game.creatorId,
       'location': game.location,
       'players': game.players ?? [],
+      'name': game.name,
     };
   }
 
   static Game fromApi(Map<String, dynamic> json) {
     return Game(
+      name: json['name'] as String,
       id: json['id'] as GameId,
       cityCode: json['city'] as int,
       sport: Sport.fromJson(json['sport'] as String),

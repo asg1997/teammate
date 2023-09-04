@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Game {
   String get id => throw _privateConstructorUsedError;
   String get creatorId => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   int get cityCode => throw _privateConstructorUsedError;
   Sport get sport => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
@@ -37,6 +38,7 @@ abstract class $GameCopyWith<$Res> {
   $Res call(
       {String id,
       String creatorId,
+      String name,
       int cityCode,
       Sport sport,
       String location,
@@ -60,6 +62,7 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
   $Res call({
     Object? id = null,
     Object? creatorId = null,
+    Object? name = null,
     Object? cityCode = null,
     Object? sport = null,
     Object? location = null,
@@ -75,6 +78,10 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
       creatorId: null == creatorId
           ? _value.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       cityCode: null == cityCode
           ? _value.cityCode
@@ -113,6 +120,7 @@ abstract class _$$_GameCopyWith<$Res> implements $GameCopyWith<$Res> {
   $Res call(
       {String id,
       String creatorId,
+      String name,
       int cityCode,
       Sport sport,
       String location,
@@ -132,6 +140,7 @@ class __$$_GameCopyWithImpl<$Res> extends _$GameCopyWithImpl<$Res, _$_Game>
   $Res call({
     Object? id = null,
     Object? creatorId = null,
+    Object? name = null,
     Object? cityCode = null,
     Object? sport = null,
     Object? location = null,
@@ -147,6 +156,10 @@ class __$$_GameCopyWithImpl<$Res> extends _$GameCopyWithImpl<$Res, _$_Game>
       creatorId: null == creatorId
           ? _value.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       cityCode: null == cityCode
           ? _value.cityCode
@@ -182,6 +195,7 @@ class _$_Game extends _Game {
   const _$_Game(
       {required this.id,
       required this.creatorId,
+      required this.name,
       required this.cityCode,
       required this.sport,
       required this.location,
@@ -195,6 +209,8 @@ class _$_Game extends _Game {
   final String id;
   @override
   final String creatorId;
+  @override
+  final String name;
   @override
   final int cityCode;
   @override
@@ -217,7 +233,7 @@ class _$_Game extends _Game {
 
   @override
   String toString() {
-    return 'Game(id: $id, creatorId: $creatorId, cityCode: $cityCode, sport: $sport, location: $location, description: $description, dateTime: $dateTime, players: $players)';
+    return 'Game(id: $id, creatorId: $creatorId, name: $name, cityCode: $cityCode, sport: $sport, location: $location, description: $description, dateTime: $dateTime, players: $players)';
   }
 
   @override
@@ -228,6 +244,7 @@ class _$_Game extends _Game {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.creatorId, creatorId) ||
                 other.creatorId == creatorId) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.cityCode, cityCode) ||
                 other.cityCode == cityCode) &&
             (identical(other.sport, sport) || other.sport == sport) &&
@@ -245,6 +262,7 @@ class _$_Game extends _Game {
       runtimeType,
       id,
       creatorId,
+      name,
       cityCode,
       sport,
       location,
@@ -263,6 +281,7 @@ abstract class _Game extends Game {
   const factory _Game(
       {required final String id,
       required final String creatorId,
+      required final String name,
       required final int cityCode,
       required final Sport sport,
       required final String location,
@@ -275,6 +294,8 @@ abstract class _Game extends Game {
   String get id;
   @override
   String get creatorId;
+  @override
+  String get name;
   @override
   int get cityCode;
   @override

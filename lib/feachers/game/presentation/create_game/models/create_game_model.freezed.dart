@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CreateGameModel {
   City get city => throw _privateConstructorUsedError;
   Field get location => throw _privateConstructorUsedError;
+  Field get name => throw _privateConstructorUsedError;
   Sport get sport => throw _privateConstructorUsedError;
   Field get description => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
@@ -36,12 +37,14 @@ abstract class $CreateGameModelCopyWith<$Res> {
   $Res call(
       {City city,
       Field location,
+      Field name,
       Sport sport,
       Field description,
       DateTime dateTime});
 
   $CityCopyWith<$Res> get city;
   $FieldCopyWith<$Res> get location;
+  $FieldCopyWith<$Res> get name;
   $FieldCopyWith<$Res> get description;
 }
 
@@ -60,6 +63,7 @@ class _$CreateGameModelCopyWithImpl<$Res, $Val extends CreateGameModel>
   $Res call({
     Object? city = null,
     Object? location = null,
+    Object? name = null,
     Object? sport = null,
     Object? description = null,
     Object? dateTime = null,
@@ -72,6 +76,10 @@ class _$CreateGameModelCopyWithImpl<$Res, $Val extends CreateGameModel>
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
+              as Field,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as Field,
       sport: null == sport
           ? _value.sport
@@ -106,6 +114,14 @@ class _$CreateGameModelCopyWithImpl<$Res, $Val extends CreateGameModel>
 
   @override
   @pragma('vm:prefer-inline')
+  $FieldCopyWith<$Res> get name {
+    return $FieldCopyWith<$Res>(_value.name, (value) {
+      return _then(_value.copyWith(name: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $FieldCopyWith<$Res> get description {
     return $FieldCopyWith<$Res>(_value.description, (value) {
       return _then(_value.copyWith(description: value) as $Val);
@@ -124,6 +140,7 @@ abstract class _$$_CreateGameModelCopyWith<$Res>
   $Res call(
       {City city,
       Field location,
+      Field name,
       Sport sport,
       Field description,
       DateTime dateTime});
@@ -132,6 +149,8 @@ abstract class _$$_CreateGameModelCopyWith<$Res>
   $CityCopyWith<$Res> get city;
   @override
   $FieldCopyWith<$Res> get location;
+  @override
+  $FieldCopyWith<$Res> get name;
   @override
   $FieldCopyWith<$Res> get description;
 }
@@ -149,6 +168,7 @@ class __$$_CreateGameModelCopyWithImpl<$Res>
   $Res call({
     Object? city = null,
     Object? location = null,
+    Object? name = null,
     Object? sport = null,
     Object? description = null,
     Object? dateTime = null,
@@ -161,6 +181,10 @@ class __$$_CreateGameModelCopyWithImpl<$Res>
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
+              as Field,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as Field,
       sport: null == sport
           ? _value.sport
@@ -184,6 +208,7 @@ class _$_CreateGameModel extends _CreateGameModel {
   const _$_CreateGameModel(
       {required this.city,
       required this.location,
+      required this.name,
       required this.sport,
       required this.description,
       required this.dateTime})
@@ -194,6 +219,8 @@ class _$_CreateGameModel extends _CreateGameModel {
   @override
   final Field location;
   @override
+  final Field name;
+  @override
   final Sport sport;
   @override
   final Field description;
@@ -202,7 +229,7 @@ class _$_CreateGameModel extends _CreateGameModel {
 
   @override
   String toString() {
-    return 'CreateGameModel(city: $city, location: $location, sport: $sport, description: $description, dateTime: $dateTime)';
+    return 'CreateGameModel(city: $city, location: $location, name: $name, sport: $sport, description: $description, dateTime: $dateTime)';
   }
 
   @override
@@ -213,6 +240,7 @@ class _$_CreateGameModel extends _CreateGameModel {
             (identical(other.city, city) || other.city == city) &&
             (identical(other.location, location) ||
                 other.location == location) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.sport, sport) || other.sport == sport) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -221,8 +249,8 @@ class _$_CreateGameModel extends _CreateGameModel {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, city, location, sport, description, dateTime);
+  int get hashCode => Object.hash(
+      runtimeType, city, location, name, sport, description, dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -235,6 +263,7 @@ abstract class _CreateGameModel extends CreateGameModel {
   const factory _CreateGameModel(
       {required final City city,
       required final Field location,
+      required final Field name,
       required final Sport sport,
       required final Field description,
       required final DateTime dateTime}) = _$_CreateGameModel;
@@ -244,6 +273,8 @@ abstract class _CreateGameModel extends CreateGameModel {
   City get city;
   @override
   Field get location;
+  @override
+  Field get name;
   @override
   Sport get sport;
   @override

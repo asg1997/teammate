@@ -16,6 +16,7 @@ final createGameFormNotifierProvider =
       description: Field.empty(),
       dateTime: DateTime.now(),
       city: ref.watch(getCurrentCityProvider).asData?.value ?? defaultCity,
+      name: Field.empty(),
     ),
   );
 });

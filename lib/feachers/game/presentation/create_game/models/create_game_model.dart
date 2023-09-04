@@ -11,11 +11,15 @@ class CreateGameModel with _$CreateGameModel {
   const factory CreateGameModel({
     required City city,
     required Field location,
+    required Field name,
     required Sport sport,
     required Field description,
     required DateTime dateTime,
   }) = _CreateGameModel;
   const CreateGameModel._();
 
-  bool get filled => location.value.isNotEmpty && description.value.isNotEmpty;
+  bool get filled =>
+      location.value.isNotEmpty &&
+      description.value.isNotEmpty &&
+      name.value.isNotEmpty;
 }

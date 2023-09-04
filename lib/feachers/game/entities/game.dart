@@ -13,6 +13,7 @@ class Game with _$Game {
   const factory Game({
     required GameId id,
     required String creatorId,
+    required String name,
     required int cityCode,
     required Sport sport,
     required String location,

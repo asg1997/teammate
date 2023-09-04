@@ -9,6 +9,7 @@ class CreateGameParams with _$CreateGameParams {
     required String location,
     required Sport sport,
     required String description,
+    required String name,
     required DateTime dateTime,
     required City city,
   }) = _CreateGameParams;

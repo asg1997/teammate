@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teammate/core/theme/app_colors.dart';
-import 'package:teammate/feachers/create_game/presentation/games/games_page.dart';
+import 'package:teammate/feachers/game/presentation/create_game/presentation/games/games_page.dart';
+
 import 'package:teammate/feachers/players/presentation/teammates_page/teammates_page.dart';
 
 class TabbarPage extends StatefulWidget {
@@ -41,7 +42,7 @@ class _TabbarPageState extends State<TabbarPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.people_alt),
             label: 'Игроки',
-          )
+          ),
         ],
       ),
     );

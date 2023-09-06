@@ -1,0 +1,71 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+void showDateTimePicker(
+  BuildContext context, {
+  required DateTime? initial,
+  required void Function(DateTime? value) onChanged,
+}) {
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (_) => _DatePickerPopUp(
+      initialValue: initial,
+      onDatePicked: onChanged,
+    ),
+  );
+}
+
+class _DatePickerPopUp extends StatelessWidget {
+  const _DatePickerPopUp({
+    required this.onDatePicked,
+    this.initialValue,
+  });
+
+  final void Function(DateTime? value) onDatePicked;
+  final DateTime? initialValue;
+
+  @override
+  Widget build(BuildContext context) {
+    final now = DateTime.now();
+    var selectedDate = initialValue;
+    return Material(
+      child: Container(
+        color: Colors.white,
+        height: 300,
+        padding: const EdgeInsets.only(top: 10, right: 16),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {
+                  onDatePicked(selectedDate);
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'Готово',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              Expanded(
+                child: CupertinoDatePicker(
+                  showDayOfWeek: true,
+                  initialDateTime: initialValue,
+                  use24hFormat: true,
+                  minuteInterval: 5,
+                  minimumDate: DateTime(now.year, now.month, now.day, now.hour),
+                  onDateTimeChanged: (value) => selectedDate = value,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

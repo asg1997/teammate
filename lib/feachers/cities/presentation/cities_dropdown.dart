@@ -22,7 +22,7 @@ class CitiesDropdown extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cities = ref.watch(getCitiesProvider);
     return CustomDropdown<City>(
-      value: cities.first,
+      initialValue: cities.first,
       items: cities
           .map(
             (e) => DropdownMenuItem<City>(

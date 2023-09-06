@@ -24,7 +24,7 @@ class SportDropdown extends StatelessWidget {
         .toList();
     return CustomDropdown<Sport>(
       hint: const Text('Спорт'),
-      value: initialSport ?? sportItems.first.value!,
+      initialValue: initialSport ?? sportItems.first.value!,
       items: sportItems,
       onChanged: (value) {
         if (value != null) onSportChanged(value);

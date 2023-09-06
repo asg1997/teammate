@@ -1,37 +1,52 @@
 import 'package:flutter/material.dart';
+
 import 'package:teammate/core/theme/app_colors.dart';
 
 class TextFieldWidget extends StatefulWidget {
   const TextFieldWidget({
-    required this.onChanged,
-    required this.title,
+    required this.label,
     required this.hint,
-    this.maxLines = 1,
+    required this.initialValue,
+    required this.onChanged,
     super.key,
   });
-  final void Function(String value) onChanged;
-  final String title;
+  final String label;
   final String hint;
-  final int maxLines;
+  final String initialValue;
+  final void Function(String value) onChanged;
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
 }
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
+  late final controller = TextEditingController(text: widget.initialValue);
+
+  @override
+  void initState() {
+    controller.addListener(_listener);
+    super.initState();
+  }
+
+  void _listener() => widget.onChanged(controller.text);
+
+  @override
+  void dispose() {
+    controller
+      ..removeListener(_listener)
+      ..dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
-      maxLines: widget.maxLines,
-      onChanged: widget.onChanged,
-      textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         focusColor: AppColors.background,
         focusedBorder: const OutlineInputBorder(),
-        errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
-        ),
-        border: InputBorder.none,
-        labelText: widget.title,
+        errorBorder:
+            const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+        border: const OutlineInputBorder(),
+        labelText: widget.label,
         hintText: widget.hint,
         fillColor: Colors.white,
         errorStyle: const TextStyle(color: Colors.red),

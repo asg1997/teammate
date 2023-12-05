@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/core/pagination_notifier/pagination_state.dart';
@@ -12,6 +13,7 @@ import 'package:teammate/feachers/game/presentation/create_game/create_game_page
 import 'package:teammate/feachers/game/presentation/game_info/game_page.dart';
 import 'package:teammate/feachers/game/presentation/games/components/games_list_view.dart';
 import 'package:teammate/feachers/game/presentation/games/providers/get_games_for_city_provider.dart';
+import 'package:teammate/feachers/game/presentation/games/providers/selected_city_provider.dart';
 import 'package:teammate/feachers/notifications/presentation/notifications/notifications_page.dart';
 
 class GamesPage extends ConsumerWidget {
@@ -39,30 +41,24 @@ class GamesPage extends ConsumerWidget {
         backgroundColor: AppColors.background,
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color(0xFFFF564B),
-          onPressed: () => navigatorKey.currentState?.push(
-            MaterialPageRoute<void>(
-              maintainState: false,
-              builder: (_) => const CreateGamePage(),
-            ),
-          ),
+          onPressed: () async {
+            final game = await CreateGamePage.navigate(context);
+            if (game == null) return;
+            ref.read(getGamesForCityProvider.notifier).pushElement(game);
+          },
           child: const Icon(Icons.add),
         ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Stack(
-              alignment: Alignment.center,
+            child: Column(
               children: [
-                Column(
-                  children: [
-                    CitiesDropdown(
-                      // TODO:
-                      onCityChanged: (_) {},
-                    ),
-                    const SizedBox(height: 16),
-                    const Expanded(child: _GamesListView()),
-                  ],
+                CitiesDropdown(
+                  onCityChanged: (city) =>
+                      ref.read(selectedCityProvider.notifier).state = city,
                 ),
+                const SizedBox(height: 16),
+                const Expanded(child: _GamesListView()),
               ],
             ),
           ),
@@ -72,20 +68,11 @@ class GamesPage extends ConsumerWidget {
   }
 }
 
-class _GamesListView extends ConsumerStatefulWidget {
+class _GamesListView extends ConsumerWidget {
   const _GamesListView();
 
   @override
-  ConsumerState<_GamesListView> createState() => _ListViewState();
-}
-
-class _ListViewState extends ConsumerState<_GamesListView> {
-  // void updateGames(Games games) => setState(() {
-  //       _games = games;
-  //     });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final gamesResult = ref.watch(getGamesForCityProvider);
     final isLoading = gamesResult.maybeWhen(
       loading: () => true,
@@ -96,24 +83,25 @@ class _ListViewState extends ConsumerState<_GamesListView> {
       data: (items) => items,
       onGoingLoading: (items) => items,
       orElse: (_) => <Game>[],
-    );
+    )..sorted((a, b) => a.dateTime.compareTo(b.dateTime));
+
     final isLoadingMore = gamesResult.maybeWhen(
       onGoingLoading: (_) => true,
       orElse: (_) => false,
     );
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        GamesListView(
-          games: games,
-          onDeleted: (_) {},
-          onTap: (game) => navigatorKey.currentState?.push(
-            MaterialPageRoute<void>(
-              builder: (_) => GamePage(game: game),
-            ),
+        Expanded(
+          child: GamesListView(
+            games: games,
+            onDeleted: (_) {},
+            onTap: (game) => GamePage.navigate(context, game: game),
+            // ignore: unused_result
+            onRefresh: () async => ref.refresh(getGamesForCityProvider),
+            onScrollEnd: () =>
+                ref.read(getGamesForCityProvider.notifier).fetchNextBatch(),
           ),
-          // ignore: unused_result
-          onRefresh: () async => ref.refresh(getGamesForCityProvider),
-          onScrollEnd: () {},
         ),
         if (isLoadingMore) ...[
           const SizedBox(height: 20),

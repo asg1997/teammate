@@ -5,14 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teammate/feachers/cities/entities/city.dart';
 import 'package:teammate/feachers/game/data/mapper/city_mapper.dart';
 
-final cityRepoProvider = Provider<CityRepo>((ref) => CityRepoImpl());
+final cityStorageProvider = Provider<CityStorage>((ref) => CityRepoImpl());
 
-abstract class CityRepo {
+abstract class CityStorage {
   Future<City?> getSavedCity();
   Future<void> saveCity(City city);
 }
 
-class CityRepoImpl implements CityRepo {
+class CityRepoImpl implements CityStorage {
   static const _city = 'city';
 
   @override

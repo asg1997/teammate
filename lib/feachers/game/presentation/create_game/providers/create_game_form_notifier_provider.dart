@@ -15,7 +15,7 @@ final createGameFormNotifierProvider =
       sport: Sport.soccer,
       description: Field.empty(),
       dateTime: null,
-      city: currentCity!,
+      city: currentCity,
       name: Field.empty(),
     ),
   );

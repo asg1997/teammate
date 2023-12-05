@@ -6,7 +6,7 @@ import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/main_button.dart';
-import 'package:teammate/feachers/cities/providers/get_city_by_postcode_provider.dart';
+import 'package:teammate/feachers/cities/presentation/providers/get_city_by_postcode_provider.dart';
 import 'package:teammate/feachers/game/entities/game.dart';
 import 'package:teammate/feachers/game/presentation/game_info/components/players_list_view.dart';
 import 'package:teammate/feachers/game/presentation/game_info/providers/change_join_state_provider.dart';
@@ -21,6 +21,13 @@ class GamePage extends ConsumerWidget {
     super.key,
   });
   final Game game;
+
+  static void navigate(BuildContext context, {required Game game}) =>
+      navigatorKey.currentState?.push(
+        MaterialPageRoute<void>(
+          builder: (_) => GamePage(game: game),
+        ),
+      );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

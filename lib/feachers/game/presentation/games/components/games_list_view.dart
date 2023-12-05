@@ -32,6 +32,7 @@ class GamesListView extends StatelessWidget {
         onRefresh: onRefresh,
         color: AppColors.secondary,
         child: ListView.separated(
+          padding: const EdgeInsets.only(bottom: 60),
           itemCount: games.length,
           itemBuilder: (_, index) {
             final game = games[index];

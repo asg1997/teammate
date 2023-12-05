@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:teammate/core/consts/app_consts.dart';
 import 'package:teammate/core/pagination_notifier/pagination_state.dart';
+
+typedef Offset = int;
 
 class PaginationNotifier<T> extends StateNotifier<PaginationState<T>> {
   PaginationNotifier({
-    required Future<List<T>> Function(T?, int) fetchNextItems,
-    int itemsPerBatch = 20,
+    required Future<List<T>> Function(T?, Offset) fetchNextItems,
+    int itemsPerBatch = AppConsts.itemsPerBatch,
     List<T> items = const [],
   })  : _itemsPerBatch = itemsPerBatch,
         _fetchNextItems = fetchNextItems,
@@ -15,7 +18,7 @@ class PaginationNotifier<T> extends StateNotifier<PaginationState<T>> {
     _init();
   }
 
-  final Future<List<T>> Function(T? lastItemInResult, int offset)
+  final Future<List<T>> Function(T? lastItemInResult, Offset offset)
       _fetchNextItems;
   final int _itemsPerBatch;
 
@@ -97,6 +100,22 @@ class PaginationNotifier<T> extends StateNotifier<PaginationState<T>> {
       },
       onGoingLoading: (items) {
         _items = [...items]..removeAt(index);
+        state = PaginationState.onGoingLoading(_items);
+        return;
+      },
+      orElse: (_) {},
+    );
+  }
+
+  void pushElement(T item) {
+    state.maybeWhen<void>(
+      data: (items) {
+        _items = [...items, item];
+        state = PaginationState.data(_items);
+        return;
+      },
+      onGoingLoading: (items) {
+        _items = [...items, item];
         state = PaginationState.onGoingLoading(_items);
         return;
       },

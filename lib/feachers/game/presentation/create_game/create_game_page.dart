@@ -9,6 +9,7 @@ import 'package:teammate/core/widgets/main_button.dart';
 import 'package:teammate/core/widgets/sport_dropdown.dart';
 import 'package:teammate/core/widgets/text_field_widget.dart';
 import 'package:teammate/feachers/cities/presentation/cities_dropdown.dart';
+import 'package:teammate/feachers/game/entities/game.dart';
 import 'package:teammate/feachers/game/entities/sport.dart';
 import 'package:teammate/feachers/game/presentation/create_game/components/show_date_time_picker.dart';
 import 'package:teammate/feachers/game/presentation/create_game/models/game_creator_state.dart';
@@ -17,6 +18,13 @@ import 'package:teammate/feachers/game/presentation/create_game/providers/game_c
 
 class CreateGamePage extends ConsumerWidget {
   const CreateGamePage({super.key});
+
+  static Future<Game?> navigate(BuildContext context) async =>
+      navigatorKey.currentState?.push(
+        MaterialPageRoute<Game>(
+          builder: (_) => const CreateGamePage(),
+        ),
+      );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

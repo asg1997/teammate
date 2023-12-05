@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:teammate/core/teammate_app.dart';
-import 'package:teammate/feachers/cities/data/city_repo.dart';
-
+import 'package:teammate/feachers/cities/data/city_storage.dart';
 import 'package:teammate/feachers/game/entities/sport.dart';
 import 'package:teammate/feachers/notifications/data/repo/notifications_repo.dart';
 
@@ -16,7 +15,7 @@ class NotificationsPageModel extends ChangeNotifier {
   }
 
   final NotificationsRepo notificationsRepo;
-  final CityRepo cityRepo;
+  final CityStorage cityRepo;
 
   Map<Sport, bool> get sportSettings => _sportSettings;
   Map<Sport, bool> _sportSettings = {

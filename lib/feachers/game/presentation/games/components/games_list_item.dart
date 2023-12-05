@@ -55,7 +55,7 @@ class GamesListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final day = game.dateTime.toDayString;
     final time = DateFormat('HH:mm').format(game.dateTime);
-    final name = game.isMy ? 'ваша игра' : '';
+    final name = game.isMy ? '${game.name} (ваша игра)' : game.name;
 
     return GestureDetector(
       onTap: onTap,
@@ -71,7 +71,7 @@ class GamesListItem extends StatelessWidget {
             BoxShadow(
               color: Color(0x1152588F),
               blurRadius: 10,
-            )
+            ),
           ],
         ),
         child: Row(
@@ -112,7 +112,7 @@ class GamesListItem extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

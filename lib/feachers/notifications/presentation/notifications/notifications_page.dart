@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/main_button.dart';
-import 'package:teammate/feachers/cities/data/city_repo.dart';
+import 'package:teammate/feachers/cities/data/city_storage.dart';
 import 'package:teammate/feachers/cities/presentation/cities_dropdown.dart';
 import 'package:teammate/feachers/game/entities/sport.dart';
 import 'package:teammate/feachers/notifications/data/repo/notifications_repo.dart';
@@ -16,7 +15,7 @@ import 'package:teammate/feachers/notifications/presentation/notifications/notif
 final notificationsPageProvider = ChangeNotifierProvider.autoDispose(
   (ref) => NotificationsPageModel(
     notificationsRepo: ref.read(notificationRepoProvider),
-    cityRepo: ref.read(cityRepoProvider),
+    cityRepo: ref.read(cityStorageProvider),
   ),
 );
 
@@ -58,7 +57,7 @@ class NotificationsPage extends ConsumerWidget {
               ),
               const SizedBox(height: 18),
               Text(
-                'Город',
+                'Уведомлять для города',
                 style: AppFonts.semiBold16.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 16),
@@ -70,7 +69,7 @@ class NotificationsPage extends ConsumerWidget {
                 title: 'Сохранить',
                 onTap: model.onSave,
                 width: double.infinity,
-              )
+              ),
             ],
           ),
         ),
@@ -113,7 +112,7 @@ class _NotificationItem extends ConsumerWidget {
               value: value,
               onChanged: onChanged,
             ),
-          )
+          ),
         ],
       ),
     );

@@ -12,8 +12,11 @@ final getGamesForCityProvider = StateNotifierProvider.autoDispose<
 
     return PaginationNotifier(
       fetchNextItems: (_, offset) async {
-        if (city == null) return [];
-        return ref.read(gamesRepoProvider).getGames(city);
+        final games = await ref.read(gamesRepoProvider).getGames(
+              city,
+              offset: offset,
+            );
+        return games;
       },
     );
   },

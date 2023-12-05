@@ -8,10 +8,10 @@ import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/main_button.dart';
 import 'package:teammate/feachers/cities/providers/get_city_by_postcode_provider.dart';
 import 'package:teammate/feachers/game/entities/game.dart';
-import 'package:teammate/feachers/game/presentation/create_game/presentation/game_info/components/players_list_view.dart';
-import 'package:teammate/feachers/game/presentation/create_game/presentation/game_info/providers/change_join_state_provider.dart';
-import 'package:teammate/feachers/game/presentation/create_game/presentation/game_info/providers/delete_game_provider.dart';
-import 'package:teammate/feachers/game/presentation/create_game/presentation/game_info/providers/is_in_provider.dart';
+import 'package:teammate/feachers/game/presentation/game_info/components/players_list_view.dart';
+import 'package:teammate/feachers/game/presentation/game_info/providers/change_join_state_provider.dart';
+import 'package:teammate/feachers/game/presentation/game_info/providers/delete_game_provider.dart';
+import 'package:teammate/feachers/game/presentation/game_info/providers/is_in_provider.dart';
 import 'package:teammate/feachers/game/presentation/share_game_pop_up/share_game_pop_up.dart';
 import 'package:teammate/service/date_extension.dart';
 

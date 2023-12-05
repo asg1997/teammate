@@ -6,8 +6,7 @@ import 'package:teammate/feachers/cities/data/cities_storage.dart';
 import 'package:teammate/feachers/cities/data/city_repo.dart';
 import 'package:teammate/feachers/cities/entities/city.dart';
 import 'package:teammate/feachers/cities/providers/get_cities.dart';
-import 'package:teammate/feachers/cities/providers/selected_city_provider.dart';
-
+import 'package:teammate/feachers/game/presentation/games/providers/selected_city_provider.dart';
 import 'package:teammate/feachers/launch/notifiers/app_config_state.dart';
 
 class AppConfigNotifier extends StateNotifier<AppConfigState> {

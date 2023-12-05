@@ -6,14 +6,12 @@ import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/widgets/app_bar.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
 import 'package:teammate/feachers/auth/data/session_data.dart';
-import 'package:teammate/feachers/cities/entities/city.dart';
 import 'package:teammate/feachers/cities/presentation/cities_dropdown.dart';
-import 'package:teammate/feachers/cities/providers/selected_city_provider.dart';
 import 'package:teammate/feachers/game/entities/game.dart';
-import 'package:teammate/feachers/game/presentation/create_game/presentation/create_game/create_game_page.dart';
-import 'package:teammate/feachers/game/presentation/create_game/presentation/game_info/game_page.dart';
-import 'package:teammate/feachers/game/presentation/create_game/presentation/games/providers/get_games_for_city_provider.dart';
+import 'package:teammate/feachers/game/presentation/create_game/create_game_page.dart';
+import 'package:teammate/feachers/game/presentation/game_info/game_page.dart';
 import 'package:teammate/feachers/game/presentation/games/components/games_list_view.dart';
+import 'package:teammate/feachers/game/presentation/games/providers/get_games_for_city_provider.dart';
 import 'package:teammate/feachers/notifications/presentation/notifications/notifications_page.dart';
 
 class GamesPage extends ConsumerWidget {
@@ -58,40 +56,11 @@ class GamesPage extends ConsumerWidget {
                 Column(
                   children: [
                     CitiesDropdown(
+                      // TODO:
                       onCityChanged: (_) {},
                     ),
                     const SizedBox(height: 16),
-                    Expanded(
-                      child: Consumer(
-                        builder: (context, ref, child) {
-                          final city = ref.watch(selectedCityProvider);
-                          final gamesResult =
-                              ref.watch(getGamesForCityProvider(city));
-                          return gamesResult.when(
-                            data: (games) => _ListView(
-                              city: city,
-                              // games: games,
-                              provider: getGamesForCityProvider,
-                            ),
-                            error: (error, _) => Text(error.toString()),
-                            loading: () => const LoadingWidget(),
-                            onGoingLoading: (games) {
-                              return Column(
-                                children: [
-                                  _ListView(
-                                    city: city,
-                                    // games: games,
-                                    provider: getGamesForCityProvider,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  const LoadingWidget(),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
+                    const Expanded(child: _GamesListView()),
                   ],
                 ),
               ],
@@ -103,52 +72,54 @@ class GamesPage extends ConsumerWidget {
   }
 }
 
-class _ListView extends ConsumerStatefulWidget {
-  const _ListView({
-    required this.provider,
-    required this.city,
-  });
-  // final Games games;
-  final GamesPaginationProvider provider;
-  final City city;
+class _GamesListView extends ConsumerStatefulWidget {
+  const _GamesListView();
 
   @override
-  ConsumerState<_ListView> createState() => _ListViewState();
+  ConsumerState<_GamesListView> createState() => _ListViewState();
 }
 
-class _ListViewState extends ConsumerState<_ListView> {
-  Games _games = [];
-
-  void updateGames(Games games) => setState(() {
-        _games = games;
-      });
+class _ListViewState extends ConsumerState<_GamesListView> {
+  // void updateGames(Games games) => setState(() {
+  //       _games = games;
+  //     });
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(widget.provider(widget.city), (_, state) {
-      print(state);
-      state.maybeWhen(
-        data: updateGames,
-        onGoingLoading: updateGames,
-        orElse: (_) {},
-      );
-    });
-
-    return GamesListView(
-      games: _games,
-      onDeleted: (_) {},
-      onTap: (game) {
-        navigatorKey.currentState?.push(
-          MaterialPageRoute<void>(
-            builder: (_) => GamePage(game: game),
+    final gamesResult = ref.watch(getGamesForCityProvider);
+    final isLoading = gamesResult.maybeWhen(
+      loading: () => true,
+      orElse: (_) => false,
+    );
+    if (isLoading) return const LoadingWidget();
+    final games = gamesResult.maybeWhen(
+      data: (items) => items,
+      onGoingLoading: (items) => items,
+      orElse: (_) => <Game>[],
+    );
+    final isLoadingMore = gamesResult.maybeWhen(
+      onGoingLoading: (_) => true,
+      orElse: (_) => false,
+    );
+    return Column(
+      children: [
+        GamesListView(
+          games: games,
+          onDeleted: (_) {},
+          onTap: (game) => navigatorKey.currentState?.push(
+            MaterialPageRoute<void>(
+              builder: (_) => GamePage(game: game),
+            ),
           ),
-        );
-      },
-      onRefresh: () async {
-        // ignore: unused_result
-        ref.refresh(widget.provider(widget.city));
-      },
-      onScrollEnd: () {},
+          // ignore: unused_result
+          onRefresh: () async => ref.refresh(getGamesForCityProvider),
+          onScrollEnd: () {},
+        ),
+        if (isLoadingMore) ...[
+          const SizedBox(height: 20),
+          const LoadingWidget(),
+        ],
+      ],
     );
   }
 }

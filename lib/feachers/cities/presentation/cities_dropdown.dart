@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/core/widgets/custom_dropdown.dart';
 import 'package:teammate/feachers/cities/data/city_repo.dart';
-
 import 'package:teammate/feachers/cities/entities/city.dart';
 import 'package:teammate/feachers/cities/providers/get_cities.dart';
 

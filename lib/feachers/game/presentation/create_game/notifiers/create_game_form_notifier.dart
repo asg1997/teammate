@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/core/field/field.dart';
 import 'package:teammate/feachers/cities/entities/city.dart';
 import 'package:teammate/feachers/game/entities/sport.dart';
-import 'package:teammate/feachers/game/presentation/create_game/presentation/create_game/models/create_game_model.dart';
+import 'package:teammate/feachers/game/presentation/create_game/models/create_game_model.dart';
 
 class CreateGameFormNotifier extends StateNotifier<CreateGameModel> {
   CreateGameFormNotifier(super._state);

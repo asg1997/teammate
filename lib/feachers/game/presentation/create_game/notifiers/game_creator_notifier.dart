@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/feachers/game/data/repo/games_repo.dart';
+import 'package:teammate/feachers/game/entities/create_game_params.dart';
 import 'package:teammate/feachers/game/presentation/create_game/presentation/create_game/models/create_game_model.dart';
 import 'package:teammate/feachers/game/presentation/create_game/presentation/create_game/models/game_creator_state.dart';
-import 'package:teammate/feachers/game/entities/create_game_params.dart';
 
 class GameCreatorNotifier extends StateNotifier<GameCreatorState> {
   GameCreatorNotifier({required this.gamesRepo})

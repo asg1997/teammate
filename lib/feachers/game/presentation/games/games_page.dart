@@ -12,8 +12,8 @@ import 'package:teammate/feachers/cities/providers/selected_city_provider.dart';
 import 'package:teammate/feachers/game/entities/game.dart';
 import 'package:teammate/feachers/game/presentation/create_game/presentation/create_game/create_game_page.dart';
 import 'package:teammate/feachers/game/presentation/create_game/presentation/game_info/game_page.dart';
-import 'package:teammate/feachers/game/presentation/create_game/presentation/games/components/games_list_view.dart';
 import 'package:teammate/feachers/game/presentation/create_game/presentation/games/providers/get_games_for_city_provider.dart';
+import 'package:teammate/feachers/game/presentation/games/components/games_list_view.dart';
 import 'package:teammate/feachers/notifications/presentation/notifications/notifications_page.dart';
 
 class GamesPage extends ConsumerWidget {

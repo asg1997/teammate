@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:teammate/core/theme/app_colors.dart';
 
 class TextFieldWidget extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:teammate/feachers/game/entities/game.dart';
+
 part 'game_creator_state.freezed.dart';
 
 @freezed

@@ -57,7 +57,6 @@ class _DatePickerPopUp extends StatelessWidget {
                   showDayOfWeek: true,
                   initialDateTime: initialValue,
                   use24hFormat: true,
-                  minuteInterval: 5,
                   minimumDate: DateTime(now.year, now.month, now.day, now.hour),
                   onDateTimeChanged: (value) => selectedDate = value,
                 ),

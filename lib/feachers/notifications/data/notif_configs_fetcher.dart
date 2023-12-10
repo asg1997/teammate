@@ -4,11 +4,11 @@ import 'package:teammate/core/consts/firebase_consts.dart';
 import 'package:teammate/feachers/game/entities/sport.dart';
 import 'package:teammate/feachers/notifications/data/all_notifications_types.dart';
 import 'package:teammate/feachers/notifications/data/mappers/notification_settings_api_mapper.dart';
+import 'package:teammate/feachers/notifications/domain/notification_service.dart';
 import 'package:teammate/feachers/notifications/domain/notifs_configs/notifs_configs.dart';
-import 'package:teammate/service/notifications_service.dart';
 
 final notifsConfigsFetcherProvider = Provider<NotifsConfigsFetcher>(
-  (ref) => NotificationsSettingsFetcherImpl(),
+  NotificationsSettingsFetcherImpl.new,
 );
 
 abstract class NotifsConfigsFetcher {
@@ -16,15 +16,15 @@ abstract class NotifsConfigsFetcher {
 }
 
 class NotificationsSettingsFetcherImpl implements NotifsConfigsFetcher {
+  NotificationsSettingsFetcherImpl(this.ref);
+  final Ref ref;
   final _db = FirebaseFirestore.instance;
   late final _ref = _db.collection(FirebaseCollections.players);
-
-  Future<String> _getPushToken() => NotificationsService().getDeviceToken();
 
   @override
   Future<NotifConfigs> getSettings() async {
     try {
-      final pushToken = await _getPushToken();
+      final pushToken = ref.read(fcmTokenProvider);
 
       final snapshot = await _ref.doc(pushToken).get();
 

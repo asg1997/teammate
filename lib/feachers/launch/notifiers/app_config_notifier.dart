@@ -6,6 +6,7 @@ import 'package:teammate/feachers/cities/data/cities_storage.dart';
 import 'package:teammate/feachers/cities/presentation/notifiers/saved_city_notifier.dart';
 import 'package:teammate/feachers/cities/presentation/providers/get_cities.dart';
 import 'package:teammate/feachers/launch/notifiers/app_config_state.dart';
+import 'package:teammate/feachers/notifications/domain/notification_service.dart';
 
 class AppConfigNotifier extends StateNotifier<AppConfigState> {
   AppConfigNotifier(this.ref) : super(const AppConfigState.loading());
@@ -13,10 +14,17 @@ class AppConfigNotifier extends StateNotifier<AppConfigState> {
   final Ref ref;
 
   Future<void> configureApp({String? withNickname}) async {
+    await _initNotifications();
     await _getCitiesFromAssets();
     await _initCities();
     await _initSelectedCity();
     await _configureSessionData(withNickname);
+  }
+
+  Future<void> _initNotifications() async {
+    try {
+      await ref.read(notificationServiceProvider).init();
+    } catch (e) {}
   }
 
   Future<void> _configureSessionData(String? withNickname) async {

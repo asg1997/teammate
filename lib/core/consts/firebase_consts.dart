@@ -4,11 +4,10 @@ abstract class FirebaseCollections {
   static const players = 'players';
   static const games = 'games';
   static const notifications = 'notificationsSettings';
-
-// TODO: Notification settings?
 }
 
 abstract class FirebaseFields {
   FirebaseFields._();
   static const id = 'id';
+  static const notificationSettings = 'notificationSettings';
 }

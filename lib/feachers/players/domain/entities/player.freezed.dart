@@ -19,8 +19,7 @@ mixin _$Player {
   String get nickname => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String? get pushToken => throw _privateConstructorUsedError;
-  NotificationSettings? get notificationsSettings =>
-      throw _privateConstructorUsedError;
+  NotifConfigs? get notificationsSettings => throw _privateConstructorUsedError;
   dynamic get teammatesIds => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -36,10 +35,10 @@ abstract class $PlayerCopyWith<$Res> {
       {String nickname,
       String id,
       String? pushToken,
-      NotificationSettings? notificationsSettings,
+      NotifConfigs? notificationsSettings,
       dynamic teammatesIds});
 
-  $NotificationSettingsCopyWith<$Res>? get notificationsSettings;
+  $NotifConfigsCopyWith<$Res>? get notificationsSettings;
 }
 
 /// @nodoc
@@ -77,7 +76,7 @@ class _$PlayerCopyWithImpl<$Res, $Val extends Player>
       notificationsSettings: freezed == notificationsSettings
           ? _value.notificationsSettings
           : notificationsSettings // ignore: cast_nullable_to_non_nullable
-              as NotificationSettings?,
+              as NotifConfigs?,
       teammatesIds: freezed == teammatesIds
           ? _value.teammatesIds
           : teammatesIds // ignore: cast_nullable_to_non_nullable
@@ -87,13 +86,12 @@ class _$PlayerCopyWithImpl<$Res, $Val extends Player>
 
   @override
   @pragma('vm:prefer-inline')
-  $NotificationSettingsCopyWith<$Res>? get notificationsSettings {
+  $NotifConfigsCopyWith<$Res>? get notificationsSettings {
     if (_value.notificationsSettings == null) {
       return null;
     }
 
-    return $NotificationSettingsCopyWith<$Res>(_value.notificationsSettings!,
-        (value) {
+    return $NotifConfigsCopyWith<$Res>(_value.notificationsSettings!, (value) {
       return _then(_value.copyWith(notificationsSettings: value) as $Val);
     });
   }
@@ -109,11 +107,11 @@ abstract class _$$_PlayerCopyWith<$Res> implements $PlayerCopyWith<$Res> {
       {String nickname,
       String id,
       String? pushToken,
-      NotificationSettings? notificationsSettings,
+      NotifConfigs? notificationsSettings,
       dynamic teammatesIds});
 
   @override
-  $NotificationSettingsCopyWith<$Res>? get notificationsSettings;
+  $NotifConfigsCopyWith<$Res>? get notificationsSettings;
 }
 
 /// @nodoc
@@ -148,7 +146,7 @@ class __$$_PlayerCopyWithImpl<$Res>
       notificationsSettings: freezed == notificationsSettings
           ? _value.notificationsSettings
           : notificationsSettings // ignore: cast_nullable_to_non_nullable
-              as NotificationSettings?,
+              as NotifConfigs?,
       teammatesIds:
           freezed == teammatesIds ? _value.teammatesIds! : teammatesIds,
     ));
@@ -172,7 +170,7 @@ class _$_Player implements _Player {
   @override
   final String? pushToken;
   @override
-  final NotificationSettings? notificationsSettings;
+  final NotifConfigs? notificationsSettings;
   @override
   @JsonKey()
   final dynamic teammatesIds;
@@ -214,7 +212,7 @@ abstract class _Player implements Player {
       {required final String nickname,
       required final String id,
       final String? pushToken,
-      final NotificationSettings? notificationsSettings,
+      final NotifConfigs? notificationsSettings,
       final dynamic teammatesIds}) = _$_Player;
 
   @override
@@ -224,7 +222,7 @@ abstract class _Player implements Player {
   @override
   String? get pushToken;
   @override
-  NotificationSettings? get notificationsSettings;
+  NotifConfigs? get notificationsSettings;
   @override
   dynamic get teammatesIds;
   @override

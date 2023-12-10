@@ -18,12 +18,15 @@ class NotificationsService {
     await _initLocalNotifications();
   }
 
+  static String? _deviceToken;
+
 // ios: fd1cpBuIE0pYlq6P0L352x:APA91bHNpddstvWTIWgiFBKCGCTPJA0xt0817h6Yj2sG9AA00IaeJ2i-FiEAuoGyX0rhnqgUzjG6FyQB_VajrivTiuOYxAMpzwyq-sv06bFEYPfx0oz1jmbuExBi7E-W0PsyIubInq9W
 // Android dXualxhHTfmIywSm3DcER1:APA91bHAOvpG9Tv9RlE6QZZayGXoYgakdGa5me65bbVucPrraQgt-YsOxlII3H3HHziUN-MfffJLAh4MAeA1NCOTao1uecmS3btomgRnD00cCl_JNE7MYO9w22pMQXtgwTT7dqdJimyr
   Future<String> getDeviceToken() async {
     final messaging = FirebaseMessaging.instance;
-    final deviceToken = await messaging.getToken();
-    return deviceToken ?? '';
+    if (_deviceToken != null) _deviceToken;
+    _deviceToken = await messaging.getToken();
+    return _deviceToken ?? '';
   }
 
   Future<void> _getPermissionForNotifications() =>

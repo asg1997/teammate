@@ -14,7 +14,7 @@ import 'package:teammate/feachers/game/presentation/game_info/game_page.dart';
 import 'package:teammate/feachers/game/presentation/games/components/games_list_view.dart';
 import 'package:teammate/feachers/game/presentation/games/providers/get_games_for_city_provider.dart';
 import 'package:teammate/feachers/game/presentation/games/providers/selected_city_provider.dart';
-import 'package:teammate/feachers/notifications/presentation/notifications/notifications_page.dart';
+import 'package:teammate/feachers/notifications/presentation/notifications_page.dart';
 
 class GamesPage extends ConsumerWidget {
   const GamesPage({super.key});

@@ -69,7 +69,7 @@ class GamesRepoImpl implements GamesRepo {
   DocumentSnapshot _getDocByOffset(int offset) {
     final doc = _fetchedDocuments.tryAtIndex(offset - 1);
     if (doc == null) {
-      throw CustomExeption(
+      throw CustomException(
         message:
             '[GamesRepo]: Не удается получить документ для пагинации по индексу',
       );

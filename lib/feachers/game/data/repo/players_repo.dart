@@ -7,12 +7,11 @@ import 'package:teammate/core/exceptions/custom_exception.dart';
 import 'package:teammate/feachers/auth/data/session_data.dart';
 import 'package:teammate/feachers/game/data/mapper/player_mapper.dart';
 import 'package:teammate/feachers/game/entities/game.dart';
-
 import 'package:teammate/feachers/players/domain/entities/player.dart';
 
 final playersRepoProvider = Provider<PlayersRepo>((ref) => PlayersRepoImpl());
 
-class NoGameFoundException extends CustomExeption {}
+class NoGameFoundException extends CustomException {}
 
 abstract class PlayersRepo {
   Stream<List<Player>> getPlayersForGame(GameId gameId);

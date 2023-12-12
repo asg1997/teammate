@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/main_button.dart';
-import 'package:teammate/feachers/game/entities/game.dart';
+import 'package:teammate/feachers/game/entities/game/game.dart';
 import 'package:teammate/feachers/game/presentation/share_game_pop_up/providers/share_social_provider.dart';
 import 'package:teammate/feachers/game/presentation/share_game_pop_up/providers/share_with_teammates_provider.dart';
 import 'package:teammate/feachers/players/domain/entities/player.dart';

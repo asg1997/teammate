@@ -4,7 +4,7 @@ import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_decorations.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
 import 'package:teammate/core/widgets/loading_widget.dart';
-import 'package:teammate/feachers/game/entities/game.dart';
+import 'package:teammate/feachers/game/entities/game/game.dart';
 import 'package:teammate/feachers/game/presentation/game_info/providers/get_players_for_game_provider.dart';
 import 'package:teammate/feachers/players/domain/entities/player.dart';
 

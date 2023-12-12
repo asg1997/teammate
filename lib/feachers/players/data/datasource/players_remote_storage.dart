@@ -4,8 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/core/consts/firebase_consts.dart';
 import 'package:teammate/feachers/game/data/mapper/player_mapper.dart';
-import 'package:teammate/feachers/game/data/repo/share_repo.dart';
-
+import 'package:teammate/feachers/game/data/share_repo.dart';
 import 'package:teammate/feachers/players/domain/entities/player.dart';
 
 final playersRemoteStorageProvider = Provider<PlayersRemoteStorage>(

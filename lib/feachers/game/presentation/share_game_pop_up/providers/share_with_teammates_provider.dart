@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:teammate/feachers/game/data/repo/share_repo.dart';
+import 'package:teammate/feachers/game/data/share_repo.dart';
 import 'package:teammate/feachers/players/domain/entities/player.dart';
 
 final shareWithTeammatesProvider =

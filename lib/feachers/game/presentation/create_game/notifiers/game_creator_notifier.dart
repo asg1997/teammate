@@ -1,13 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:teammate/feachers/game/data/repo/games_repo.dart';
+import 'package:teammate/feachers/game/data/game_creator.dart';
 import 'package:teammate/feachers/game/entities/create_game_params.dart';
 import 'package:teammate/feachers/game/presentation/create_game/models/create_game_model.dart';
 import 'package:teammate/feachers/game/presentation/create_game/models/game_creator_state.dart';
 
 class GameCreatorNotifier extends StateNotifier<GameCreatorState> {
-  GameCreatorNotifier({required this.gamesRepo})
-      : super(const GameCreatorState.initial());
-  final GamesRepo gamesRepo;
+  GameCreatorNotifier(this.ref) : super(const GameCreatorState.initial());
+  final Ref ref;
 
   Future<void> createGame(CreateGameModel model) async {
     state = const GameCreatorState.initial();
@@ -24,7 +23,7 @@ class GameCreatorNotifier extends StateNotifier<GameCreatorState> {
     );
     const GameCreatorState.loading();
     try {
-      final game = await gamesRepo.createGame(params);
+      final game = await ref.read(gamesCreatorProvider).createGame(params);
       state = GameCreatorState.success(game);
     } catch (e) {
       state = GameCreatorState.error(e.toString());

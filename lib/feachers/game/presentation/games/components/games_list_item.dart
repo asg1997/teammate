@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 import 'package:teammate/core/theme/app_fonts.dart';
-import 'package:teammate/feachers/game/entities/game.dart';
+import 'package:teammate/feachers/game/entities/game/game.dart';
 import 'package:teammate/feachers/game/entities/sport.dart';
 import 'package:teammate/resources/resources.dart';
 import 'package:teammate/service/date_extension.dart';

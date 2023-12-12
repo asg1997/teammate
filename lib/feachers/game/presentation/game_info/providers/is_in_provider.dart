@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teammate/feachers/auth/data/session_data.dart';
-import 'package:teammate/feachers/game/entities/game.dart';
+import 'package:teammate/feachers/game/entities/game/game.dart';
 
 final isInProvider = StateProvider.autoDispose.family<bool, Game>((ref, game) {
   if (game.isMy) return true;

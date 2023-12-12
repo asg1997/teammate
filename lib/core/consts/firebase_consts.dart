@@ -9,5 +9,8 @@ abstract class FirebaseCollections {
 abstract class FirebaseFields {
   FirebaseFields._();
   static const id = 'id';
-  static const notificationSettings = 'notificationSettings';
+  static const location = 'location';
+  static const notificationSettings = 'notificationsSettings';
+  static const dateTime = 'dateTime';
+  static const city = 'city';
 }

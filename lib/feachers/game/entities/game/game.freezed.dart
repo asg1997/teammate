@@ -14,18 +14,26 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Game _$GameFromJson(Map<String, dynamic> json) {
+  return _Game.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Game {
   String get id => throw _privateConstructorUsedError;
   String get creatorId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: FirebaseFields.city)
   int get cityCode => throw _privateConstructorUsedError;
+  @SportJsonConverter()
   Sport get sport => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  @TimeStampJsonConverter()
   DateTime get dateTime => throw _privateConstructorUsedError;
   List<String>? get players => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $GameCopyWith<Game> get copyWith => throw _privateConstructorUsedError;
 }
@@ -39,11 +47,11 @@ abstract class $GameCopyWith<$Res> {
       {String id,
       String creatorId,
       String name,
-      int cityCode,
-      Sport sport,
+      @JsonKey(name: FirebaseFields.city) int cityCode,
+      @SportJsonConverter() Sport sport,
       String location,
       String? description,
-      DateTime dateTime,
+      @TimeStampJsonConverter() DateTime dateTime,
       List<String>? players});
 }
 
@@ -121,11 +129,11 @@ abstract class _$$_GameCopyWith<$Res> implements $GameCopyWith<$Res> {
       {String id,
       String creatorId,
       String name,
-      int cityCode,
-      Sport sport,
+      @JsonKey(name: FirebaseFields.city) int cityCode,
+      @SportJsonConverter() Sport sport,
       String location,
       String? description,
-      DateTime dateTime,
+      @TimeStampJsonConverter() DateTime dateTime,
       List<String>? players});
 }
 
@@ -190,20 +198,22 @@ class __$$_GameCopyWithImpl<$Res> extends _$GameCopyWithImpl<$Res, _$_Game>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Game extends _Game {
   const _$_Game(
       {required this.id,
       required this.creatorId,
       required this.name,
-      required this.cityCode,
-      required this.sport,
+      @JsonKey(name: FirebaseFields.city) required this.cityCode,
+      @SportJsonConverter() required this.sport,
       required this.location,
       required this.description,
-      required this.dateTime,
+      @TimeStampJsonConverter() required this.dateTime,
       final List<String>? players})
       : _players = players,
         super._();
+
+  factory _$_Game.fromJson(Map<String, dynamic> json) => _$$_GameFromJson(json);
 
   @override
   final String id;
@@ -212,14 +222,17 @@ class _$_Game extends _Game {
   @override
   final String name;
   @override
+  @JsonKey(name: FirebaseFields.city)
   final int cityCode;
   @override
+  @SportJsonConverter()
   final Sport sport;
   @override
   final String location;
   @override
   final String? description;
   @override
+  @TimeStampJsonConverter()
   final DateTime dateTime;
   final List<String>? _players;
   @override
@@ -257,6 +270,7 @@ class _$_Game extends _Game {
             const DeepCollectionEquality().equals(other._players, _players));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -275,6 +289,13 @@ class _$_Game extends _Game {
   @pragma('vm:prefer-inline')
   _$$_GameCopyWith<_$_Game> get copyWith =>
       __$$_GameCopyWithImpl<_$_Game>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_GameToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Game extends Game {
@@ -282,13 +303,15 @@ abstract class _Game extends Game {
       {required final String id,
       required final String creatorId,
       required final String name,
-      required final int cityCode,
-      required final Sport sport,
+      @JsonKey(name: FirebaseFields.city) required final int cityCode,
+      @SportJsonConverter() required final Sport sport,
       required final String location,
       required final String? description,
-      required final DateTime dateTime,
+      @TimeStampJsonConverter() required final DateTime dateTime,
       final List<String>? players}) = _$_Game;
   const _Game._() : super._();
+
+  factory _Game.fromJson(Map<String, dynamic> json) = _$_Game.fromJson;
 
   @override
   String get id;
@@ -297,14 +320,17 @@ abstract class _Game extends Game {
   @override
   String get name;
   @override
+  @JsonKey(name: FirebaseFields.city)
   int get cityCode;
   @override
+  @SportJsonConverter()
   Sport get sport;
   @override
   String get location;
   @override
   String? get description;
   @override
+  @TimeStampJsonConverter()
   DateTime get dateTime;
   @override
   List<String>? get players;

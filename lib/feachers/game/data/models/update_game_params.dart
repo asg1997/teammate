@@ -9,4 +9,6 @@ class UpdateGameParams with _$UpdateGameParams {
     required String? location,
   }) = _UpdateGameParams;
   const UpdateGameParams._();
+
+  bool get isEmpty => dateTime == null && location == null;
 }

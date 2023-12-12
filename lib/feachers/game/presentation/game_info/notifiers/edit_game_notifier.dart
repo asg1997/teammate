@@ -18,6 +18,11 @@ class EditGameNotifier extends StateNotifier<BaseState<Game>> {
     required Game game,
     required UpdateGameParams params,
   }) async {
+    final hasNoChanges = _hasNoChanges(game: game, params: params);
+    if (hasNoChanges) {
+      state = BaseState.success(data: game);
+      return;
+    }
     state = const BaseState.loading();
     try {
       await ref.read(gamesEditorProvider).editGame(game.id, params: params);
@@ -25,5 +30,16 @@ class EditGameNotifier extends StateNotifier<BaseState<Game>> {
     } catch (e) {
       state = const BaseState.initial();
     }
+  }
+
+  bool _hasNoChanges({
+    required Game game,
+    required UpdateGameParams params,
+  }) {
+    if (params.isEmpty) return true;
+    if (game.location == params.location && game.dateTime == params.dateTime) {
+      return true;
+    }
+    return false;
   }
 }

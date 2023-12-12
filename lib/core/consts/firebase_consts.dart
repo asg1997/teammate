@@ -12,7 +12,7 @@ abstract class FirebaseFields {
   static const gameName = 'name';
   static const gameDescription = 'description';
   static const location = 'location';
-  static const notificationSettings = 'notificationsSettings';
+  static const notificationSettings = 'notificationSettings';
   static const dateTime = 'dateTime';
   static const city = 'city';
 }

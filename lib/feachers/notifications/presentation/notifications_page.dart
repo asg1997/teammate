@@ -17,8 +17,10 @@ import 'package:teammate/feachers/notifications/presentation/components/sport_co
 import 'package:teammate/feachers/notifications/presentation/notifiers/save_notifs_notifier.dart';
 import 'package:teammate/feachers/notifications/presentation/providers/notif_configs_provider.dart';
 import 'package:teammate/feachers/notifications/presentation/providers/updated_notif_configs_provider.dart';
+import 'package:teammate/feachers/notifications/presentation/providers/updated_notif_types_provider.dart';
+import 'package:teammate/feachers/notifications/presentation/providers/updated_sport_configs_provider.dart';
 
-class NotificationsPage extends ConsumerWidget {
+class NotificationsPage extends ConsumerStatefulWidget {
   const NotificationsPage({super.key});
 
   static void push() => navigatorKey.currentState?.push(
@@ -27,6 +29,11 @@ class NotificationsPage extends ConsumerWidget {
         ),
       );
 
+  @override
+  ConsumerState<NotificationsPage> createState() => _NotificationsPageState();
+}
+
+class _NotificationsPageState extends ConsumerState<NotificationsPage> {
   void _onSaveTapped(WidgetRef ref) {
     final updatedSettings = ref.watch(updatedNotifConfigsProvider);
     if (updatedSettings == null) return;
@@ -34,12 +41,35 @@ class NotificationsPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(saveNotifConfigsProvider, (_, state) {
-      state.whenOrNull(
-        success: (data) => Navigator.pop(context),
-      );
-    });
+  void dispose() {
+    // приходится автоматически закрывать провайдеры,
+    // потому что иначе они диспозятся раньше времени
+    ref
+      ..invalidate(updatedSportConfigsProvider)
+      ..invalidate(updatedNotifTypesProvider);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref
+      ..listen(saveNotifConfigsProvider, (_, state) {
+        state.whenOrNull(
+          success: (data) => Navigator.pop(context),
+        );
+      })
+      ..listen(notifConfigsProvider, (_, state) {
+        state.whenData(
+          (value) => ref.read(updatedSportConfigsProvider.notifier).state =
+              value.sportConfigs,
+        );
+      })
+      ..listen(notifConfigsProvider, (_, state) {
+        state.whenOrNull(
+          data: (value) => ref.read(updatedNotifTypesProvider.notifier).state =
+              value.notifTypes,
+        );
+      });
     final notifsGranted = ref.watch(notifsGrantedProvider);
 
     return Scaffold(
@@ -48,7 +78,7 @@ class NotificationsPage extends ConsumerWidget {
       body: SafeArea(
         child: notifsGranted
             ? ref.watch(notifConfigsProvider).when(
-                  data: (_) => Stack(
+                  data: (data) => Stack(
                     children: [
                       SingleChildScrollView(
                         child: Padding(

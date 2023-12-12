@@ -9,7 +9,7 @@ import 'package:teammate/feachers/auth/data/session_data.dart';
 import 'package:teammate/feachers/cities/presentation/cities_dropdown.dart';
 import 'package:teammate/feachers/game/entities/game/game.dart';
 import 'package:teammate/feachers/game/presentation/create_game/create_game_page.dart';
-import 'package:teammate/feachers/game/presentation/game_info/game_page.dart';
+import 'package:teammate/feachers/game/presentation/game_info/game_info_page.dart';
 import 'package:teammate/feachers/game/presentation/game_info/notifiers/delete_game_notifier.dart';
 import 'package:teammate/feachers/game/presentation/game_info/notifiers/edit_game_notifier.dart';
 import 'package:teammate/feachers/game/presentation/games/components/games_list_view.dart';
@@ -107,7 +107,7 @@ class _GamesListView extends ConsumerWidget {
           child: GamesListView(
             games: games,
             onDeleted: (_) {},
-            onTap: (game) => GamePage.navigate(context, game: game),
+            onTap: (game) => GameInfoPage.navigate(context, game: game),
             // ignore: unused_result
             onRefresh: () async => ref.refresh(getGamesForCityProvider),
             onScrollEnd: () =>

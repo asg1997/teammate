@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UpdateGameParams {
   DateTime? get dateTime => throw _privateConstructorUsedError;
   String? get location => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UpdateGameParamsCopyWith<UpdateGameParams> get copyWith =>
@@ -30,7 +32,11 @@ abstract class $UpdateGameParamsCopyWith<$Res> {
           UpdateGameParams value, $Res Function(UpdateGameParams) then) =
       _$UpdateGameParamsCopyWithImpl<$Res, UpdateGameParams>;
   @useResult
-  $Res call({DateTime? dateTime, String? location});
+  $Res call(
+      {DateTime? dateTime,
+      String? location,
+      String? name,
+      String? description});
 }
 
 /// @nodoc
@@ -48,6 +54,8 @@ class _$UpdateGameParamsCopyWithImpl<$Res, $Val extends UpdateGameParams>
   $Res call({
     Object? dateTime = freezed,
     Object? location = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       dateTime: freezed == dateTime
@@ -57,6 +65,14 @@ class _$UpdateGameParamsCopyWithImpl<$Res, $Val extends UpdateGameParams>
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -70,7 +86,11 @@ abstract class _$$_UpdateGameParamsCopyWith<$Res>
       __$$_UpdateGameParamsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime? dateTime, String? location});
+  $Res call(
+      {DateTime? dateTime,
+      String? location,
+      String? name,
+      String? description});
 }
 
 /// @nodoc
@@ -86,6 +106,8 @@ class __$$_UpdateGameParamsCopyWithImpl<$Res>
   $Res call({
     Object? dateTime = freezed,
     Object? location = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
   }) {
     return _then(_$_UpdateGameParams(
       dateTime: freezed == dateTime
@@ -96,6 +118,14 @@ class __$$_UpdateGameParamsCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -103,17 +133,25 @@ class __$$_UpdateGameParamsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UpdateGameParams extends _UpdateGameParams {
-  const _$_UpdateGameParams({required this.dateTime, required this.location})
+  const _$_UpdateGameParams(
+      {required this.dateTime,
+      required this.location,
+      required this.name,
+      required this.description})
       : super._();
 
   @override
   final DateTime? dateTime;
   @override
   final String? location;
+  @override
+  final String? name;
+  @override
+  final String? description;
 
   @override
   String toString() {
-    return 'UpdateGameParams(dateTime: $dateTime, location: $location)';
+    return 'UpdateGameParams(dateTime: $dateTime, location: $location, name: $name, description: $description)';
   }
 
   @override
@@ -124,11 +162,15 @@ class _$_UpdateGameParams extends _UpdateGameParams {
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime) &&
             (identical(other.location, location) ||
-                other.location == location));
+                other.location == location) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, dateTime, location);
+  int get hashCode =>
+      Object.hash(runtimeType, dateTime, location, name, description);
 
   @JsonKey(ignore: true)
   @override
@@ -140,13 +182,19 @@ class _$_UpdateGameParams extends _UpdateGameParams {
 abstract class _UpdateGameParams extends UpdateGameParams {
   const factory _UpdateGameParams(
       {required final DateTime? dateTime,
-      required final String? location}) = _$_UpdateGameParams;
+      required final String? location,
+      required final String? name,
+      required final String? description}) = _$_UpdateGameParams;
   const _UpdateGameParams._() : super._();
 
   @override
   DateTime? get dateTime;
   @override
   String? get location;
+  @override
+  String? get name;
+  @override
+  String? get description;
   @override
   @JsonKey(ignore: true)
   _$$_UpdateGameParamsCopyWith<_$_UpdateGameParams> get copyWith =>

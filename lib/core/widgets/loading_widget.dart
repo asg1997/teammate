@@ -2,16 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:teammate/core/theme/app_colors.dart';
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({this.color = AppColors.main, super.key});
-  final Color color;
+  const LoadingWidget({
+    super.key,
+    this.side = 30,
+    this.color,
+    this.strokeWidth = 4,
+  });
+  final double side;
+  final Color? color;
+  final double strokeWidth;
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SizedBox(
-        width: 20,
-        height: 20,
+      child: SizedBox.square(
+        dimension: side,
         child: CircularProgressIndicator(
-          color: color,
+          strokeWidth: strokeWidth,
+          color: color ?? AppColors.main,
         ),
       ),
     );

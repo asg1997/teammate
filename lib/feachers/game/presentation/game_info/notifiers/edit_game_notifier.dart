@@ -37,7 +37,10 @@ class EditGameNotifier extends StateNotifier<BaseState<Game>> {
     required UpdateGameParams params,
   }) {
     if (params.isEmpty) return true;
-    if (game.location == params.location && game.dateTime == params.dateTime) {
+    if (game.location == params.location &&
+        game.dateTime == params.dateTime &&
+        game.name == params.name &&
+        game.description == params.description) {
       return true;
     }
     return false;

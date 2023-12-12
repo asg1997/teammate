@@ -33,6 +33,8 @@ class GameEditorImpl implements GameEditor {
       final fieldsToUpdate = {
         FirebaseFields.dateTime: params.dateTime,
         FirebaseFields.location: params.location,
+        FirebaseFields.gameName: params.name,
+        FirebaseFields.gameDescription: params.description,
       }..removeWhere((key, value) => value == null);
 
       if (fieldsToUpdate.isEmpty) return;
